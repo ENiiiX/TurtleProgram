@@ -44,6 +44,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.DrawingArea = new System.Windows.Forms.PictureBox();
+            this.commandLine = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.penBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingArea)).BeginInit();
@@ -58,7 +59,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1055, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1338, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -152,7 +153,7 @@
             // 
             this.penBox.Controls.Add(this.radioButton1);
             this.penBox.Controls.Add(this.radioButton2);
-            this.penBox.Location = new System.Drawing.Point(12, 419);
+            this.penBox.Location = new System.Drawing.Point(12, 614);
             this.penBox.Name = "penBox";
             this.penBox.Size = new System.Drawing.Size(200, 81);
             this.penBox.TabIndex = 4;
@@ -164,12 +165,12 @@
             this.textBox1.Location = new System.Drawing.Point(18, 39);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(169, 251);
+            this.textBox1.Size = new System.Drawing.Size(380, 433);
             this.textBox1.TabIndex = 6;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(47, 309);
+            this.button1.Location = new System.Drawing.Point(49, 573);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -180,24 +181,33 @@
             // DrawingArea
             // 
             this.DrawingArea.BackColor = System.Drawing.Color.White;
-            this.DrawingArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DrawingArea.Location = new System.Drawing.Point(243, 39);
+            this.DrawingArea.Location = new System.Drawing.Point(413, 39);
             this.DrawingArea.Name = "DrawingArea";
-            this.DrawingArea.Size = new System.Drawing.Size(800, 461);
+            this.DrawingArea.Size = new System.Drawing.Size(913, 656);
             this.DrawingArea.TabIndex = 5;
             this.DrawingArea.TabStop = false;
+            // 
+            // commandLine
+            // 
+            this.commandLine.Location = new System.Drawing.Point(18, 488);
+            this.commandLine.Name = "commandLine";
+            this.commandLine.Size = new System.Drawing.Size(380, 20);
+            this.commandLine.TabIndex = 8;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 512);
+            this.ClientSize = new System.Drawing.Size(1338, 707);
+            this.Controls.Add(this.commandLine);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.DrawingArea);
             this.Controls.Add(this.penBox);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
@@ -228,6 +238,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox DrawingArea;
+        private System.Windows.Forms.TextBox commandLine;
     }
 }
 

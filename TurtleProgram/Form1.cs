@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace TurtleProgram
 {
 
-    public partial class Form1 : Form 
+    public partial class Form1 : Form
     {
 
         private System.Drawing.Graphics g;
@@ -20,10 +20,8 @@ namespace TurtleProgram
             //Test commit to github
 
             g = DrawingArea.CreateGraphics();
+            test = new Turtle();
 
-
-
-            //DrawingArea.Image = new Bitmap(DrawingArea.Width, DrawingArea.Height);
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,10 +35,23 @@ namespace TurtleProgram
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Turtle test = new Turtle(BackgroundImage);
+            //test.drawLine(g, 60, 60);
+            var input = commandLine.Text;
+            input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-            Turtle test = new Turtle(BackgroundImage);
-
-            test.drawLine(g, 60, 60);
+            if (input.Contains("1"))
+            { 
+                test.drawLine(g, 60, 60);
+            }
+            else if (input.Contains("2"))
+            {
+                test.drawCircle(g, 60, 60);
+            }
+            else if (input.Contains("clear"))
+            {
+                test.clear(g);
+            }
 
 
         }
