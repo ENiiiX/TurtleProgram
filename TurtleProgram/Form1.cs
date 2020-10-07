@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Windows.Forms;
+
 
 namespace TurtleProgram
 {
-    public partial class Form1 : Form
+
+    public partial class Form1 : Form 
     {
+
+        private System.Drawing.Graphics g;
+        Turtle test;
+
+
         public Form1()
         {
             InitializeComponent();
             //Test commit to github
 
+            g = DrawingArea.CreateGraphics();
+
+
+
+            //DrawingArea.Image = new Bitmap(DrawingArea.Width, DrawingArea.Height);
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -22,18 +35,13 @@ namespace TurtleProgram
             }
         }
 
-        private void penBox_Enter(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
 
-        }
+            Turtle test = new Turtle(BackgroundImage);
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
+            test.drawLine(g, 60, 60);
 
-        }
-
-        private void DrawingArea_Paint(object sender, PaintEventArgs e)
-        {
 
         }
     }

@@ -41,8 +41,9 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.penBox = new System.Windows.Forms.GroupBox();
-            this.DrawingArea = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.DrawingArea = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.penBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingArea)).BeginInit();
@@ -136,7 +137,6 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Pen Up";
             this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioButton2
             // 
@@ -158,7 +158,24 @@
             this.penBox.TabIndex = 4;
             this.penBox.TabStop = false;
             this.penBox.Text = "Pen Status";
-            this.penBox.Enter += new System.EventHandler(this.penBox_Enter);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(18, 39);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(169, 251);
+            this.textBox1.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(47, 309);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // DrawingArea
             // 
@@ -169,21 +186,13 @@
             this.DrawingArea.Size = new System.Drawing.Size(800, 461);
             this.DrawingArea.TabIndex = 5;
             this.DrawingArea.TabStop = false;
-            this.DrawingArea.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingArea_Paint);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(18, 39);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(169, 251);
-            this.textBox1.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 512);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.DrawingArea);
             this.Controls.Add(this.penBox);
@@ -216,8 +225,9 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.GroupBox penBox;
-        private System.Windows.Forms.PictureBox DrawingArea;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox DrawingArea;
     }
 }
 
