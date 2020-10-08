@@ -38,8 +38,8 @@
             this.shapesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.penUpButton = new System.Windows.Forms.RadioButton();
+            this.penDownButton = new System.Windows.Forms.RadioButton();
             this.penBox = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -127,32 +127,32 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // radioButton1
+            // penUpButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 22);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(61, 17);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Pen Up";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.penUpButton.AutoSize = true;
+            this.penUpButton.Checked = true;
+            this.penUpButton.Location = new System.Drawing.Point(6, 22);
+            this.penUpButton.Name = "penUpButton";
+            this.penUpButton.Size = new System.Drawing.Size(61, 17);
+            this.penUpButton.TabIndex = 2;
+            this.penUpButton.TabStop = true;
+            this.penUpButton.Text = "Pen Up";
+            this.penUpButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // penDownButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 46);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(75, 17);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.Text = "Pen Down";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.penDownButton.AutoSize = true;
+            this.penDownButton.Location = new System.Drawing.Point(6, 46);
+            this.penDownButton.Name = "penDownButton";
+            this.penDownButton.Size = new System.Drawing.Size(75, 17);
+            this.penDownButton.TabIndex = 3;
+            this.penDownButton.Text = "Pen Down";
+            this.penDownButton.UseVisualStyleBackColor = true;
             // 
             // penBox
             // 
-            this.penBox.Controls.Add(this.radioButton1);
-            this.penBox.Controls.Add(this.radioButton2);
+            this.penBox.Controls.Add(this.penUpButton);
+            this.penBox.Controls.Add(this.penDownButton);
             this.penBox.Location = new System.Drawing.Point(12, 614);
             this.penBox.Name = "penBox";
             this.penBox.Size = new System.Drawing.Size(200, 81);
@@ -232,8 +232,8 @@
         private System.Windows.Forms.ToolStripMenuItem shapesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton penUpButton;
+        private System.Windows.Forms.RadioButton penDownButton;
         private System.Windows.Forms.GroupBox penBox;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;

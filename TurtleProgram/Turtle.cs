@@ -12,7 +12,7 @@ namespace TurtleProgram
 
         private int xPos = 456, yPos = 326; //Sets pen to center of screen
         private int direction = 180;
-        private bool penDown = true;
+        private bool penStatus = true;
 
 
         public Turtle()
@@ -20,11 +20,20 @@ namespace TurtleProgram
             Console.WriteLine("Turtle has been created"); //debug code, delete
         }
 
+        public void penUp() //Sets pen state to up
+        {
+            penStatus = false;
+        }
+
+        public void penDown() //Sets pen state to down
+        {
+            penStatus = true;
+        }
+
         public void drawLine(Graphics g, int x1, int y1, int x2, int y2)
         {
             g.DrawLine(p, x1, y1, x2, y2);
         }
-
 
         public void forward(Graphics g, int distance) //Method is called to make the pen go forward
         {
@@ -50,7 +59,7 @@ namespace TurtleProgram
             {
                 Console.WriteLine("strange, shouldn't get here");
             }
-            if (penDown)
+            if (penStatus)
             {
                 drawLine(g, xPos, yPos, x, y);
             }
