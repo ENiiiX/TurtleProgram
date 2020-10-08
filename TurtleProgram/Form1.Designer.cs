@@ -183,7 +183,7 @@
             this.DrawingArea.BackColor = System.Drawing.Color.White;
             this.DrawingArea.Location = new System.Drawing.Point(413, 39);
             this.DrawingArea.Name = "DrawingArea";
-            this.DrawingArea.Size = new System.Drawing.Size(913, 656);
+            this.DrawingArea.Size = new System.Drawing.Size(912, 652);
             this.DrawingArea.TabIndex = 5;
             this.DrawingArea.TabStop = false;
             // 
