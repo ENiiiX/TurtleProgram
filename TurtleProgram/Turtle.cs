@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace TurtleProgram
@@ -68,7 +69,24 @@ namespace TurtleProgram
             yPos = y;
         }
 
+        public void turnRight() //Turns pen right
+        {
+            direction += 90;
+            if (direction >= 360)
+                direction = 0;
+        }
 
+        public void turnLeft() //Turns pen left
+        {
+            direction -= 90;
+            if (direction < 0)
+                direction = 270;
+        }
+        public void moveTo(int x, int y)
+        {
+            xPos = x;
+            yPos = y;
+        }
 
 
 

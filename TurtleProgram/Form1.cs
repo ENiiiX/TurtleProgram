@@ -39,7 +39,7 @@ namespace TurtleProgram
 
             if (input.Contains(" ") && input.Contains("forward") || input.Contains("backward")
                     || input.Contains("square") || input.Contains("triangle") || input.Contains("circle")
-                    || input.Contains("fillcircle"))
+                    || input.Contains("fillcircle") || input.Contains("move"))
             {
 
                 try
@@ -61,25 +61,30 @@ namespace TurtleProgram
                         Turtle.forward(g, -amount); //Calls the forward method, amount == distance
                         Console.WriteLine("backward " + amount);
                     }
-
-
-
-
-
-
+                    else if (text[0].Equals("move"))
+                    {
+                        Turtle.moveTo(amount, number);
+                    }
 
 
                 }
                 catch (FormatException) //Picks up on the NumberFormatException Error
                 {
                     MessageBox.Show("Distance must be numeric"); //If the distance entered for the commands wasn't numeric, a box will appear
-                    
+
+
                 }
                 catch (IndexOutOfRangeException) //Picks up on the ArrayIndexOutOfBoundsException error
                 {
                     MessageBox.Show("Distance is missing"); //If there isn't a distance at all, the user will be notified. 
                 }
 
+            }
+
+            else if (input.Contains("left"))
+            {
+                Turtle.turnLeft();
+                Console.WriteLine("Turned left");
             }
         }
     }
