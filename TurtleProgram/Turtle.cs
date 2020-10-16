@@ -31,6 +31,26 @@ namespace TurtleProgram
             penStatus = true;
         }
 
+        public void setColour(String color)
+        {
+            if (color == "red")
+            {
+                p.Color = Color.Red;
+            }
+            else if (color == "blue")
+            {
+                p.Color = Color.Blue;
+            }
+            else if (color == "cyan")
+            {
+                p.Color = Color.Cyan;
+            }
+            else
+            {
+                MessageBox.Show("Invalid color");
+            }
+        }
+
         public void drawLine(Graphics g, int x1, int y1, int x2, int y2)
         {
             g.DrawLine(p, x1, y1, x2, y2);
