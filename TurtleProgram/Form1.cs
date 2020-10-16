@@ -69,7 +69,10 @@ namespace TurtleProgram
                         Turtle.forward(g, -amount); //Calls the forward method, amount == distance
                         Console.WriteLine("backward " + amount);
                     }
-
+                    else if (text[0].Equals("test"))
+                    {
+                        Turtle.triangle(g, amount);
+                    }
 
 
                 }
