@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 
@@ -17,37 +20,41 @@ namespace TurtleProgram
         private System.Drawing.Graphics g;
         Turtle Turtle;
         Bitmap bmp;
-
-
+        ArrayList s = new ArrayList();
+        ShapeFactory factory = new ShapeFactory();
         public Form1()
         {
             InitializeComponent();
-            //Test commit to github
+
+            
+            try
+            {
+                s.Add(factory.getShape("circle"));
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("Invalid shape: " + e);
+            }
+
             bmp = new Bitmap(DrawingArea.Width, DrawingArea.Height);
             g = Graphics.FromImage(bmp);
             g.Clear(Color.White); //Sets bitmap background to white
-            
+
             Turtle = new Turtle();
-            penDownButton.Checked = true; //Sets pen down to checked
         }
 
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to quit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                Application.Exit();
-            }
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+
+
             var input = commandLine.Text.ToLower();
             input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);;
             commandLine.Clear();
 
             if (input.Contains(" ") && input.Contains("forward") || input.Contains("backward")
-                    || input.Contains("square") || input.Contains("triangle") || input.Contains("circle")
-                    || input.Contains("fillcircle") || input.Contains("test"))
+                    || input.Contains("test"))
             {
 
                 try
@@ -71,16 +78,12 @@ namespace TurtleProgram
                     }
                     else if (text[0].Equals("test"))
                     {
-                        Turtle.triangle(g, amount);
+                        Turtle.drawTo(g, 200, 200);
                     }
-
-
                 }
                 catch (FormatException) //Picks up on the NumberFormatException Error
                 {
                     MessageBox.Show("Distance must be numeric"); //If the distance entered for the commands wasn't numeric, a box will appear
-
-
                 }
                 catch (IndexOutOfRangeException) //Picks up on the ArrayIndexOutOfBoundsException error
                 {
@@ -89,6 +92,11 @@ namespace TurtleProgram
 
             }
 
+            else if (input.Contains("right"))
+            {
+                Turtle.turnRight();
+                Console.WriteLine("Turned right");
+            }    
             else if (input.Contains("left"))
             {
                 Turtle.turnLeft();
@@ -98,9 +106,18 @@ namespace TurtleProgram
             DrawingArea.Image = bmp;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
 
+
+
+
+
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to quit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -154,7 +171,59 @@ namespace TurtleProgram
                 Turtle.moveTo(456, 326);
                 MessageBox.Show("Pen has been positioned to centre of canvas");
 
+                
+
             }
+        }
+
+
+
+
+        public void ShapeParser(String LineInput)
+        {
+            char[] delimiterChars = { ' ' };
+            String CommandValue = LineInput.ToLower();
+
+            if (CommandValue.Contains("shape"))
+            {
+                String[] ins = CommandValue.Split(delimiterChars);
+                int testlength = ins.Length;
+                String shape = ins[1].ToString();
+                String colour = ins[3].ToString();
+                if (shape.Contains("circle"))
+                {
+                    try
+                    {
+                        int circleRadius = Int16.Parse(ins[2]);
+
+                        Shape s;
+
+                        s = factory.getShape("circle");
+                        Color test = s.ShapeColour(colour);
+                        s.set(test, 50, 50, 200);
+                        s.draw(g);
+                    }
+                    catch (System.FormatException e)
+                    {
+                        Console.WriteLine("Invalid Parameters");
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Shape");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid Command");
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            ShapeParser(commandLine.Text);
+            DrawingArea.Image = bmp;
         }
     }
 }

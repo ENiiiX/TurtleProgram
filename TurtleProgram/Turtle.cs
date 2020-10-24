@@ -151,7 +151,10 @@ namespace TurtleProgram
             xPos = x;
             yPos = y;
         }
-
+        public void drawTo(Graphics g, int x, int y)
+        {
+            drawLine(g, xPos, yPos, x, y);
+        }
 
 
 
