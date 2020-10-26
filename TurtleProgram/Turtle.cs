@@ -16,20 +16,19 @@ namespace TurtleProgram
         private Color penColour = Color.Black;
         private Color shapeColour = Color.Blue;
 
-        Pen p = new Pen(Color.Black, 2);
-        ArrayList s = new ArrayList();
+        Pen p;
+
         ShapeFactory factory = new ShapeFactory();
 
 
         public Turtle()
         {
+            p = new Pen(penColour, 2);
             Console.WriteLine("Turtle has been created"); //debug code, delete
             xPos = 50;
             yPos = 50;
 
-            s.Add(factory.getShape("circle"));
-
-
+         //   s.Add(factory.getShape("circle"));
         }
         public void penUp() //Sets pen state to up
         {
@@ -40,7 +39,8 @@ namespace TurtleProgram
             xPos = 50;
             yPos = 50;
             direction = 180;
-            Globals.penColour = Color.Blue;
+            penColour = Color.Black;
+            shapeColour = Color.Blue;
             g.Clear(Color.White);
         }
         public void penDown() //Sets pen state to down
@@ -187,14 +187,13 @@ namespace TurtleProgram
         {
             drawLine(g, xPos, yPos, x, y);
         }
-
         public void circle(Graphics g, String colour, int radius)
         {
             Shape s;
 
             s = factory.getShape("circle");
             s.set(shapeColour, xPos, yPos, radius);
-            s.draw(g);
+            s.draw(g, penColour);
         }
 
 
