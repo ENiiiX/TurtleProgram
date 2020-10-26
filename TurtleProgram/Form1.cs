@@ -72,7 +72,7 @@ namespace TurtleProgram
                             }
                             else if (text[0].Equals("test"))
                             {
-                                Turtle.circle(g, "wefwblack", 50);
+                                Turtle.rectangle(g, 200, 500);
                             }
                         }
                         catch (FormatException) //Picks up on the NumberFormatException Error

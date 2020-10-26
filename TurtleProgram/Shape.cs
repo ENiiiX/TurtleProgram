@@ -31,7 +31,7 @@ namespace TurtleProgram
 
         public abstract double calcArea();
 
-        public abstract double CalcPerimeter();
+        public abstract double calcPerimeter();
 
         public abstract void draw(Graphics g, Color colour);
 

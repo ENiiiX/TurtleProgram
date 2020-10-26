@@ -20,6 +20,10 @@ namespace TurtleProgram
             {
                 return new Circle();
             }
+            if (shapeType.Equals("RECTANGLE"))
+            {
+                return new Rectangle();
+            }
             else
             {
                 throw new ArgumentException("Shape does not exist");

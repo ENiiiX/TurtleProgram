@@ -16,7 +16,7 @@ namespace TurtleProgram
 
         double calcArea();
 
-        double CalcPerimeter();
+        double calcPerimeter();
 
 
 
