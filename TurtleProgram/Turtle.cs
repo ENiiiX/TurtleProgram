@@ -1,37 +1,53 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
-using System.IO;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
+using System.Windows;
 using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TurtleProgram
 {
     public class Turtle
-    {
-        Pen p = new Pen(Color.Black, 2);
-
-        private int xPos = 456, yPos = 326; //Sets pen to center of screen
+    { 
+        private int xPos = 50;
+        private int yPos = 50;
         private int direction = 180;
         private bool penStatus = true;
+        private Color penColour = Color.Black;
+        private Color shapeColour = Color.Blue;
+
+        Pen p = new Pen(Color.Black, 2);
+        ArrayList s = new ArrayList();
+        ShapeFactory factory = new ShapeFactory();
 
 
         public Turtle()
         {
             Console.WriteLine("Turtle has been created"); //debug code, delete
-        }
+            xPos = 50;
+            yPos = 50;
 
+            s.Add(factory.getShape("circle"));
+
+
+        }
         public void penUp() //Sets pen state to up
         {
             penStatus = false;
         }
-
+        public void reset(Graphics g)
+        {
+            xPos = 50;
+            yPos = 50;
+            direction = 180;
+            Globals.penColour = Color.Blue;
+            g.Clear(Color.White);
+        }
         public void penDown() //Sets pen state to down
         {
             penStatus = true;
         }
-
-        public void setColour(String color)
+        public void setPenColour(String color)
         {
             if (color == "red")
             {
@@ -41,21 +57,45 @@ namespace TurtleProgram
             {
                 p.Color = Color.Blue;
             }
-            else if (color == "cyan")
+            else if (color == "black")
             {
-                p.Color = Color.Cyan;
+                p.Color = Color.Black;
             }
             else
             {
                 MessageBox.Show("Invalid color");
             }
         }
-
+        public void setShapeColour(String color)
+        {
+            if (color == "red")
+            {
+                shapeColour = Color.Red;
+            }
+            else if (color == "blue")
+            {
+                shapeColour = Color.Blue;
+            }
+            else if (color == "black")
+            {
+                shapeColour = Color.Black;
+            }
+            else
+            {
+                MessageBox.Show("Invalid color");
+            }
+        }
         public void drawLine(Graphics g, int x1, int y1, int x2, int y2)
         {
-            g.DrawLine(p, x1, y1, x2, y2);
+            if (penStatus)
+            {
+                g.DrawLine(p, x1, y1, x2, y2);
+            }
+            else
+            {
+                MessageBox.Show("Pen is disabled");
+            }
         }
-
         public void forward(Graphics g, int distance) //Method is called to make the pen go forward
         {
             int x = xPos, y = yPos;
@@ -80,15 +120,13 @@ namespace TurtleProgram
             {
                 Console.WriteLine("strange, shouldn't get here");
             }
-            if (penStatus)
-            {
-                drawLine(g, xPos, yPos, x, y);
-            }
+
+            drawLine(g, xPos, yPos, x, y);
+
             //now robot has moved to the new position
             xPos = x;
             yPos = y;
         }
-
         public void triangle(Graphics g, int distance) //Same concept as the line method, but instead of moving one point of the line on the x/y axis, both points are moved to allow diagonal movement
         {
             int x = xPos, y = yPos;
@@ -124,22 +162,16 @@ namespace TurtleProgram
                 y = yPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
                 x = xPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
             }
-            if (penStatus) //If pen is down, hyptonuse of triangle is drawn based off of calculated inputs
-            {
-                drawLine(g, xPos, yPos, x, y);
-            }
+            
+            drawLine(g, xPos, yPos, x, y);
 
         }
-
-
-
         public void turnRight() //Turns pen right
         {
             direction += 90;
             if (direction >= 360)
                 direction = 0;
         }
-
         public void turnLeft() //Turns pen left
         {
             direction -= 90;
@@ -156,7 +188,14 @@ namespace TurtleProgram
             drawLine(g, xPos, yPos, x, y);
         }
 
+        public void circle(Graphics g, String colour, int radius)
+        {
+            Shape s;
 
+            s = factory.getShape("circle");
+            s.set(shapeColour, xPos, yPos, radius);
+            s.draw(g);
+        }
 
 
 

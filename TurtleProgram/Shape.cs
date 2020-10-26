@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Shapes;
 
 namespace TurtleProgram
 {
     abstract class Shape : Shapes
     {
 
-        protected Color colour = Color.Black;
+
         protected int x, y;
+        public Color shapeColour;
 
         public Shape(Color colour, int x, int y)
         {
-            this.colour = colour;
+            shapeColour = colour;
             this.x = x;
             this.y = y;
         }
@@ -24,19 +28,6 @@ namespace TurtleProgram
         {
 
         }
-        public virtual Color ShapeColour(String colour)
-        {
-            if (colour == "red")
-            {
-                this.colour = Color.Red;
-            }
-            else if(colour == "blue")
-            {
-                this.colour = Color.Blue;
-            }
-            return this.colour;
-        }
-
 
         public abstract double calcArea();
 
@@ -46,7 +37,7 @@ namespace TurtleProgram
 
         public virtual void set(Color colour, params int[] list)
         {
-            this.colour = colour;
+            shapeColour = colour;
             this.x = list[0];
             this.y = list[1];
         }

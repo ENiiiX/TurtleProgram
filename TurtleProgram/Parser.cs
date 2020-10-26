@@ -10,14 +10,14 @@ namespace TurtleProgram
 {
     class Parser
     {
-        ArrayList s = new ArrayList();
-        ShapeFactory factory = new ShapeFactory();
+
         public Parser()
         {
 
         }
 
-
+        ArrayList s = new ArrayList();
+        ShapeFactory factory = new ShapeFactory();
 
 
 
@@ -41,14 +41,13 @@ namespace TurtleProgram
                         Shape s;
 
                         s = factory.getShape("circle");
-                        Color test = s.ShapeColour(colour);
+                        Color test = s.setShapeColour(colour);
                         s.set(test, 50, 50, 200);
                         s.draw(g);
                     }
                     catch (System.FormatException e)
                     {
                         Console.WriteLine("Invalid Parameters");
-
                     }
                 }
                 else

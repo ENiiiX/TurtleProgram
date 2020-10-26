@@ -19,7 +19,7 @@ namespace TurtleProgram
 
         private System.Drawing.Graphics g;
         Turtle Turtle;
-        Parser Parser;
+        //Parser Parser;
         Bitmap bmp;
    //     ArrayList s = new ArrayList();
    //     ShapeFactory factory = new ShapeFactory();
@@ -27,21 +27,12 @@ namespace TurtleProgram
         {
             InitializeComponent();
 
-     //       try
-     //       {
-     //           s.Add(factory.getShape("circle"));
-     //       }
-     //       catch (ArgumentException e)
-     //       {
-     //           Console.WriteLine("Invalid shape: " + e);
-     //       }
-
             bmp = new Bitmap(DrawingArea.Width, DrawingArea.Height);
             g = Graphics.FromImage(bmp);
             g.Clear(Color.White); //Sets bitmap background to white
 
             Turtle = new Turtle();
-            Parser = new Parser();
+            //Parser = new Parser();
         }
 
         private void commandLine_KeyPress(object sender, KeyPressEventArgs e)
@@ -81,7 +72,7 @@ namespace TurtleProgram
                             }
                             else if (text[0].Equals("test"))
                             {
-                                g.Clear(Color.White);
+                                Turtle.circle(g, "wefwblack", 50);
                             }
                         }
                         catch (FormatException) //Picks up on the NumberFormatException Error
@@ -124,7 +115,13 @@ namespace TurtleProgram
             }
         }
 
-
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            commandLine.Clear();
+            programBox.Clear();
+            Turtle.reset(g);
+            DrawingArea.Image = bmp;
+        }
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to quit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -132,8 +129,29 @@ namespace TurtleProgram
                 Application.Exit();
             }
         }
+        private void openImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog o = new OpenFileDialog();
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+            o.InitialDirectory = ("C:\\Users\\k1lle\\Pictures");
+
+            o.RestoreDirectory = true;
+
+            if (o.ShowDialog() == DialogResult.OK)
+            {
+                var path = o.FileName;
+                Bitmap image1 = (Bitmap)Image.FromFile(path);
+                bmp = image1;
+                DrawingArea.Image = bmp;
+                g = Graphics.FromImage(bmp);
+                Turtle.moveTo(456, 326);
+                MessageBox.Show("Pen has been positioned to centre of canvas");
+
+                
+
+            }
+        }
+        private void saveImage_Click(object sender, EventArgs e)
         {
 
             SaveFileDialog s = new SaveFileDialog();
@@ -165,27 +183,29 @@ namespace TurtleProgram
                 }
             }
         }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openProgram_Click(object sender, EventArgs e)
         {
             OpenFileDialog o = new OpenFileDialog();
-
-            o.InitialDirectory = ("C:\\Users\\k1lle\\Pictures");
-
+            o.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            o.FilterIndex = 2;
             o.RestoreDirectory = true;
-
             if (o.ShowDialog() == DialogResult.OK)
             {
-                var path = o.FileName;
-                Bitmap image1 = (Bitmap)Image.FromFile(path);
-                bmp = image1;
-                DrawingArea.Image = bmp;
-                g = Graphics.FromImage(bmp);
-                Turtle.moveTo(456, 326);
-                MessageBox.Show("Pen has been positioned to centre of canvas");
+                programBox.Text = System.IO.File.ReadAllText(o.FileName);
+            }
+        }
+        private void saveProgram_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog s = new SaveFileDialog();
+            s.FileName = "Program";// Default file name
+            s.DefaultExt = ".Txt";// Default file extension
+            s.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"; // Filter files by extension
 
-                
-
+            DialogResult result = s.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string name = s.FileName;
+                File.WriteAllText(name, programBox.Text);
             }
         }
 
@@ -193,10 +213,8 @@ namespace TurtleProgram
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            Parser.Shapes(g, Turtle, commandLine.Text);
+            //Parser.Shapes(g, Turtle, commandLine.Text);
             DrawingArea.Image = bmp;
         }
-
-
     }
 }
