@@ -19,97 +19,110 @@ namespace TurtleProgram
 
         private System.Drawing.Graphics g;
         Turtle Turtle;
+        Parser Parser;
         Bitmap bmp;
-        ArrayList s = new ArrayList();
-        ShapeFactory factory = new ShapeFactory();
+   //     ArrayList s = new ArrayList();
+   //     ShapeFactory factory = new ShapeFactory();
         public Form1()
         {
             InitializeComponent();
 
-            
-            try
-            {
-                s.Add(factory.getShape("circle"));
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("Invalid shape: " + e);
-            }
+     //       try
+     //       {
+     //           s.Add(factory.getShape("circle"));
+     //       }
+     //       catch (ArgumentException e)
+     //       {
+     //           Console.WriteLine("Invalid shape: " + e);
+     //       }
 
             bmp = new Bitmap(DrawingArea.Width, DrawingArea.Height);
             g = Graphics.FromImage(bmp);
             g.Clear(Color.White); //Sets bitmap background to white
 
             Turtle = new Turtle();
+            Parser = new Parser();
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void commandLine_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-
-
-            var input = commandLine.Text.ToLower();
-            input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);;
-            commandLine.Clear();
-
-            if (input.Contains(" ") && input.Contains("forward") || input.Contains("backward")
-                    || input.Contains("test"))
+            if (e.KeyChar == (char)Keys.Enter)
             {
-
-                try
+                if (string.IsNullOrWhiteSpace(programBox.Text))
                 {
-                    String[] text = input.Split(); //If the command was one of the previous inputs, and the text enter includes a space, the text is split into an array
-                    String splitter = text[1]; //Sets the second part of the text to a new variable
+                    e.Handled = true; //Handled property set to true to indicate KeyPressEvent has been handled
 
-                    int amount = int.Parse(splitter);
+                    var input = commandLine.Text.ToLower();
+                    input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None); ;
+                    commandLine.Clear();
 
-
-
-                    if (text[0].Equals("forward")) //Runs this code if the text equals forward
+                    if (input.Contains(" ") && input.Contains("forward") || input.Contains("backward")
+                            || input.Contains("test"))
                     {
-                        Turtle.forward(g, amount); //Calls the forward method, amount == distance
-                        Console.WriteLine("forward " + amount);
+
+                        try
+                        {
+                            String[] text = input.Split(); //If the command was one of the previous inputs, and the text enter includes a space, the text is split into an array
+                            String splitter = text[1]; //Sets the second part of the text to a new variable
+
+                            int amount = int.Parse(splitter);
+
+
+
+                            if (text[0].Equals("forward")) //Runs this code if the text equals forward
+                            {
+                                Turtle.forward(g, amount); //Calls the forward method, amount == distance
+                                Console.WriteLine("forward " + amount);
+                            }
+                            else if (text[0].Equals("backward")) //Runs this code if the text equals forward
+                            {
+                                Turtle.forward(g, -amount); //Calls the forward method, amount == distance
+                                Console.WriteLine("backward " + amount);
+                            }
+                            else if (text[0].Equals("test"))
+                            {
+                                g.Clear(Color.White);
+                            }
+                        }
+                        catch (FormatException) //Picks up on the NumberFormatException Error
+                        {
+                            MessageBox.Show("Distance must be numeric"); //If the distance entered for the commands wasn't numeric, a box will appear
+                        }
+                        catch (IndexOutOfRangeException) //Picks up on the ArrayIndexOutOfBoundsException error
+                        {
+                            MessageBox.Show("Distance is missing"); //If there isn't a distance at all, the user will be notified. 
+                        }
+
                     }
-                    else if (text[0].Equals("backward")) //Runs this code if the text equals forward
+
+                    else if (input.Contains("right"))
                     {
-                        Turtle.forward(g, -amount); //Calls the forward method, amount == distance
-                        Console.WriteLine("backward " + amount);
+                        Turtle.turnRight();
+                        Console.WriteLine("Turned right");
                     }
-                    else if (text[0].Equals("test"))
+                    else if (input.Contains("left"))
                     {
-                        Turtle.drawTo(g, 200, 200);
+                        Turtle.turnLeft();
+                        Console.WriteLine("Turned left");
                     }
+
+                    DrawingArea.Image = bmp;
+
                 }
-                catch (FormatException) //Picks up on the NumberFormatException Error
+                else if (commandLine.Text == "run")
                 {
-                    MessageBox.Show("Distance must be numeric"); //If the distance entered for the commands wasn't numeric, a box will appear
+                    //PROGRAM SHOULD BE RUN FROM COMMAND BOX
                 }
-                catch (IndexOutOfRangeException) //Picks up on the ArrayIndexOutOfBoundsException error
+                else
                 {
-                    MessageBox.Show("Distance is missing"); //If there isn't a distance at all, the user will be notified. 
+                    MessageBox.Show("Program input box is populated, please ensure this is correct");
                 }
+
+
+
 
             }
-
-            else if (input.Contains("right"))
-            {
-                Turtle.turnRight();
-                Console.WriteLine("Turned right");
-            }    
-            else if (input.Contains("left"))
-            {
-                Turtle.turnLeft();
-                Console.WriteLine("Turned left");
-            }
-
-            DrawingArea.Image = bmp;
         }
-
-
-
-
-
 
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -178,52 +191,12 @@ namespace TurtleProgram
 
 
 
-
-        public void ShapeParser(String LineInput)
-        {
-            char[] delimiterChars = { ' ' };
-            String CommandValue = LineInput.ToLower();
-
-            if (CommandValue.Contains("shape"))
-            {
-                String[] ins = CommandValue.Split(delimiterChars);
-                int testlength = ins.Length;
-                String shape = ins[1].ToString();
-                String colour = ins[3].ToString();
-                if (shape.Contains("circle"))
-                {
-                    try
-                    {
-                        int circleRadius = Int16.Parse(ins[2]);
-
-                        Shape s;
-
-                        s = factory.getShape("circle");
-                        Color test = s.ShapeColour(colour);
-                        s.set(test, 50, 50, 200);
-                        s.draw(g);
-                    }
-                    catch (System.FormatException e)
-                    {
-                        Console.WriteLine("Invalid Parameters");
-
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Shape");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid Command");
-            }
-        }
-
         private void button2_Click_1(object sender, EventArgs e)
         {
-            ShapeParser(commandLine.Text);
+            Parser.Shapes(g, Turtle, commandLine.Text);
             DrawingArea.Image = bmp;
         }
+
+
     }
 }

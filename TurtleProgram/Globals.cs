@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TurtleProgram
 {
-    class Class1
+    class Globals
     {
 
         public static int xPos = 50;

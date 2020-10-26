@@ -41,7 +41,7 @@
             this.penUpButton = new System.Windows.Forms.RadioButton();
             this.penDownButton = new System.Windows.Forms.RadioButton();
             this.penBox = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.programBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.DrawingArea = new System.Windows.Forms.PictureBox();
             this.commandLine = new System.Windows.Forms.TextBox();
@@ -163,13 +163,13 @@
             this.penBox.TabStop = false;
             this.penBox.Text = "Pen Status";
             // 
-            // textBox1
+            // programBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(18, 39);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(380, 433);
-            this.textBox1.TabIndex = 6;
+            this.programBox.Location = new System.Drawing.Point(18, 39);
+            this.programBox.Multiline = true;
+            this.programBox.Name = "programBox";
+            this.programBox.Size = new System.Drawing.Size(380, 433);
+            this.programBox.TabIndex = 6;
             // 
             // button1
             // 
@@ -179,7 +179,6 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // DrawingArea
             // 
@@ -196,6 +195,7 @@
             this.commandLine.Name = "commandLine";
             this.commandLine.Size = new System.Drawing.Size(380, 20);
             this.commandLine.TabIndex = 8;
+            this.commandLine.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.commandLine_KeyPress);
             // 
             // button2
             // 
@@ -215,7 +215,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.commandLine);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.programBox);
             this.Controls.Add(this.DrawingArea);
             this.Controls.Add(this.penBox);
             this.Controls.Add(this.menuStrip1);
@@ -249,7 +249,7 @@
         private System.Windows.Forms.RadioButton penUpButton;
         private System.Windows.Forms.RadioButton penDownButton;
         private System.Windows.Forms.GroupBox penBox;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox programBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox DrawingArea;
         private System.Windows.Forms.TextBox commandLine;
