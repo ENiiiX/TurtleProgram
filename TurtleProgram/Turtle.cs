@@ -13,6 +13,7 @@ namespace TurtleProgram
         private int yPos = 50;
         private int direction = 180;
         private bool penStatus = true;
+        private bool shapeFill = false;
         private Color penColour = Color.Black;
         private Color shapeColour = Color.Blue;
 
@@ -34,6 +35,18 @@ namespace TurtleProgram
         {
             penStatus = false;
         }
+        public void penDown() //Sets pen state to down
+        {
+            penStatus = true;
+        }
+        public void fillOn()
+        {
+            shapeFill = true;
+        }
+        public void fillOff()
+        {
+            shapeFill = false;
+        }
         public void reset(Graphics g)
         {
             xPos = 50;
@@ -42,10 +55,6 @@ namespace TurtleProgram
             penColour = Color.Black;
             shapeColour = Color.Blue;
             g.Clear(Color.White);
-        }
-        public void penDown() //Sets pen state to down
-        {
-            penStatus = true;
         }
         public void setPenColour(String color)
         {
@@ -193,7 +202,7 @@ namespace TurtleProgram
 
             s = factory.getShape("circle");
             s.set(shapeColour, xPos, yPos, radius);
-            s.draw(g, penColour);
+            s.draw(g, penColour, shapeFill);
         }
         public void rectangle(Graphics g, int width, int height)
         {
@@ -201,7 +210,7 @@ namespace TurtleProgram
 
             s = factory.getShape("rectangle");
             s.set(shapeColour, xPos, yPos, width, height);
-            s.draw(g, penColour);
+            s.draw(g, penColour, shapeFill);
         }
 
 

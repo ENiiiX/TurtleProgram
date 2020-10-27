@@ -33,12 +33,17 @@ namespace TurtleProgram
             this.radius = list[2];
         }
 
-        public override void draw(Graphics g, Color colour)
+        public override void draw(Graphics g, Color colour, bool fill)
         {
             Pen p = new Pen(colour, 2);
-            SolidBrush b = new SolidBrush(base.shapeColour);
-            g.FillEllipse(b, x, y, radius * 2, radius * 2);
             g.DrawEllipse(p, x, y, radius * 2, radius * 2);
+
+            if(fill)
+            {
+                SolidBrush b = new SolidBrush(base.shapeColour);
+                g.FillEllipse(b, x, y, radius * 2, radius * 2);
+            }
+
         }
 
         public override double calcArea()

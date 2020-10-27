@@ -33,7 +33,7 @@ namespace TurtleProgram
 
         public abstract double calcPerimeter();
 
-        public abstract void draw(Graphics g, Color colour);
+        public abstract void draw(Graphics g, Color colour, bool fill);
 
         public virtual void set(Color colour, params int[] list)
         {

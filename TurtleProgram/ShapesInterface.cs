@@ -12,7 +12,7 @@ namespace TurtleProgram
 
         void set(Color colour, params int[] list);
 
-        void draw(Graphics g, Color colour);
+        void draw(Graphics g, Color colour, bool fill);
 
         double calcArea();
 

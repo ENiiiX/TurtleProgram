@@ -31,12 +31,17 @@ namespace TurtleProgram
             this.height = list[3];
         }
 
-        public override void draw(Graphics g, Color colour)
+        public override void draw(Graphics g, Color colour, bool fill)
         {
             Pen p = new Pen(colour, 2);
-            SolidBrush b = new SolidBrush(base.shapeColour);
-            g.FillRectangle(b, x, y, width, height);
             g.DrawRectangle(p, x, y, width, height);
+
+            if (fill)
+            {
+                SolidBrush b = new SolidBrush(base.shapeColour);
+                g.FillRectangle(b, x, y, width, height);
+            }
+
         }
 
         public override double calcArea()

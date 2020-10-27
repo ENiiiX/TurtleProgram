@@ -73,6 +73,7 @@ namespace TurtleProgram
                             else if (text[0].Equals("test"))
                             {
                                 Turtle.rectangle(g, 200, 500);
+                                Turtle.circle(g, 50);
                             }
                         }
                         catch (FormatException) //Picks up on the NumberFormatException Error
