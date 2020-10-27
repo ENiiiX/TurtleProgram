@@ -18,12 +18,14 @@ namespace TurtleProgram
         private Color shapeColour = Color.Blue;
 
         Pen p;
+        Graphics g;
 
         ShapeFactory factory = new ShapeFactory();
 
 
-        public Turtle()
+        public Turtle(Graphics g)
         {
+            this.g = g;
             p = new Pen(penColour, 2);
             Console.WriteLine("Turtle has been created"); //debug code, delete
             xPos = 50;
@@ -94,7 +96,7 @@ namespace TurtleProgram
                 MessageBox.Show("Invalid color");
             }
         }
-        public void drawLine(Graphics g, int x1, int y1, int x2, int y2)
+        public void drawLine(int x1, int y1, int x2, int y2)
         {
             if (penStatus)
             {
@@ -105,7 +107,7 @@ namespace TurtleProgram
                 MessageBox.Show("Pen is disabled");
             }
         }
-        public void forward(Graphics g, int distance) //Method is called to make the pen go forward
+        public void forward(int distance) //Method is called to make the pen go forward
         {
             int x = xPos, y = yPos;
             //stored xPos and yPos are current location
@@ -130,7 +132,7 @@ namespace TurtleProgram
                 Console.WriteLine("strange, shouldn't get here");
             }
 
-            drawLine(g, xPos, yPos, x, y);
+            drawLine(xPos, yPos, x, y);
 
             //now robot has moved to the new position
             xPos = x;
@@ -141,38 +143,38 @@ namespace TurtleProgram
             int x = xPos, y = yPos;
             if (direction == 180)  //Checks the direction the pen is facing, only runs if facing said direction
             {
-                forward(g, distance); //Goes forward to create one side of the triangle
+                forward(distance); //Goes forward to create one side of the triangle
                 turnLeft(); //Turns left to create the right angle of the triangle
-                forward(g, distance); //Goes forward to create the second side of the triangle
+                forward(distance); //Goes forward to create the second side of the triangle
                 y = yPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
                 x = xPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
             }
             else if (direction == 0)  //Checks the direction the pen is facing, only runs if facing said direction
             {
-                forward(g, distance);  //Goes forward to create one side of the triangle
+                forward(distance);  //Goes forward to create one side of the triangle
                 turnLeft();  //Turns left to create the right angle of the triangle
-                forward(g, distance); //Goes forward to create the second side of the triangle
+                forward(distance); //Goes forward to create the second side of the triangle
                 y = yPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
                 x = xPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
             }
             else if (direction == 90)  //Checks the direction the pen is facing, only runs if facing said direction
             {
-                forward(g, distance);  //Goes forward to create one side of the triangle
+                forward(distance);  //Goes forward to create one side of the triangle
                 turnLeft();  //Turns left to create the right angle of the triangle
-                forward(g, distance); //Goes forward to create the second side of the triangle
+                forward(distance); //Goes forward to create the second side of the triangle
                 y = yPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
                 x = xPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
             }
             else if (direction == 270)  //Checks the direction the pen is facing, only runs if facing said direction
             {
-                forward(g, distance);  //Goes forward to create one side of the triangle
+                forward(distance);  //Goes forward to create one side of the triangle
                 turnLeft();  //Turns left to create the right angle of the triangle
-                forward(g, distance); //Goes forward to create the second side of the triangle
+                forward(distance); //Goes forward to create the second side of the triangle
                 y = yPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
                 x = xPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
             }
             
-            drawLine(g, xPos, yPos, x, y);
+            drawLine(xPos, yPos, x, y);
 
         }
         public void turnRight() //Turns pen right
@@ -194,7 +196,7 @@ namespace TurtleProgram
         }
         public void drawTo(Graphics g, int x, int y)
         {
-            drawLine(g, xPos, yPos, x, y);
+            drawLine(xPos, yPos, x, y);
         }
         public void circle(Graphics g, int radius)
         {

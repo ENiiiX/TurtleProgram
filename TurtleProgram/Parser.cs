@@ -9,7 +9,7 @@ using System.Windows.Forms.VisualStyles;
 
 namespace TurtleProgram
 {
-    class Parser
+    public class Parser
     {
 
         public void parse(string input)
@@ -42,7 +42,7 @@ namespace TurtleProgram
 
             if (command.Equals("moveto"))
             {
-
+                return;
             }
 
 

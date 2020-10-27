@@ -18,8 +18,9 @@ namespace TurtleProgram
     {
 
         private System.Drawing.Graphics g;
-        Turtle Turtle;
-        Parser Parser;
+        Turtle turtle;
+        Parser parser;
+        ModifyState ModifyState;
         Bitmap bmp;
 
         public Form1()
@@ -30,20 +31,26 @@ namespace TurtleProgram
             g = Graphics.FromImage(bmp);
             g.Clear(Color.White); //Sets bitmap background to white
 
-            Turtle = new Turtle();
-            Parser = new Parser();
-        }
+            turtle = new Turtle(g);
+            parser = new Parser();
+            ModifyState = new ModifyState();
 
+            
+        }
+        private static void Execute(Turtle turtle, ModifyState modifyState, ICommand movement)
+        {
+            modifyState.setCommand(movement);
+            modifyState.invoke();
+        }
         private void commandLine_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
-        {
+            {
                 if (string.IsNullOrWhiteSpace(programBox.Text)) //Check if program box is empty
                 {
                     e.Handled = true;
                     commandLine.Clear();
-
-
+                    
                     //execute commands if program is empty
 
                 }
@@ -52,7 +59,8 @@ namespace TurtleProgram
                     e.Handled = true;
                     commandLine.Clear();
                     //run program box 
-                    Parser.parse(programBox.Text);
+                    parser.parse(programBox.Text);
+                    turtle.forward(50);
 
                 }
                 else
@@ -61,13 +69,14 @@ namespace TurtleProgram
                 }
 
             }
+            DrawingArea.Image = bmp;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandLine.Clear();
             programBox.Clear();
-            Turtle.reset(g);
+            turtle.reset(g);
             DrawingArea.Image = bmp;
         }
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -92,7 +101,7 @@ namespace TurtleProgram
                 bmp = image1;
                 DrawingArea.Image = bmp;
                 g = Graphics.FromImage(bmp);
-                Turtle.moveTo(456, 326);
+                turtle.moveTo(456, 326);
                 MessageBox.Show("Pen has been positioned to centre of canvas");
 
                 
@@ -162,6 +171,13 @@ namespace TurtleProgram
         private void button2_Click_1(object sender, EventArgs e)
         {
             //Parser.Shapes(g, Turtle, commandLine.Text);
+            DrawingArea.Image = bmp;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Execute(turtle, ModifyState, new TurtleCommand(turtle, Movement.Forward, 50));
+
             DrawingArea.Image = bmp;
         }
     }
