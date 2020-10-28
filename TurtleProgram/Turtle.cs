@@ -13,10 +13,10 @@ namespace TurtleProgram
         private int yPos = 50;
         private int direction = 180;
         private bool penStatus = true;
-        private bool shapeFill = false;
+        private bool shapeFill = true;
         private Color penColour = Color.Black;
         private Color shapeColour = Color.Blue;
-
+        
         Pen p;
         Graphics g;
 
@@ -206,13 +206,16 @@ namespace TurtleProgram
             s.set(shapeColour, xPos, yPos, radius);
             s.draw(g, penColour, shapeFill);
         }
-        public void rectangle(Graphics g, int width, int height)
+        public void rectangle(int width, int height)
         {
             Shape s;
 
             s = factory.getShape("rectangle");
             s.set(shapeColour, xPos, yPos, width, height);
             s.draw(g, penColour, shapeFill);
+
+
+
         }
 
 

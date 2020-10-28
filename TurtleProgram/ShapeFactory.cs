@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TurtleProgram
 {
-    class ShapeFactory
+    public class ShapeFactory
     {
 
         public Shape getShape(String shapeType)
         {
 
             shapeType = shapeType.ToUpper().Trim();
-
-
 
             if (shapeType.Equals("CIRCLE"))
             {

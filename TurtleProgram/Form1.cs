@@ -20,8 +20,9 @@ namespace TurtleProgram
         private System.Drawing.Graphics g;
         Turtle turtle;
         Parser parser;
-        ModifyState ModifyState;
+
         Bitmap bmp;
+
 
         public Form1()
         {
@@ -32,16 +33,13 @@ namespace TurtleProgram
             g.Clear(Color.White); //Sets bitmap background to white
 
             turtle = new Turtle(g);
+
             parser = new Parser();
-            ModifyState = new ModifyState();
+
 
             
         }
-        private static void Execute(Turtle turtle, ModifyState modifyState, ICommand movement)
-        {
-            modifyState.setCommand(movement);
-            modifyState.invoke();
-        }
+
         private void commandLine_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -59,8 +57,8 @@ namespace TurtleProgram
                     e.Handled = true;
                     commandLine.Clear();
                     //run program box 
-                    parser.parse(programBox.Text);
-                    turtle.forward(50);
+                    //parser.parse(programBox.Text);
+                    //turtle.forward(50);
 
                 }
                 else
@@ -176,7 +174,20 @@ namespace TurtleProgram
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Execute(turtle, ModifyState, new TurtleCommand(turtle, Movement.Forward, 50));
+
+
+
+            parser.parse(turtle);
+
+
+
+           // Execute(turtle, ModifyState, new TurtleCommand(turtle, Movement.Forward, 50));
+            //turtle.turnLeft();
+            //turtle.forward(50);
+            //turtle.turnRight();
+            //turtle.rectangle(50, 30);
+            
+           // Execute(turtle, ModifyState, new TurtleCommand(turtle, Movement.Backward, 50));
 
             DrawingArea.Image = bmp;
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TurtleProgram
 {
-    class TurtleCommand : ICommand
+    public class TurtleCommand : ICommand
     {
 
         private readonly Turtle _turtle;
@@ -26,7 +26,15 @@ namespace TurtleProgram
 
         public void Execute()
         {
-            _turtle.forward(_distance);
+            if (_movement == Movement.Forward)
+            {
+                _turtle.forward(_distance);
+            }
+            else if (_movement == Movement.Backward)
+            {
+                _turtle.forward(-_distance);
+            }
+
         }
     }
 }

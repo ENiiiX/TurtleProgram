@@ -11,39 +11,17 @@ namespace TurtleProgram
 {
     public class Parser
     {
-
-        public void parse(string input)
+        CommandFactory cf = new CommandFactory();
+        public Command parse(Turtle turtle)
         {
-            if (input.Length == 0)
-                throw new ApplicationException("Command missing");
 
-            String[] ins = input.Split(' ');
-            String[] parameters = new string[32];
-            int[] paramCount = new int[32];
 
-            String command = ins[0].ToLower();
 
-            if (ins.Length > 1)
-            {
-                parameters = ins[1].Split(',');
-
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    try 
-                    {
-                        paramCount[i] = Int32.Parse(parameters[i]);
-                    }
-                    catch
-                    {
-                        throw new ApplicationException("Must be numberic character");
-                    }
-                }
-            }
-
-            if (command.Equals("moveto"))
-            {
-                return;
-            }
+            ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+            c.set(turtle);
+            c.forward(100);
+            c.Execute();
+            return c;
 
 
 

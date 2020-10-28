@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 
 namespace TurtleProgram
 {
-    abstract class Shape : Shapes
+    public abstract class Shape : Shapes
     {
 
 
