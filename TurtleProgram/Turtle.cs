@@ -22,7 +22,9 @@ namespace TurtleProgram
 
         public Turtle()
         {
-
+            System.Drawing.Graphics g;
+            Bitmap bmp = new Bitmap(200, 200);
+            g = Graphics.FromImage(bmp);
         }
         public Turtle(Graphics g)
         {
