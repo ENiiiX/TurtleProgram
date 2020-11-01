@@ -47,11 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FillOffCommand.cs" />
+    <Compile Include="FillOnCommand.cs" />
     <Compile Include="ForwardCommand.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandFactory.cs" />
+    <Compile Include="MoveToCommand.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="PenDownCommand.cs" />
+    <Compile Include="PenUpCommand.cs" />
     <Compile Include="Rectangle.cs" />
+    <Compile Include="ResetCommand.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapeFactory.cs" />
     <Compile Include="ShapesInterface.cs" />

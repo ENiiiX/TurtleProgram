@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms.VisualStyles;
@@ -38,6 +39,11 @@ namespace TurtleProgram
 
             if (split.Length>1)
             {
+                if (command.Equals("turnleft") || command.Equals("turnright") || command.Equals("clear"))
+                {
+                    MessageBox.Show(command + " Does not take parameters");
+                    return null;
+                }
                 parameters = split[1].Split(',');
                 for (int i = 0; i < parameters.Length; i++)
                 {
@@ -74,6 +80,41 @@ namespace TurtleProgram
                 return c;
             }
 
+            else if (command.Equals("penup"))
+            {
+                PenUpCommand c = (PenUpCommand)cf.getCommand("penup");
+                c.set(turtle);
+                c.penUp();
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("pendown"))
+            {
+                PenDownCommand c = (PenDownCommand)cf.getCommand("pendown");
+                c.set(turtle);
+                c.penDown();
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("fillon"))
+            {
+                FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
+                c.set(turtle);
+                c.fillOn();
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("filloff"))
+            {
+                FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
+                c.set(turtle);
+                c.fillOff();
+                c.Execute();
+                return c;
+            }
             else if (command.Equals("forward")) //Runs this code if the text equals forward
             {
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
@@ -85,12 +126,22 @@ namespace TurtleProgram
 
             else if (command.Equals("backward")) //Runs this code if the text equals forward
             {
-                ForwardCommand foo = (ForwardCommand)cf.getCommand("forward");
-                foo.set(turtle);
-                foo.forward(-ParamsInt[0]);
-                foo.Execute();
-                return foo;
+                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                c.set(turtle);
+                c.forward(-ParamsInt[0]);
+                c.Execute();
+                return c;
             }
+
+            else if (command.Equals("reset"))
+            {
+                ResetCommand c = (ResetCommand)cf.getCommand("reset");
+                c.set(turtle);
+                c.reset();
+                c.Execute();
+                return c;
+            }
+
 
 
 

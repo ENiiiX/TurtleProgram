@@ -1,16 +1,15 @@
 ﻿namespace TurtleProgram
 {
-    public class ForwardCommand : Command
+    public class PenDownCommand : Command
     {
 
         private Turtle _turtle;
-        
 
-        public ForwardCommand()
+        public PenDownCommand()
         {
 
         }
-        public ForwardCommand(Turtle turtle) : base(turtle)
+        public PenDownCommand(Turtle turtle) : base(turtle)
         {
             _turtle = turtle;
         }
@@ -18,9 +17,9 @@
         {
             this._turtle = turtle;
         }
-        public void forward(int distance)
+        public void penDown()
         {
-            _turtle.forward(distance);
+            _turtle.penDown();
         }
 
         public override Turtle Execute()

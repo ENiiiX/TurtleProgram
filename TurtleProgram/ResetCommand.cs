@@ -1,16 +1,16 @@
 ﻿namespace TurtleProgram
 {
-    public class ForwardCommand : Command
+    public class ResetCommand : Command
     {
 
         private Turtle _turtle;
-        
 
-        public ForwardCommand()
+
+        public ResetCommand()
         {
 
         }
-        public ForwardCommand(Turtle turtle) : base(turtle)
+        public ResetCommand(Turtle turtle) : base(turtle)
         {
             _turtle = turtle;
         }
@@ -18,9 +18,9 @@
         {
             this._turtle = turtle;
         }
-        public void forward(int distance)
+        public void reset()
         {
-            _turtle.forward(distance);
+            _turtle.reset();
         }
 
         public override Turtle Execute()

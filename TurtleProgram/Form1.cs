@@ -74,7 +74,7 @@ namespace TurtleProgram
         {
             commandLine.Clear();
             programBox.Clear();
-            turtle.reset(g);
+            turtle.reset();
             DrawingArea.Image = bmp;
         }
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -49,7 +49,7 @@ namespace TurtleProgram
         {
             shapeFill = false;
         }
-        public void reset(Graphics g)
+        public void reset()
         {
             xPos = 50;
             yPos = 50;
@@ -98,45 +98,47 @@ namespace TurtleProgram
         }
         public void drawLine(int x1, int y1, int x2, int y2)
         {
-            if (penStatus)
+            g.DrawLine(p, x1, y1, x2, y2);
+        }
+        public void forward(int distance) //Method is called to make the pen go forward
+        {
+            if(penStatus)
             {
-                g.DrawLine(p, x1, y1, x2, y2);
+                int x = xPos, y = yPos;
+                //stored xPos and yPos are current location
+                if (direction == 0) //robot facing up the screen, so forward subtracts y
+                {
+                    y = yPos - distance;
+                }
+                else if (direction == 90) //robot facing right so forward add x
+                {
+                    x = xPos + distance;
+                }
+                else if (direction == 180) //robot facing down the screen, so forwards adds to y
+                {
+                    y = yPos + distance;
+                }
+                else if (direction == 270) //robot facing left, so forwards subtracts from x
+                {
+                    x = xPos - distance;
+                }
+                else
+                {
+                    Console.WriteLine("strange, shouldn't get here");
+                }
+
+                drawLine(xPos, yPos, x, y);
+
+                //now robot has moved to the new position
+                xPos = x;
+                yPos = y;
             }
+            
             else
             {
                 MessageBox.Show("Pen is disabled");
             }
-        }
-        public void forward(int distance) //Method is called to make the pen go forward
-        {
-            int x = xPos, y = yPos;
-            //stored xPos and yPos are current location
-            if (direction == 0) //robot facing up the screen, so forward subtracts y
-            {
-                y = yPos - distance;
-            }
-            else if (direction == 90) //robot facing right so forward add x
-            {
-                x = xPos + distance;
-            }
-            else if (direction == 180) //robot facing down the screen, so forwards adds to y
-            {
-                y = yPos + distance;
-            }
-            else if (direction == 270) //robot facing left, so forwards subtracts from x
-            {
-                x = xPos - distance;
-            }
-            else
-            {
-                Console.WriteLine("strange, shouldn't get here");
-            }
 
-            drawLine(xPos, yPos, x, y);
-
-            //now robot has moved to the new position
-            xPos = x;
-            yPos = y;
         }
         public void triangle(Graphics g, int distance) //Same concept as the line method, but instead of moving one point of the line on the x/y axis, both points are moved to allow diagonal movement
         {
@@ -200,19 +202,35 @@ namespace TurtleProgram
         }
         public void circle(Graphics g, int radius)
         {
-            Shape s;
+            if(penStatus)
+            {
+                Shape s;
 
-            s = factory.getShape("circle");
-            s.set(shapeColour, xPos, yPos, radius);
-            s.draw(g, penColour, shapeFill);
+                s = factory.getShape("circle");
+                s.set(shapeColour, xPos, yPos, radius);
+                s.draw(g, penColour, shapeFill);
+            }
+            else
+            {
+                MessageBox.Show("Pen is disabled");
+            }
+
         }
         public void rectangle(int width, int height)
         {
-            Shape s;
+            if(penStatus)
+            {
+                Shape s;
 
-            s = factory.getShape("rectangle");
-            s.set(shapeColour, xPos, yPos, width, height);
-            s.draw(g, penColour, shapeFill);
+                s = factory.getShape("rectangle");
+                s.set(shapeColour, xPos, yPos, width, height);
+                s.draw(g, penColour, shapeFill);
+            }
+
+            else
+            {
+                MessageBox.Show("Pen is disabled");
+            }
 
 
 
