@@ -9,6 +9,8 @@ namespace TurtleProgram
     public abstract class Command
     {
         public Turtle turtle;
+        public bool valid;
+
         public Command()
         {
 

@@ -34,7 +34,7 @@ namespace TurtleProgram
 
             turtle = new Turtle(g);
 
-            parser = new Parser();
+            parser = new Parser(turtle);
 
 
             
@@ -47,10 +47,10 @@ namespace TurtleProgram
                 if (string.IsNullOrWhiteSpace(programBox.Text)) //Check if program box is empty
                 {
                     e.Handled = true;
-                    commandLine.Clear();
                     
-                    //execute commands if program is empty
 
+                    parser.Parse(commandLine.Text);
+                    commandLine.Clear();
                 }
                 else if (commandLine.Text.ToUpper() == "RUN")
                 {
@@ -130,7 +130,6 @@ namespace TurtleProgram
 
                 using (System.IO.FileStream fstream = new System.IO.FileStream(filename, System.IO.FileMode.Create))
                 {
-
                     Bitmap replace = new Bitmap(bmp);
                     bmp.Dispose();
                     replace.Save(fstream, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -177,7 +176,9 @@ namespace TurtleProgram
 
 
 
-            parser.parse(turtle);
+            //parser.parse("backward 300", true);
+            
+            parser.Parse("forward 300 400");
 
 
 

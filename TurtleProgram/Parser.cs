@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms.VisualStyles;
 
 namespace TurtleProgram
@@ -12,47 +13,100 @@ namespace TurtleProgram
     public class Parser
     {
         CommandFactory cf = new CommandFactory();
-        public Command parse(Turtle turtle)
+        Turtle turtle;
+        List<Exception> loopExceptions = new List<Exception>();
+
+        public Parser(Turtle turtle)
         {
+            this.turtle = turtle;
+        }
+
+        public Command Parse(string input)
+        {
+            input = input.ToLower();
+            if (input.Length == 0)
+                throw new ApplicationException("No command inputted");
+
+
+            String command;
+
+            String[] split = input.Split(' ');
+            String[] parameters = new string[100];
+            int[] ParamsInt = new int[100];
+
+            command = split[0];
+
+            if (split.Length>1)
+            {
+                parameters = split[1].Split(',');
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    try
+                    {
+
+                        ParamsInt[i] = Int32.Parse(parameters[i]);
+                    }
+
+                    catch (FormatException)
+                    {
+                        throw new ApplicationException("Parameter isn't numeric");
+                    }
+                }   
+
+
+            }
+
+            if (command.Equals("turnleft"))
+            {
+                TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
+                c.set(turtle);
+                c.turnLeft();
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("turnright"))
+            {
+                TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
+                c.set(turtle);
+                c.turnRight();
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("forward")) //Runs this code if the text equals forward
+            {
+                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                c.set(turtle);
+                c.forward(ParamsInt[0]);
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("backward")) //Runs this code if the text equals forward
+            {
+                ForwardCommand foo = (ForwardCommand)cf.getCommand("forward");
+                foo.set(turtle);
+                foo.forward(-ParamsInt[0]);
+                foo.Execute();
+                return foo;
+            }
 
 
 
-            ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-            c.set(turtle);
-            c.forward(100);
-            c.Execute();
-            return c;
 
+            throw new ArgumentException("Invalid command");
 
-
-
-
-
-
-
-
-
+            }
         }
 
 
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
+        //ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+        //c.set(turtle);
+        //c.forward(input);
+        //c.Execute();
+        //return c;
+}
 
 
 
@@ -135,4 +189,4 @@ namespace TurtleProgram
     //        MessageBox.Show("Program input box is populated, please ensure this is correct");
     //    }
     //}
-}
+

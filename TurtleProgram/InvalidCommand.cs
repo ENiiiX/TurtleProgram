@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace TurtleProgram
 {
-    public class ForwardCommand : Command
+    public class InvalidCommand : Command
     {
 
         private Turtle _turtle;
-        
 
-        public ForwardCommand()
+
+        public InvalidCommand()
         {
 
         }
-        public ForwardCommand(Turtle turtle) : base(turtle)
+        public InvalidCommand(Turtle turtle) : base(turtle)
         {
             _turtle = turtle;
         }
@@ -24,14 +24,10 @@ namespace TurtleProgram
         {
             this._turtle = turtle;
         }
-        public void forward(int distance)
-        {
-            _turtle.forward(distance);
-        }
 
         public override Turtle Execute()
         {
-            return _turtle;
+            Console.WriteLine("Couldn't find command: ");
         }
     }
 }

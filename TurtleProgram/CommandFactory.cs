@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TurtleProgram
 {
@@ -17,10 +18,20 @@ namespace TurtleProgram
             {
                 return new ForwardCommand();
             }
+
+            else if (command.Equals("TURNLEFT"))
+            {
+                return new TurnLeftCommand();
+            }
+            else if (command.Equals("TURNRIGHT"))
+            {
+                return new TurnRightCommand();
+            }
             else
             {
                 throw new ArgumentException("Command does not exist");
             }
+
         }
     }
 
