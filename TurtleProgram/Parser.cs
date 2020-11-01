@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms.VisualStyles;
 
 namespace TurtleProgram
 {
     public class Parser
     {
         CommandFactory cf = new CommandFactory();
-        Turtle turtle;
-        List<Exception> loopExceptions = new List<Exception>();
+        public Turtle turtle;
+        public Parser()
+        {
 
+        }
         public Parser(Turtle turtle)
         {
             this.turtle = turtle;
@@ -33,13 +28,28 @@ namespace TurtleProgram
 
             String[] split = input.Split(' ');
             String[] parameters = new string[100];
+
+            //        var input = commandLine.Text.ToLower();
+            //        input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None); ;
+            //        commandLine.Clear();
+
+            //        if (input.Contains(" ") && input.Contains("forward") || input.Contains("backward")
+            //                || input.Contains("test"))
+            //        {
+            //            try
+            //            {
+            //                String[] text = input.Split(); //If the command was one of the previous inputs, and the text enter includes a space, the text is split into an array
+            //                String splitter = text[1]; //Sets the second part of the text to a new variable
+
+            //                int amount = int.Parse(splitter);
+
             int[] ParamsInt = new int[100];
 
             command = split[0];
 
             if (split.Length>1)
             {
-                if (command.Equals("turnleft") || command.Equals("turnright") || command.Equals("clear"))
+                if (command.Equals("turnleft") || command.Equals("turnright") || command.Equals("reset"))
                 {
                     MessageBox.Show(command + " Does not take parameters");
                     return null;
@@ -56,6 +66,10 @@ namespace TurtleProgram
                     catch (FormatException)
                     {
                         throw new ApplicationException("Parameter isn't numeric");
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        throw new ApplicationException("Parameters are missing");
                     }
                 }   
 
@@ -133,6 +147,15 @@ namespace TurtleProgram
                 return c;
             }
 
+            else if (command.Equals("moveto"))
+            {
+                MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
+                c.set(turtle);
+                c.moveTo(ParamsInt[0], ParamsInt[1]);
+                c.Execute();
+                return c;
+            }
+
             else if (command.Equals("reset"))
             {
                 ResetCommand c = (ResetCommand)cf.getCommand("reset");
@@ -142,22 +165,11 @@ namespace TurtleProgram
                 return c;
             }
 
-
-
-
-
             throw new ArgumentException("Invalid command");
 
             }
         }
-
-
-        //ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-        //c.set(turtle);
-        //c.forward(input);
-        //c.Execute();
-        //return c;
-}
+    }
 
 
 

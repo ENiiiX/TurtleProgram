@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Drawing;
-using System.Windows;
-using System.Windows.Forms;
+
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TurtleProgram
@@ -12,7 +10,7 @@ namespace TurtleProgram
         private int xPos = 50;
         private int yPos = 50;
         private int direction = 180;
-        private bool penStatus = true;
+        public bool penStatus = true;
         private bool shapeFill = true;
         private Color penColour = Color.Black;
         private Color shapeColour = Color.Blue;
@@ -22,7 +20,10 @@ namespace TurtleProgram
 
         ShapeFactory factory = new ShapeFactory();
 
+        public Turtle()
+        {
 
+        }
         public Turtle(Graphics g)
         {
             this.g = g;

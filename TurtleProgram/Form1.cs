@@ -5,11 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using System.Windows.Forms;
-
-
 
 namespace TurtleProgram
 {
@@ -37,6 +33,7 @@ namespace TurtleProgram
             parser = new Parser(turtle);
 
 
+
             
         }
 
@@ -59,6 +56,11 @@ namespace TurtleProgram
                     //run program box 
                     //parser.parse(programBox.Text);
                     //turtle.forward(50);
+
+                    //foreach(string line in programBox.Text.Split("\r\n", "\r", "\n"))
+                    //{
+                    //    parser.Parse(line);
+                    //}
 
                 }
                 else
