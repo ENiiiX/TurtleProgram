@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Runtime.InteropServices;
 
 namespace TurtleProgram
 {
@@ -17,6 +17,18 @@ namespace TurtleProgram
             else if (command.Equals("MOVETO"))
             {
                 return new MoveToCommand();
+            }
+            else if (command.Equals("DRAWTO"))
+            {
+                return new DrawToCommand();
+            }
+            else if (command.Equals("CIRCLE"))
+            {
+                return new CircleCommand();
+            }
+            else if (command.Equals("RECTANGLE"))
+            {
+                return new RectangleCommand();
             }
             else if (command.Equals("PENUP"))
             {

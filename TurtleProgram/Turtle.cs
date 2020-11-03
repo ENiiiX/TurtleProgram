@@ -199,11 +199,20 @@ namespace TurtleProgram
             xPos = x;
             yPos = y;
         }
-        public void drawTo(Graphics g, int x, int y)
+        public void drawTo(int x, int y)
         {
-            drawLine(xPos, yPos, x, y);
+            if(penStatus)
+            {
+                drawLine(xPos, yPos, x, y);
+                xPos = x;
+                yPos = y;
+            }
+            else
+            {
+                MessageBox.Show("Pen is disabled");
+            }
         }
-        public void circle(Graphics g, int radius)
+        public void circle(int radius)
         {
             if(penStatus)
             {

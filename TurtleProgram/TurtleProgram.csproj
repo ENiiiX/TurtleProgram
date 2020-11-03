@@ -52,6 +52,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircleCommand.cs" />
+    <Compile Include="DrawToCommand.cs" />
     <Compile Include="FillOffCommand.cs" />
     <Compile Include="FillOnCommand.cs" />
     <Compile Include="ForwardCommand.cs" />
@@ -62,11 +64,13 @@
     <Compile Include="PenDownCommand.cs" />
     <Compile Include="PenUpCommand.cs" />
     <Compile Include="Rectangle.cs" />
+    <Compile Include="RectangleCommand.cs" />
     <Compile Include="ResetCommand.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapeFactory.cs" />
     <Compile Include="ShapesInterface.cs" />
     <Compile Include="Circle.cs" />
+    <Compile Include="Square.cs" />
     <Compile Include="TurnLeftCommand.cs" />
     <Compile Include="TurnRightCommand.cs" />
     <Compile Include="Turtle.cs" />

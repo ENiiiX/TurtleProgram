@@ -65,11 +65,13 @@ namespace TurtleProgram
 
                     catch (FormatException)
                     {
-                        throw new ApplicationException("Parameter isn't numeric");
+                        MessageBox.Show("Parameter isn't numeric");
+                        return null;
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        throw new ApplicationException("Parameters are missing");
+                        MessageBox.Show("Parameters are missing");
+                        return null;
                     }
                 }   
 
@@ -156,6 +158,32 @@ namespace TurtleProgram
                 return c;
             }
 
+            else if (command.Equals("drawto"))
+            {
+                DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
+                c.set(turtle);
+                c.drawTo(ParamsInt[0], ParamsInt[1]);
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("circle"))
+            {
+                CircleCommand c = (CircleCommand)cf.getCommand("circle");
+                c.set(turtle);
+                c.circle(ParamsInt[0]);
+                c.Execute();
+                return c;
+            }
+
+            else if (command.Equals("rectangle"))
+            {
+                RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
+                c.set(turtle);
+                c.rectangle(ParamsInt[0], ParamsInt[1]);
+                c.Execute();
+                return c;
+            }
             else if (command.Equals("reset"))
             {
                 ResetCommand c = (ResetCommand)cf.getCommand("reset");
