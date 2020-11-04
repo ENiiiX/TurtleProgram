@@ -248,6 +248,22 @@ namespace TurtleProgram
 
         }
 
+        public void triangle(int pntX1, int pntY1, int pntX2, int pntY2)
+        {
+            if (penStatus)
+            {
+                Shape s;
+
+                s = factory.getShape("triangle");
+                s.set(shapeColour, xPos, yPos, pntX1, pntY1, pntX2, pntY2);
+                s.draw(g, penColour, shapeFill);
+            }
+            else
+            {
+                MessageBox.Show("Pen is disabled");
+            }
+        }
+
 
 
 

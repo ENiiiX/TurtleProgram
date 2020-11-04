@@ -184,6 +184,16 @@ namespace TurtleProgram
                 c.Execute();
                 return c;
             }
+
+            else if (command.Equals("triangle"))
+            {
+                TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
+                c.set(turtle);
+                c.triangle(ParamsInt[0], ParamsInt[1],
+                           ParamsInt[2], ParamsInt[3]);
+                c.Execute();
+                return c;
+            }
             else if (command.Equals("reset"))
             {
                 ResetCommand c = (ResetCommand)cf.getCommand("reset");

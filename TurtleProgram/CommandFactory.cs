@@ -30,6 +30,10 @@ namespace TurtleProgram
             {
                 return new RectangleCommand();
             }
+            else if (command.Equals("TRIANGLE"))
+            {
+                return new TriangleCommand();
+            }
             else if (command.Equals("PENUP"))
             {
                 return new PenUpCommand();

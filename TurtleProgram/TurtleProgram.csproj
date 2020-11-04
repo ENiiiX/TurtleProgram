@@ -70,7 +70,8 @@
     <Compile Include="ShapeFactory.cs" />
     <Compile Include="ShapesInterface.cs" />
     <Compile Include="Circle.cs" />
-    <Compile Include="Square.cs" />
+    <Compile Include="Triangle.cs" />
+    <Compile Include="TriangleCommand.cs" />
     <Compile Include="TurnLeftCommand.cs" />
     <Compile Include="TurnRightCommand.cs" />
     <Compile Include="Turtle.cs" />

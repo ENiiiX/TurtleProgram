@@ -23,6 +23,10 @@ namespace TurtleProgram
             {
                 return new Rectangle();
             }
+            if (shapeType.Equals("TRIANGLE"))
+            {
+                return new Triangle();
+            }
             else
             {
                 throw new ArgumentException("Shape does not exist");

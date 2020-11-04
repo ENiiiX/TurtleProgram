@@ -16,25 +16,18 @@ namespace TurtleProgram
         private System.Drawing.Graphics g;
         Turtle turtle;
         Parser parser;
-
         Bitmap bmp;
+        String command;
 
 
         public Form1()
         {
             InitializeComponent();
-
             bmp = new Bitmap(DrawingArea.Width, DrawingArea.Height);
             g = Graphics.FromImage(bmp);
-            g.Clear(Color.White); //Sets bitmap background to white
-
+            g.Clear(Color.White); //Sets bitmap background to 
             turtle = new Turtle(g);
-
-            parser = new Parser(turtle);
-
-
-
-            
+            parser = new Parser(turtle); 
         }
 
         private void commandLine_KeyPress(object sender, KeyPressEventArgs e)
@@ -44,7 +37,7 @@ namespace TurtleProgram
                 if (string.IsNullOrWhiteSpace(programBox.Text)) //Check if program box is empty
                 {
                     e.Handled = true;
-                    
+                    command = commandLine.Text;
 
                     parser.Parse(commandLine.Text);
                     commandLine.Clear();
@@ -52,26 +45,30 @@ namespace TurtleProgram
                 else if (commandLine.Text.ToUpper() == "RUN")
                 {
                     e.Handled = true;
+                    command = commandLine.Text;
                     commandLine.Clear();
-                    //run program box 
-                    //parser.parse(programBox.Text);
-                    //turtle.forward(50);
-
-                    //foreach(string line in programBox.Text.Split("\r\n", "\r", "\n"))
-                    //{
-                    //    parser.Parse(line);
-                    //}
-
                 }
                 else
                 {
                     MessageBox.Show("Program can be executed using the 'run' command");
                 }
-
             }
             DrawingArea.Image = bmp;
         }
 
+
+        /// <summary>
+        /// Allows user to populate commandLine text box with previous command
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void commandLine_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                commandLine.Text = command;
+            }
+        }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandLine.Clear();
@@ -194,5 +191,7 @@ namespace TurtleProgram
 
             DrawingArea.Image = bmp;
         }
+
+
     }
 }
