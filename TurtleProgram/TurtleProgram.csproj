@@ -61,6 +61,7 @@
     <Compile Include="CommandFactory.cs" />
     <Compile Include="MoveToCommand.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="PenColourCommand.cs" />
     <Compile Include="PenDownCommand.cs" />
     <Compile Include="PenUpCommand.cs" />
     <Compile Include="Rectangle.cs" />

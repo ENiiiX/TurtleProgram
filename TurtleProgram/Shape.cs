@@ -35,19 +35,5 @@ namespace TurtleProgram
             this.x = list[0];
             this.y = list[1];
         }
-
-
-
-
-
-
-        public override string ToString()
-        {
-            return base.ToString() + "  "+this.x+","+this.y+" : ";
-        }
-
-
-
-
     }
 }

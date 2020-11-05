@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
@@ -9,7 +10,9 @@ namespace TurtleProgram
     {
         CommandFactory cf = new CommandFactory();
         public Turtle turtle;
-        
+        public bool execute = true;
+        public int lineNum = 0;
+
         public Parser()
         {
 
@@ -23,24 +26,13 @@ namespace TurtleProgram
 
 
 
-        public Command programParser(String[] lines)
+        public Command programParser(String line)
         {
-            int lineNum = 1;
-            bool execute = true;
             String command = "";
+            String colour = "";
             int[] ParamsInt = new int[100];
 
-            foreach (var item in lines)
-            {
-                execute = isValid(item);
-
-                if (execute == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    String[] split = item.Split(' ');
+                    String[] split = line.Split(' ');
                     String[] parameters = new string[100];
 
                     command = split[0];
@@ -58,349 +50,153 @@ namespace TurtleProgram
                     else if (command.Equals("pen") || command.Equals("fill"))
                     {
                         command = split[0] + split[1];
+                        if (split[1].Equals("colour"))
+                        {
+                            colour = split[2];
+                        }
+
                     }
-                }
-            }
-
-            if (command.Equals("turnleft"))
-            {
-                TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
-                c.set(turtle);
-                c.turnLeft();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("turnright"))
-            {
-                TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
-                c.set(turtle);
-                c.turnRight();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("penoff"))
-            {
-                PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
-                c.set(turtle);
-                c.penUp();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("penon"))
-            {
-                PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
-                c.set(turtle);
-                c.penDown();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("fillon"))
-            {
-                FillOnCommand c = (FillOnCommand)cf.getCommand("fill on");
-                c.set(turtle);
-                c.fillOn();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("filloff"))
-            {
-                FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
-                c.set(turtle);
-                c.fillOff();
-                c.Execute();
-                return c;
-            }
-            else if (command.Equals("forward")) //Runs this code if the text equals forward
-            {
-                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.set(turtle);
-                c.forward(ParamsInt[0]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("backward")) //Runs this code if the text equals forward
-            {
-                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.set(turtle);
-                c.forward(-ParamsInt[0]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("moveto"))
-            {
-                MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
-                c.set(turtle);
-                c.moveTo(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("drawto"))
-            {
-                DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
-                c.set(turtle);
-                c.drawTo(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("circle"))
-            {
-                CircleCommand c = (CircleCommand)cf.getCommand("circle");
-                c.set(turtle);
-                c.circle(ParamsInt[0]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("rectangle"))
-            {
-                RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
-                c.set(turtle);
-                c.rectangle(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("triangle"))
-            {
-                TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
-                c.set(turtle);
-                c.triangle(ParamsInt[0], ParamsInt[1],
-                            ParamsInt[2], ParamsInt[3]);
-                c.Execute();
-                return c;
-            }
-            else if (command.Equals("reset"))
-            {
-                ResetCommand c = (ResetCommand)cf.getCommand("reset");
-                c.set(turtle);
-                c.reset();
-                c.Execute();
-                return c;
-            }
-            else
-            {
-                MessageBox.Show("Command does not exist");
-            }
-            return null;
-        }
 
 
 
+                    if (command.Equals("turnleft"))
+                    {
+                        TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
+                        c.set(turtle);
+                        c.turnLeft();
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("turnright"))
+                    {
+                        TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
+                        c.set(turtle);
+                        c.turnRight();
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("penoff"))
+                    {
+                        PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
+                        c.set(turtle);
+                        c.penUp();
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("penon"))
+                    {
+                        PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
+                        c.set(turtle);
+                        c.penDown();
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("fillon"))
+                    {
+                        FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
+                        c.set(turtle);
+                        c.fillOn();
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("filloff"))
+                    {
+                        FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
+                        c.set(turtle);
+                        c.fillOff();
+                        c.Execute();
+                        return c;
+                    }
+                    else if (command.Equals("forward")) //Runs this code if the text equals forward
+                    {
+                        ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                        c.set(turtle);
+                        c.forward(ParamsInt[0]);
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("backward")) //Runs this code if the text equals forward
+                    {
+                        ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                        c.set(turtle);
+                        c.forward(-ParamsInt[0]);
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("moveto"))
+                    {
+                        MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
+                        c.set(turtle);
+                        c.moveTo(ParamsInt[0], ParamsInt[1]);
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("drawto"))
+                    {
+                        DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
+                        c.set(turtle);
+                        c.drawTo(ParamsInt[0], ParamsInt[1]);
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("circle"))
+                    {
+                        CircleCommand c = (CircleCommand)cf.getCommand("circle");
+                        c.set(turtle);
+                        c.circle(ParamsInt[0]);
+                        c.Execute();
+                        return c;
+                    }
 
+                    else if (command.Equals("rectangle"))
+                    {
+                        RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
+                        c.set(turtle);
+                        c.rectangle(ParamsInt[0], ParamsInt[1]);
+                        c.Execute();
+                        return c;
+                    }
 
-
-
-
-
-
-
-
-
-
-
-
-        public Command Parse(string input)
-        {
-            input = input.ToLower();
-            if (input.Length == 0)
-            {
-                MessageBox.Show("No command inputted");
-                return null;
-            }
-
-            String command;
-
-            String[] split = input.Split(' ');
-            String[] parameters = new string[100];
-
-            int[] ParamsInt = new int[100];
-
-            command = split[0];
-
-            if (split.Length > 1)
-            {
-                if (command.Equals("turnleft") || command.Equals("turnright") || command.Equals("reset"))
-                {
-                    MessageBox.Show(command + " Does not take parameters");
+                    else if (command.Equals("triangle"))
+                    {
+                        TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
+                        c.set(turtle);
+                        c.triangle(ParamsInt[0], ParamsInt[1],
+                                    ParamsInt[2], ParamsInt[3]);
+                        c.Execute();
+                        return c;
+                    }
+                    else if (command.Equals("reset"))
+                    {
+                        ResetCommand c = (ResetCommand)cf.getCommand("reset");
+                        c.set(turtle);
+                        c.reset();
+                        c.Execute();
+                        return c;
+                    }
+                    else if (command.Equals("pencolour"))
+                    {
+                        PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
+                        c.set(turtle);
+                        c.setPenColour(colour);
+                        c.Execute();
+                        return c;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Command does not exist");
+                    }
                     return null;
-                }
-                parameters = split[1].Split(',');
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    try
-                    {
-
-                        ParamsInt[i] = Int32.Parse(parameters[i]);
-                    }
-
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Parameter isn't numeric");
-                        return null;
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        MessageBox.Show("Parameters are missing");
-                        return null;
-                    }
-                }
-
-
-            }
-            if (command.Equals("turnleft"))
-            {
-                TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
-                c.set(turtle);
-                c.turnLeft();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("turnright"))
-            {
-                TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
-                c.set(turtle);
-                c.turnRight();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("pen off"))
-            {
-                PenUpCommand c = (PenUpCommand)cf.getCommand("pen off");
-                c.set(turtle);
-                c.penUp();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("pen on"))
-            {
-                PenDownCommand c = (PenDownCommand)cf.getCommand("pen on");
-                c.set(turtle);
-                c.penDown();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("fill on"))
-            {
-                FillOnCommand c = (FillOnCommand)cf.getCommand("fill on");
-                c.set(turtle);
-                c.fillOn();
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("fill off"))
-            {
-                FillOffCommand c = (FillOffCommand)cf.getCommand("fill off");
-                c.set(turtle);
-                c.fillOff();
-                c.Execute();
-                return c;
-            }
-            else if (command.Equals("forward")) //Runs this code if the text equals forward
-            {
-                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.set(turtle);
-                c.forward(ParamsInt[0]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("backward")) //Runs this code if the text equals forward
-            {
-                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.set(turtle);
-                c.forward(-ParamsInt[0]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("moveto"))
-            {
-                MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
-                c.set(turtle);
-                c.moveTo(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("drawto"))
-            {
-                DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
-                c.set(turtle);
-                c.drawTo(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("circle"))
-            {
-                CircleCommand c = (CircleCommand)cf.getCommand("circle");
-                c.set(turtle);
-                c.circle(ParamsInt[0]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("rectangle"))
-            {
-                RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
-                c.set(turtle);
-                c.rectangle(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
-            }
-
-            else if (command.Equals("triangle"))
-            {
-                TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
-                c.set(turtle);
-                c.triangle(ParamsInt[0], ParamsInt[1],
-                            ParamsInt[2], ParamsInt[3]);
-                c.Execute();
-                return c;
-            }
-            else if (command.Equals("reset"))
-            {
-                ResetCommand c = (ResetCommand)cf.getCommand("reset");
-                c.set(turtle);
-                c.reset();
-                c.Execute();
-                return c;
-            }
-            else
-            {
-                MessageBox.Show("Command does not exist");
-            }
-            return null;
         }
-
-
-
-
-
-
 
         public bool isValid(String input)
         {
@@ -410,72 +206,253 @@ namespace TurtleProgram
             String[] line = input.Split(' ', ',');
             String command = line[0];
 
-            if (line.Length == 1)
+            if (command.Equals("pen") || command.Equals("fill"))
             {
-                if (command.Equals("reset") || command.Equals("turnleft") || command.Equals("turnright"))
+                if (line[1].Equals("on") || line[1].Equals("off") || line[1].Equals("colour"))
                 {
-                    return valid;
+                    command = line[0] + " " + line[1];
                 }
                 else
                 {
+                    MessageBox.Show("Pen can be toggled on/off");
                     valid = false;
                     return valid;
                 }
-            }
-            else if (line.Length == 2)
-            {
-                if (command.Equals("forward") || command.Equals("backward") || command.Equals("circle"))
+                if (command.Equals("pen colour") || command.Equals("fill colour"))
                 {
                     try
                     {
-                        int param = Int32.Parse(line[1]);
-                        return valid;
-                    }
+                        switch (line[2])
+                        {
+                            case "blue":
+                                break;
 
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Parameter isn't numeric");
-                        valid = false;
-                        return valid;
+                            case "black":
+                                break;
+
+                            case "red":
+                                break;
+                        }
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        MessageBox.Show("Parameters are missing");
+                        MessageBox.Show("Colour is missing on line " + lineNum);
                         valid = false;
                         return valid;
                     }
-
                 }
-                else if (command.Equals("fill") || command.Equals("pen"))
-                {
-                    if (line[1].Equals("on") || line[1].Equals("off"))
+            }
+
+            
+            switch (command)
+            {
+                case "forward":
+                    if (line.Length == 2)
                     {
-                        return valid;
+                        try
+                        {
+                            int param = Int32.Parse(line[1]);
+                            return valid;
+                        }
+
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                    }
+                    break;
+
+                case "backward":
+                    if (line.Length == 2)
+                    {
+                        try
+                        {
+                            int param = Int32.Parse(line[1]);
+                            return valid;
+                        }
+
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                    }
+                    break;
+
+                case "moveto":
+                    if (line.Length == 3)
+                    {
+                        try
+                        {
+                            int param;
+                            param = Int32.Parse(line[1]);
+                            param = Int32.Parse(line[2]);
+                            return valid;
+                        }
+
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
                     }
                     else
                     {
+                        MessageBox.Show(command + " takes 2 parameters");
                         valid = false;
-                        return valid;
+                        return false;
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Command doesn't exist");
-                }
-            }
-            else if (line.Length == 3)
-            {
-                if (command.Equals("drawto") || command.Equals("moveto") || command.Equals("rectangle"))
-                {
+                case "drawto":
+                    if (line.Length == 3)
+                    {
+                        try
+                        {
+                            int param;
+                            param = Int32.Parse(line[1]);
+                            param = Int32.Parse(line[2]);
+                            return valid;
+                        }
 
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(command + " takes 2 parameters");
+                        valid = false;
+                        return false;
+                    }
+                case "rectangle":
+                    if (line.Length == 3)
+                    {
+                        try
+                        {
+                            int param;
+                            param = Int32.Parse(line[1]);
+                            param = Int32.Parse(line[2]);
+                            return valid;
+                        }
 
-                }
-            }
-            else
-            {
-                MessageBox.Show("Command doesn't exist, or does not take parameters");
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(command + " takes 2 parameters");
+                        valid = false;
+                        return false;
+                    }
+                case "circle":
+                    if (line.Length == 2)
+                    {
+                        try
+                        {
+                            int param = Int32.Parse(line[1]);
+                            return valid;
+                        }
+
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                    }
+                    break;
+                case "triangle":
+                    if (line.Length == 5)
+                    {
+                        try
+                        {
+                            int param;
+                            param = Int32.Parse(line[1]);
+                            param = Int32.Parse(line[2]);
+                            param = Int32.Parse(line[3]);
+                            param = Int32.Parse(line[4]);
+                            return valid;
+                        }
+
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                    }
+                    break;
+                case "pen on":
+                    return valid;
+                case "pen off":
+                    return valid;
+                case "fill on":
+                    return valid;
+                case "fill off":
+                    return valid;
+                case "turnleft":
+                    return valid;
+                case "turnright":
+                    return valid;
+                case "pen colour":
+                    return valid;
+                case "fill colour":
+                    return valid;
             }
             valid = false;
+            MessageBox.Show("invalid command on line " + lineNum);
             return valid;
         }
     }

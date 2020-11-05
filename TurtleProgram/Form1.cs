@@ -39,9 +39,9 @@ namespace TurtleProgram
                     e.Handled = true;
                     command = commandLine.Text;
 
-                    string[] lines = commandLine.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                    //string[] lines = commandLine.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-                    parser.programParser(lines);
+                    parser.programParser(command);
 
                     commandLine.Clear();
                 }
@@ -49,23 +49,33 @@ namespace TurtleProgram
                 {
                     e.Handled = true;
                     command = commandLine.Text;
+                    bool execute = true;
 
                     string[] lines = programBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-                    parser.programParser(lines);
+                    foreach (var line in lines)
+                    {
+                        parser.lineNum++;
+                        execute = parser.isValid(line);
+                        
+                        if (execute == false)
+                        {
+                            parser.lineNum = 0;
+                            break;
+                        }
+                    }
 
-                    //Console.WriteLine(parser.isValid("forward 50"));
-                    //Console.WriteLine(parser.isValid("pen off"));
-                    //Console.WriteLine(parser.isValid("pen on"));
-                    //Console.WriteLine(parser.isValid("fill off"));
-                    //Console.WriteLine(parser.isValid("fill on"));
-                    //Console.WriteLine(parser.isValid("reset"));
+                    if (execute == true)
+                    {
+                        foreach (var line in lines)
+                        {
+                            parser.programParser(line);
+                            DrawingArea.Image = bmp;
+                        }
+                    }
+                    
 
-
-                    //Console.WriteLine(parser.isValid("pen "));
-                    //Console.WriteLine(parser.isValid("pen 99"));
-                    //Console.WriteLine(parser.isValid("backward 3j"));
-                    //Console.WriteLine(parser.isValid("turnright 334923"));
+ 
 
 
 
