@@ -143,45 +143,6 @@ namespace TurtleProgram
             }
 
         }
-        public void triangle(Graphics g, int distance) //Same concept as the line method, but instead of moving one point of the line on the x/y axis, both points are moved to allow diagonal movement
-        {
-            int x = xPos, y = yPos;
-            if (direction == 180)  //Checks the direction the pen is facing, only runs if facing said direction
-            {
-                forward(distance); //Goes forward to create one side of the triangle
-                turnLeft(); //Turns left to create the right angle of the triangle
-                forward(distance); //Goes forward to create the second side of the triangle
-                y = yPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-                x = xPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-            }
-            else if (direction == 0)  //Checks the direction the pen is facing, only runs if facing said direction
-            {
-                forward(distance);  //Goes forward to create one side of the triangle
-                turnLeft();  //Turns left to create the right angle of the triangle
-                forward(distance); //Goes forward to create the second side of the triangle
-                y = yPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-                x = xPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-            }
-            else if (direction == 90)  //Checks the direction the pen is facing, only runs if facing said direction
-            {
-                forward(distance);  //Goes forward to create one side of the triangle
-                turnLeft();  //Turns left to create the right angle of the triangle
-                forward(distance); //Goes forward to create the second side of the triangle
-                y = yPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-                x = xPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-            }
-            else if (direction == 270)  //Checks the direction the pen is facing, only runs if facing said direction
-            {
-                forward(distance);  //Goes forward to create one side of the triangle
-                turnLeft();  //Turns left to create the right angle of the triangle
-                forward(distance); //Goes forward to create the second side of the triangle
-                y = yPos - distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-                x = xPos + distance; //Hypotenuse of the triangle is calculated by moving the x/y position away from current xPos and yPos. Plus or minusing depending on pen direction
-            }
-            
-            drawLine(xPos, yPos, x, y);
-
-        }
         public void turnRight() //Turns pen right
         {
             direction += 90;
@@ -247,7 +208,6 @@ namespace TurtleProgram
 
 
         }
-
         public void triangle(int pntX1, int pntY1, int pntX2, int pntY2)
         {
             if (penStatus)
@@ -263,47 +223,5 @@ namespace TurtleProgram
                 MessageBox.Show("Pen is disabled");
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public void drawRectangle(Graphics g, int x, int y)
-        //{
-        //    Rectangle r = new Rectangle(x, y, 225, 225);
-        //    g.DrawRectangle(p, r);
-
-        //}
-        //public void drawCircle(Graphics g, int x, int y)
-        //{
-        //    Rectangle r = new Rectangle(x, y, 225, 225);
-        //    g.DrawEllipse(p, r);
-        //}
-        //public void clear(Graphics g)
-        //{
-        //    g.Clear(Color.White);
-        //}
-
-
-
-
     }
 }

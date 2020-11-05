@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace TurtleProgram
 {
@@ -8,6 +9,7 @@ namespace TurtleProgram
     {
         CommandFactory cf = new CommandFactory();
         public Turtle turtle;
+        
         public Parser()
         {
 
@@ -17,37 +19,107 @@ namespace TurtleProgram
             this.turtle = turtle;
         }
 
+
+
+
+
+        public void programParser(String[] lines)
+        {
+            int lineNum = 1;
+            foreach (var item in lines)
+            {
+                
+                String command;
+
+                String[] split = item.Split(' ');
+                String[] parameters = new string[100];
+
+                int[] ParamsInt = new int[100];
+
+                command = split[0];
+
+                if (split.Length > 1)
+                {
+                    if (command.Equals("turnleft") || command.Equals("turnright") || command.Equals("reset"))
+                    {
+                        MessageBox.Show(command + " Does not take parameters. On line " + lineNum);
+                    }
+                    parameters = split[1].Split(',');
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        try
+                        {
+
+                            ParamsInt[i] = Int32.Parse(parameters[i]);
+                        }
+
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric. On line " + lineNum);
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing. On line " + lineNum);
+                        }
+                    }
+                    lineNum = lineNum + 1;
+
+                }
+
+
+
+
+
+
+
+
+                Parse(item);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public Command Parse(string input)
         {
             input = input.ToLower();
             if (input.Length == 0)
-                throw new ApplicationException("No command inputted");
-
+            {
+                MessageBox.Show("No command inputted");
+                return null;
+            }
 
             String command;
 
             String[] split = input.Split(' ');
             String[] parameters = new string[100];
 
-            //        var input = commandLine.Text.ToLower();
-            //        input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None); ;
-            //        commandLine.Clear();
-
-            //        if (input.Contains(" ") && input.Contains("forward") || input.Contains("backward")
-            //                || input.Contains("test"))
-            //        {
-            //            try
-            //            {
-            //                String[] text = input.Split(); //If the command was one of the previous inputs, and the text enter includes a space, the text is split into an array
-            //                String splitter = text[1]; //Sets the second part of the text to a new variable
-
-            //                int amount = int.Parse(splitter);
-
             int[] ParamsInt = new int[100];
 
             command = split[0];
 
-            if (split.Length>1)
+            if (split.Length > 1)
             {
                 if (command.Equals("turnleft") || command.Equals("turnright") || command.Equals("reset"))
                 {
@@ -73,11 +145,10 @@ namespace TurtleProgram
                         MessageBox.Show("Parameters are missing");
                         return null;
                     }
-                }   
+                }
 
 
             }
-
             if (command.Equals("turnleft"))
             {
                 TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
@@ -190,7 +261,7 @@ namespace TurtleProgram
                 TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
                 c.set(turtle);
                 c.triangle(ParamsInt[0], ParamsInt[1],
-                           ParamsInt[2], ParamsInt[3]);
+                            ParamsInt[2], ParamsInt[3]);
                 c.Execute();
                 return c;
             }
@@ -202,92 +273,89 @@ namespace TurtleProgram
                 c.Execute();
                 return c;
             }
-
-            throw new ArgumentException("Invalid command");
-
+            else
+            {
+                MessageBox.Show("Command does not exist");
             }
+            return null;
+        }
+
+
+
+
+
+
+
+        public bool isValid(String input)
+        {
+            bool valid = true;
+            input = input.ToLower();
+            //List<String> validCommands = new List<String>();
+            //validCommands.Add("forward");
+            //validCommands.Add("backward");
+            //validCommands.Add("moveto");
+            //validCommands.Add("drawto");
+            //validCommands.Add("circle");
+            //validCommands.Add("rectangle");
+            //validCommands.Add("triangle");
+            //validCommands.Add("penup");
+            //validCommands.Add("pendown");
+            //validCommands.Add("fillon");
+            //validCommands.Add("filloff");
+            //validCommands.Add("turnleft");
+            //validCommands.Add("turnright");
+            //validCommands.Add("reset");
+
+            String[] line = input.Split(' ', ',') ;
+            String command = line[0];
+
+            if (line.Length == 1)
+            {
+                if (command.Equals("penup") || command.Equals("pendown") || command.Equals("fillon") 
+                    || command.Equals("filloff") || command.Equals("reset"))
+                {
+                    return valid;
+                }
+                else
+                {
+                    valid = false;
+                    return valid;
+                }
+            }
+            else if (line.Length == 2)
+            {
+                if (command.Equals("forward") || command.Equals("backward"))
+                {
+                    try
+                    {
+                        int param = Int32.Parse(line[1]);
+                        return valid;
+                    }
+
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Parameter isn't numeric");
+                        valid = false;
+                        return valid;
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        MessageBox.Show("Parameters are missing");
+                        valid = false;
+                        return valid;
+                    }
+
+                }
+                else
+                {
+                    valid = false;
+                    return valid;
+                }
+            }
+
+             
+
+            return valid;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //            if (e.KeyChar == (char) Keys.Enter)
-    //{
-    //    if (string.IsNullOrWhiteSpace(programBox.Text))
-    //    {
-    //        e.Handled = true; //Handled property set to true to indicate KeyPressEvent has been handled
-
-    //        var input = commandLine.Text.ToLower();
-    //        input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None); ;
-    //        commandLine.Clear();
-
-    //        if (input.Contains(" ") && input.Contains("forward") || input.Contains("backward")
-    //                || input.Contains("test"))
-    //        {
-    //            try
-    //            {
-    //                String[] text = input.Split(); //If the command was one of the previous inputs, and the text enter includes a space, the text is split into an array
-    //                String splitter = text[1]; //Sets the second part of the text to a new variable
-
-    //                int amount = int.Parse(splitter);
-
-    //                if (text[0].Equals("forward")) //Runs this code if the text equals forward
-    //                {
-    //                    Turtle.forward(g, amount); //Calls the forward method, amount == distance
-    //                    Console.WriteLine("forward " + amount);
-    //                }
-    //                else if (text[0].Equals("backward")) //Runs this code if the text equals forward
-    //                {
-    //                    Turtle.forward(g, -amount); //Calls the forward method, amount == distance
-    //                    Console.WriteLine("backward " + amount);
-    //                }
-    //                else if (text[0].Equals("test"))
-    //                {
-    //                    Turtle.rectangle(g, 200, 500);
-    //                    Turtle.circle(g, 50);
-    //                }
-    //            }
-    //            catch (FormatException) //Picks up on the NumberFormatException Error
-    //            {
-    //                MessageBox.Show("Distance must be numeric"); //If the distance entered for the commands wasn't numeric, a box will appear
-    //            }
-    //            catch (IndexOutOfRangeException) //Picks up on the ArrayIndexOutOfBoundsException error
-    //            {
-    //                MessageBox.Show("Distance is missing"); //If there isn't a distance at all, the user will be notified. 
-    //            }
-    //        }
-
-    //        else if (input.Contains("right"))
-    //        {
-    //            Turtle.turnRight();
-    //            Console.WriteLine("Turned right");
-    //        }
-    //        else if (input.Contains("left"))
-    //        {
-    //            Turtle.turnLeft();
-    //            Console.WriteLine("Turned left");
-    //        }
-
-    //        DrawingArea.Image = bmp;
-    //    }
-    //    else if (commandLine.Text.ToUpper() == "RUN")
-    //    {
-    //        //PROGRAM SHOULD BE RUN FROM COMMAND BOX
-    //    }
-    //    else
-    //    {
-    //        MessageBox.Show("Program input box is populated, please ensure this is correct");
-    //    }
-    //}
-
+}

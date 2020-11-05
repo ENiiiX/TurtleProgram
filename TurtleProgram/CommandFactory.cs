@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace TurtleProgram
 {
@@ -65,7 +66,8 @@ namespace TurtleProgram
             }
             else
             {
-                throw new ArgumentException("Command does not exist");
+                MessageBox.Show("Command does not exist");
+                return null;
             }
 
         }

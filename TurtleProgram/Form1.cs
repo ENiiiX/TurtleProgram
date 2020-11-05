@@ -46,6 +46,12 @@ namespace TurtleProgram
                 {
                     e.Handled = true;
                     command = commandLine.Text;
+
+                    string[] lines = programBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+                    parser.programParser(lines);
+
+
                     commandLine.Clear();
                 }
                 else
@@ -161,37 +167,5 @@ namespace TurtleProgram
                 File.WriteAllText(name, programBox.Text);
             }
         }
-
-
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            //Parser.Shapes(g, Turtle, commandLine.Text);
-            DrawingArea.Image = bmp;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-
-
-            //parser.parse("backward 300", true);
-            
-            parser.Parse("forward 300 400");
-
-
-
-           // Execute(turtle, ModifyState, new TurtleCommand(turtle, Movement.Forward, 50));
-            //turtle.turnLeft();
-            //turtle.forward(50);
-            //turtle.turnRight();
-            //turtle.rectangle(50, 30);
-            
-           // Execute(turtle, ModifyState, new TurtleCommand(turtle, Movement.Backward, 50));
-
-            DrawingArea.Image = bmp;
-        }
-
-
     }
 }
