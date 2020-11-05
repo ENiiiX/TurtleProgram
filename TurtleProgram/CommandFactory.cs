@@ -35,11 +35,11 @@ namespace TurtleProgram
             {
                 return new TriangleCommand();
             }
-            else if (command.Equals("PENUP"))
+            else if (command.Equals("PENOFF"))
             {
                 return new PenUpCommand();
             }
-            else if (command.Equals("PENDOWN"))
+            else if (command.Equals("PENON"))
             {
                 return new PenDownCommand();
             }

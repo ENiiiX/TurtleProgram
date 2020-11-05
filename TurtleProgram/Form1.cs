@@ -39,7 +39,10 @@ namespace TurtleProgram
                     e.Handled = true;
                     command = commandLine.Text;
 
-                    parser.Parse(commandLine.Text);
+                    string[] lines = commandLine.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+                    parser.programParser(lines);
+
                     commandLine.Clear();
                 }
                 else if (commandLine.Text.ToUpper() == "RUN")
@@ -50,6 +53,20 @@ namespace TurtleProgram
                     string[] lines = programBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
                     parser.programParser(lines);
+
+                    //Console.WriteLine(parser.isValid("forward 50"));
+                    //Console.WriteLine(parser.isValid("pen off"));
+                    //Console.WriteLine(parser.isValid("pen on"));
+                    //Console.WriteLine(parser.isValid("fill off"));
+                    //Console.WriteLine(parser.isValid("fill on"));
+                    //Console.WriteLine(parser.isValid("reset"));
+
+
+                    //Console.WriteLine(parser.isValid("pen "));
+                    //Console.WriteLine(parser.isValid("pen 99"));
+                    //Console.WriteLine(parser.isValid("backward 3j"));
+                    //Console.WriteLine(parser.isValid("turnright 334923"));
+
 
 
                     commandLine.Clear();
