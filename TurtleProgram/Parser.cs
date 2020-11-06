@@ -183,6 +183,14 @@ namespace TurtleProgram
                         c.Execute();
                         return c;
                     }
+                    else if (command.Equals("clear"))
+                    {
+                        ClearCommand c = (ClearCommand)cf.getCommand("clear");
+                        c.set(turtle);
+                        c.clear();
+                        c.Execute();
+                        return c;
+                    }
                     else if (command.Equals("pencolour"))
                     {
                         PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
@@ -445,6 +453,10 @@ namespace TurtleProgram
                 case "turnleft":
                     return valid;
                 case "turnright":
+                    return valid;
+                case "reset":
+                    return valid;
+                case "clear":
                     return valid;
                 case "pen colour":
                     return valid;

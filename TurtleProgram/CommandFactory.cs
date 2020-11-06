@@ -64,6 +64,10 @@ namespace TurtleProgram
             {
                 return new ResetCommand();
             }
+            else if (command.Equals("CLEAR"))
+            {
+                return new ClearCommand();
+            }
             else if (command.Equals("PENCOLOUR"))
             {
                 return new PenColourCommand();

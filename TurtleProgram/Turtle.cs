@@ -61,6 +61,10 @@ namespace TurtleProgram
             shapeColour = Color.Blue;
             g.Clear(Color.White);
         }
+        public void clear()
+        {
+            g.Clear(Color.White);
+        }
         public void setPenColour(String color)
         {
             if (color == "red")
