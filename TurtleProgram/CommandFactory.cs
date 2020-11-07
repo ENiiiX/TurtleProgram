@@ -4,9 +4,18 @@ using System.Windows;
 
 namespace TurtleProgram
 {
-
+    /// <summary>
+    /// CommandFactory class that creates commands when called by a user from the parser class
+    /// Every command availale to the user can be called from this class.
+    /// </summary>
     public class CommandFactory
     {
+        /// <summary>
+        /// getCommand method that is used to call user commands
+        /// </summary>
+        /// <param name="command">String to determine which command a user wants to call</param>
+        /// <returns>Returns an instance of the command a user has requested. Retruns null if command doesn't
+        /// exist</returns>
         public Command getCommand(String command)
         {
             command = command.ToUpper().Trim();
@@ -72,6 +81,10 @@ namespace TurtleProgram
             {
                 return new PenColourCommand();
             }    
+            else if (command.Equals("FILLCOLOUR"))
+            {
+                return new FillColourCommand();
+            }
             else
             {
                 MessageBox.Show("Command does not exist");

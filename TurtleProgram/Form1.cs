@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
 using System.Windows.Forms;
 
 namespace TurtleProgram
 {
-
+    /// <summary>
+    /// Main form where programs/commands can be entered by the user to control the turtle
+    /// graphics panel.
+    /// </summary>
     public partial class Form1 : Form
     {
 
@@ -19,7 +18,9 @@ namespace TurtleProgram
         Bitmap bmp;
         String command;
 
-
+        /// <summary>
+        /// Initialize form, graphic area, turtle and parser. Assign graphic to turtle object and assign turtle to parser
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -30,22 +31,25 @@ namespace TurtleProgram
             parser = new Parser(turtle); 
         }
 
+        /// <summary>
+        /// commandLine text box in which user commands are typed. Detects whether it is a single command or multi-line command in the programBox text box
+        /// </summary>
+        /// <param name="sender">References commandLine text box in which the event was called</param>
+        /// <param name="e">Event data for KeyPress (Enter)</param>
         private void commandLine_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                if (string.IsNullOrWhiteSpace(programBox.Text)) //Check if program box is empty
+                if (string.IsNullOrWhiteSpace(programBox.Text)) //Check if programBox is empty (Determines whether commands are single or multiline. If empty, only a single command has been entered
                 {
                     e.Handled = true;
                     command = commandLine.Text;
-
-                    //string[] lines = commandLine.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
                     parser.programParser(command);
 
                     commandLine.Clear();
                 }
-                else if (commandLine.Text.ToUpper() == "RUN")
+                else if (commandLine.Text.ToUpper() == "RUN") //If programBox wasn't empty, checks to see if 'Run' command was entered to execute the program
                 {
                     e.Handled = true;
                     command = commandLine.Text;
@@ -53,7 +57,7 @@ namespace TurtleProgram
 
                     string[] lines = programBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-                    foreach (var line in lines)
+                    foreach (var line in lines) //Runs each line in programBox to check it is valid. Sets execute flag based on program validity
                     {
                         parser.lineNum++;
                         execute = parser.isValid(line);
@@ -65,7 +69,7 @@ namespace TurtleProgram
                         }
                     }
 
-                    if (execute == true)
+                    if (execute == true) //If programBox commands are valid, runs each line through the parser so each command can be called by the command factory
                     {
                         foreach (var line in lines)
                         {
@@ -73,20 +77,14 @@ namespace TurtleProgram
                             DrawingArea.Image = bmp;
                         }
                     }
-                    
-
- 
-
-
-
                     commandLine.Clear();
                 }
-                else
+                else //If programBox is populated, indicates to user that the program can be executed with the 'run' command
                 {
                     MessageBox.Show("Program can be executed using the 'run' command");
                 }
             }
-            DrawingArea.Image = bmp;
+            DrawingArea.Image = bmp; //Updates graphics after each Turtle update
         }
 
 
@@ -102,6 +100,11 @@ namespace TurtleProgram
                 commandLine.Text = command;
             }
         }
+        /// <summary>
+        /// Resets graphics and turtle objects to original state
+        /// </summary>
+        /// <param name="sender">References tool strip box in which the event was called</param>
+        /// <param name="e">Event data for click</param>
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandLine.Clear();
@@ -109,6 +112,11 @@ namespace TurtleProgram
             turtle.reset();
             DrawingArea.Image = bmp;
         }
+        /// <summary>
+        /// Quits program with confirmation popup
+        /// </summary>
+        /// <param name="sender">References tool strip box in which the event was called</param>
+        /// <param name="e">Event data for click</param>
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to quit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -116,6 +124,11 @@ namespace TurtleProgram
                 Application.Exit();
             }
         }
+        /// <summary>
+        /// Opens saved image and loads it into graphic area
+        /// </summary>
+        /// <param name="sender">References tool strip box in which the event was called</param>
+        /// <param name="e">Event data for click</param>
         private void openImage_Click(object sender, EventArgs e)
         {
             OpenFileDialog o = new OpenFileDialog();
@@ -138,6 +151,11 @@ namespace TurtleProgram
 
             }
         }
+        /// <summary>
+        /// Saves image from graphic area
+        /// </summary>
+        /// <param name="sender">References tool strip box in which the event was called</param>
+        /// <param name="e">Event data for click</param>
         private void saveImage_Click(object sender, EventArgs e)
         {
 
@@ -169,6 +187,11 @@ namespace TurtleProgram
                 }
             }
         }
+        /// <summary>
+        /// Opens saved program from a text file
+        /// </summary>
+        /// <param name="sender">References tool strip box in which the event was called</param>
+        /// <param name="e">Event data for click</param>
         private void openProgram_Click(object sender, EventArgs e)
         {
             OpenFileDialog o = new OpenFileDialog();
@@ -180,6 +203,11 @@ namespace TurtleProgram
                 programBox.Text = System.IO.File.ReadAllText(o.FileName);
             }
         }
+        /// <summary>
+        /// Saves program that is in the programBox to a text file
+        /// </summary>
+        /// <param name="sender">References tool strip box in which the event was called</param>
+        /// <param name="e">Event data for click</param>
         private void saveProgram_Click(object sender, EventArgs e)
         {
             SaveFileDialog s = new SaveFileDialog();

@@ -8,15 +8,24 @@ namespace TurtleProgram
 {
     public class Parser
     {
-        CommandFactory cf = new CommandFactory();
-        public Turtle turtle;
-        public bool execute = true;
-        public int lineNum = 0;
+        CommandFactory cf = new CommandFactory(); //Instantiate a command factory for calling user commands
+        public Turtle turtle; //Turtle object that is passed from the Form class
+        public bool execute = true; //Flag to determine whether commands are valid/invalid
+        public int lineNum = 0; //Line number for commands entered into programBox
 
+
+        /// <summary>
+        /// Constructor for empty parser object
+        /// </summary>
         public Parser()
         {
 
         }
+
+        /// <summary>
+        /// Constructor to create parser object that assigns turtle object
+        /// </summary>
+        /// <param name="turtle">Tutle object passed when parser is created</param>
         public Parser(Turtle turtle)
         {
             this.turtle = turtle;
@@ -25,7 +34,12 @@ namespace TurtleProgram
 
 
 
-
+        /// <summary>
+        /// programParser to parse user commands (either single or multiline)
+        /// Executes commands from CommandFactory class
+        /// </summary>
+        /// <param name="line">Command inputted by user</param>
+        /// <returns></returns>
         public Command programParser(String line)
         {
             String command = "";
@@ -199,6 +213,14 @@ namespace TurtleProgram
                         c.Execute();
                         return c;
                     }
+                    else if (command.Equals("fillcolour"))
+                    {
+                        FillColourCommand c = (FillColourCommand)cf.getCommand("fillcolour");
+                        c.set(turtle);
+                        c.setShapeColour(colour);
+                        c.Execute();
+                        return c;
+                    }
                     else
                     {
                         MessageBox.Show("Command does not exist");
@@ -206,6 +228,14 @@ namespace TurtleProgram
                     return null;
         }
 
+        /// <summary>
+        /// Method to determine whether user commands are valid. If invalid, invalid flag is set and returned
+        /// Includes all commands that can be entered by user.
+        /// </summary>
+        /// <param name="input">Command user is inputting</param>
+        /// <returns>Returns valid if command conform to valid command requirements.
+        /// If commands are invalid, flag is set to false and returned. User is also notified about
+        /// the error within their command and line number of the command if it is from the programBox</returns>
         public bool isValid(String input)
         {
             bool valid = true;
@@ -251,7 +281,6 @@ namespace TurtleProgram
                 }
             }
 
-            
             switch (command)
             {
                 case "forward":

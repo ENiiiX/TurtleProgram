@@ -55,6 +55,7 @@
     <Compile Include="CircleCommand.cs" />
     <Compile Include="ClearCommand.cs" />
     <Compile Include="DrawToCommand.cs" />
+    <Compile Include="FillColourCommand.cs" />
     <Compile Include="FillOffCommand.cs" />
     <Compile Include="FillOnCommand.cs" />
     <Compile Include="ForwardCommand.cs" />
@@ -112,7 +113,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\pencil.png" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
