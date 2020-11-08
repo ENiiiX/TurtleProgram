@@ -305,6 +305,12 @@ namespace TurtleProgram
                             return valid;
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show(command + " takes 1 parameter");
+                        valid = false;
+                        return false;
+                    }
                     break;
 
                 case "backward":
@@ -328,6 +334,12 @@ namespace TurtleProgram
                             valid = false;
                             return valid;
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show(command + " takes 1 parameter");
+                        valid = false;
+                        return false;
                     }
                     break;
 
@@ -443,6 +455,12 @@ namespace TurtleProgram
                             return valid;
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show(command + " takes 1 parameter");
+                        valid = false;
+                        return false;
+                    }
                     break;
                 case "triangle":
                     if (line.Length == 5)
@@ -469,6 +487,12 @@ namespace TurtleProgram
                             valid = false;
                             return valid;
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show(command + " takes 4 parameters");
+                        valid = false;
+                        return false;
                     }
                     break;
                 case "pen on":

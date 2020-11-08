@@ -44,8 +44,15 @@ namespace TurtleProgram
                 {
                     e.Handled = true;
                     command = commandLine.Text;
+                    bool execute = true;
 
-                    parser.programParser(command);
+                    execute = parser.isValid(command);
+
+                    if (execute)
+                    {
+                        parser.programParser(command);
+                    }
+
 
                     commandLine.Clear();
                 }
@@ -144,8 +151,8 @@ namespace TurtleProgram
                 bmp = image1;
                 DrawingArea.Image = bmp;
                 g = Graphics.FromImage(bmp);
-                turtle.moveTo(456, 326);
-                MessageBox.Show("Pen has been positioned to centre of canvas");
+                turtle.reset();
+                MessageBox.Show("Pen has been positioned to 50, 50");
 
                 
 

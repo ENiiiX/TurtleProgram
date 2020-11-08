@@ -9,12 +9,17 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
+        /// <summary>
+        /// UnitTests for part 1 and part 2 of the ASE assignment.
+        /// Tests the parser
+        /// Tests the CommandFactory classes are functional and returned as part of parsing(PenUpCommand.cs, ForwardCommand.cs, TriangleCommand.cs)
+        /// </summary>
 
-        CommandFactory cf = new CommandFactory();
+
+        CommandFactory cf = new CommandFactory(); //CF used for returning commands
 
         private bool test;
 
- 
         Bitmap bmp = new Bitmap(300, 300);
         Graphics g;
 
@@ -46,7 +51,7 @@ namespace UnitTestProject1
             String command = "forward 50";
             parser.turtle = this.turtle;
 
-            Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
+            Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
 
         /// <summary>
@@ -60,7 +65,7 @@ namespace UnitTestProject1
             String command = "forward number";
             parser.turtle = this.turtle;
 
-            Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
+            Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
 
         /// <summary>
@@ -74,7 +79,7 @@ namespace UnitTestProject1
             String command = "triangle 50,100,234,234";
             parser.turtle = this.turtle;
 
-            Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
+            Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
 
 
@@ -92,7 +97,7 @@ namespace UnitTestProject1
             String command = "x = 10";
             parser.turtle = this.turtle;
 
-            Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
+            Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
 
         /// <summary>
@@ -105,7 +110,7 @@ namespace UnitTestProject1
             String command = "loop 10";
             parser.turtle = this.turtle;
 
-            Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
+            Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
     }
 }

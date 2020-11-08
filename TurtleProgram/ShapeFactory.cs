@@ -7,9 +7,17 @@ using System.Threading.Tasks;
 
 namespace TurtleProgram
 {
+    /// <summary>
+    /// ShapeFactory class that creates shapes when called by a user from the parser class
+    /// Every shape availale to the user can be called from this class.
+    /// </summary>
     public class ShapeFactory
     {
-
+        /// <summary>
+        /// Calls shape class based on user input
+        /// </summary>
+        /// <param name="shapeType">Shape type requested</param>
+        /// <returns></returns>
         public Shape getShape(String shapeType)
         {
 
@@ -33,8 +41,5 @@ namespace TurtleProgram
             }
 
         }
-
-
-
     }
 }
