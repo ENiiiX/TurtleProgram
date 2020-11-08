@@ -12,29 +12,20 @@ namespace UnitTestProject1
 
         CommandFactory cf = new CommandFactory();
 
-
-        
         private bool test;
 
  
         Bitmap bmp = new Bitmap(300, 300);
         Graphics g;
 
+        Turtle turtle = new Turtle(); //Turtle used for testing
+        Parser parser = new Parser(); //Parser used for testing
 
-        Turtle turtle = new Turtle();
-        Parser parser = new Parser();
 
-
+        /// <summary>
+        /// Test to determine whether the pen status sets the pen to 'on'
+        /// </summary>
         [TestMethod]
-        public void TestMethod1()
-        {
-                bool compareBool = true;
-
-                Assert.AreEqual(compareBool, test = true, "Bool didn't return false");
-        }
-
-        [TestMethod]
-
         public void CommandValidationPenStatus()
         {
             bool expectedStatus = true;
@@ -44,6 +35,10 @@ namespace UnitTestProject1
 
             Assert.AreEqual(expectedStatus, this.turtle.penStatus, "Pen wasn't set down");
         }
+
+        /// <summary>
+        /// Test to determine whether the parser can validate the command 'forward 50'
+        /// </summary>
         [TestMethod]
         public void CommandValidationForwardCommand()
         {
@@ -53,6 +48,11 @@ namespace UnitTestProject1
 
             Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
         }
+
+        /// <summary>
+        /// Test to determine whether the parser can invalidate incorrect commands.
+        /// In this case, 'forward' should be numeric.
+        /// </summary>
         [TestMethod]
         public void CommandValidationFailedForwardCommand()
         {
@@ -62,6 +62,11 @@ namespace UnitTestProject1
 
             Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
         }
+
+        /// <summary>
+        /// Test to determine whether the parser can validate the triangle command.
+        /// This is run with the keyword 'triangle' followed by 4 parameters.
+        /// </summary>
         [TestMethod]
         public void CommandValidationSuccessfulTriangleCommand()
         {
@@ -74,8 +79,12 @@ namespace UnitTestProject1
 
 
 
-        //Tests for part 2 (Setting variable and starting loop
+        //Tests for part 2 (Setting variable and starting loop)
 
+
+        /// <summary>
+        /// Future test for part 2, test whether parser can detect a variable being set
+        /// </summary>
         [TestMethod]
         public void CommandValidationSuccessfulVariableSet()
         {
@@ -85,6 +94,10 @@ namespace UnitTestProject1
 
             Assert.AreEqual(expectedStatus, parser.isValid(command), "Pen wasn't set down");
         }
+
+        /// <summary>
+        /// Future test for part 2, test whether the parser can detect the start of a loop
+        /// </summary>
         [TestMethod]
         public void CommandValidationSuccessfulLoopSet()
         {
