@@ -73,6 +73,7 @@
     <Compile Include="ShapeFactory.cs" />
     <Compile Include="ShapesInterface.cs" />
     <Compile Include="Circle.cs" />
+    <Compile Include="StoredProgram.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="TriangleCommand.cs" />
     <Compile Include="TurnLeftCommand.cs" />
@@ -86,6 +87,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Var.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PsuedoCode.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

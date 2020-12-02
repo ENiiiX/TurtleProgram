@@ -85,6 +85,10 @@ namespace TurtleProgram
             {
                 return new FillColourCommand();
             }
+            else if (command.Equals("VAR"))
+            {
+                return new VarCommand();
+            }
             else
             {
                 MessageBox.Show("Command does not exist");
