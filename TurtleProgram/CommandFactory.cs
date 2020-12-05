@@ -87,7 +87,7 @@ namespace TurtleProgram
             }
             else if (command.Equals("VAR"))
             {
-                return new VarCommand();
+                return new Var();
             }
             else
             {

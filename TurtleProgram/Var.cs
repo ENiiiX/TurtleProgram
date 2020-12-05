@@ -35,6 +35,7 @@ namespace TurtleProgram
         public int Value
         {
             get { return value; }
+            set { this.value = value; }
         }
 
         public void set(string command, int value)

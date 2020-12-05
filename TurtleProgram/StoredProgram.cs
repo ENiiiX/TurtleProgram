@@ -39,6 +39,7 @@ namespace TurtleProgram
             variableNames.Add(V.VarName);
         }
 
+
         public override int Add(Object O)
         {
             int varIndex = 0;
@@ -47,12 +48,33 @@ namespace TurtleProgram
 
             return varIndex;
         }
+
+        /// <summary>
+        /// Bool to see if variable name exists in ArrayList
+        /// </summary>
+        /// <param name="VarName">VarName to check in ArrayList</param>
+        /// <returns>Returns true if VarName exists in ArrayList</returns>
+        public bool VarExists(String VarName)
+        {
+            bool exists = false;
+            if (variableNames.Contains(VarName))
+            {
+                exists = true;
+                return exists;
+            }
+            else
+            {
+                return exists;
+            }
+        }
+
+
         /// <summary>
         /// Searches variables array for existing variable
         /// </summary>
         /// <param name="VarName"></param>
         /// <returns>Returns -1 if doesn't exist</returns>
-        public int SearchVarname(String VarName)
+        public int SearchVarName(String VarName)
         {
             VarName = VarName.Trim();
             for(int i = 0; i<variables.Count; i++)
@@ -66,7 +88,7 @@ namespace TurtleProgram
 
         public int GetVarValue(String VarName)
         {
-            int index = this.SearchVarname(VarName);
+            int index = this.SearchVarName(VarName);
             if (index >= 0)
             {
                 Var v = (Var)variables[index];
@@ -78,6 +100,19 @@ namespace TurtleProgram
             }
         }
 
+        public void SetVarValue(String VarName, int Value)
+            {
+            int index = this.SearchVarName(VarName);
+            if (index >= 0)
+            {
+                Var v = (Var)variables[index];
+                v.Value = Value;
+            }
+            else
+            {
+                throw new ApplicationException("Variable doesn't exist");
+            }
+        }
 
 
     }

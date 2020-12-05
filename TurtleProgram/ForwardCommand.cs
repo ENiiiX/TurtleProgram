@@ -1,10 +1,13 @@
-﻿namespace TurtleProgram
+﻿using System;
+
+namespace TurtleProgram
 {
     ///<inheritdoc cref="TurnRightCommand"/>
     public class ForwardCommand : Command
     {
 
         private Turtle _turtle;
+        
 
         ///<inheritdoc cref="TurnRightCommand.TurnRightCommand"/>
         public ForwardCommand()

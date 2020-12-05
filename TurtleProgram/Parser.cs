@@ -47,196 +47,205 @@ namespace TurtleProgram
             String colour = "";
             int[] ParamsInt = new int[100];
 
-                    String[] split = line.Split(' ');
-                    String[] parameters = new string[100];
+                String[] split = line.Split(' ');
+                String[] parameters = new string[100];
 
-                    command = split[0];
+                command = split[0];
 
-                    if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
-                         || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
-                         || command.Equals("triangle"))
+                if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
+                        || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
+                        || command.Equals("triangle"))
+                {
+                    parameters = split[1].Split(',');
+                    for (int i = 0; i < parameters.Length; i++)
                     {
-                        parameters = split[1].Split(',');
-                        for (int i = 0; i < parameters.Length; i++)
+                        if (sp.VarExists(parameters[i]))
+                        {
+                            ParamsInt[i] = sp.GetVarValue(parameters[i]);
+                        }
+                        else
                         {
                             ParamsInt[i] = Int32.Parse(parameters[i]);
                         }
                     }
-                    else if (command.Equals("pen") || command.Equals("fill"))
+                }
+                else if (command.Equals("pen") || command.Equals("fill"))
+                {
+                    command = split[0] + split[1];
+                    if (split[1].Equals("colour"))
                     {
-                        command = split[0] + split[1];
-                        if (split[1].Equals("colour"))
-                        {
-                            colour = split[2];
-                        }
-
-                    }
-                    //PART 2 IFs
-                    else if (command.Equals("radius"))
-                    {
-                        ParamsInt[0] = Int32.Parse(split[2]);
+                        colour = split[2];
                     }
 
+                }
+            if (command.Equals("radius"))
+            {
+                Var c = (Var)cf.getCommand("var");
+                c.set("radius", ParamsInt[0]);
+                sp.AddVar(c);
 
-                if (command.Equals("radius"))
-                {
-                    Var c = (Var)cf.getCommand("var");
-                    c.set("radius", ParamsInt[0]);
+            }
+            else if (command.Equals("turnleft"))
+            {
+                TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
+                c.set(turtle);
+                c.turnLeft();
+                c.Execute();
+                return c;
+            }
 
-                }
-                else if (command.Equals("turnleft"))
-                {
-                    TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
-                    c.set(turtle);
-                    c.turnLeft();
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("turnright"))
+            {
+                TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
+                c.set(turtle);
+                c.turnRight();
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("turnright"))
-                {
-                    TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
-                    c.set(turtle);
-                    c.turnRight();
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("penoff"))
+            {
+                PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
+                c.set(turtle);
+                c.penUp();
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("penoff"))
-                {
-                    PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
-                    c.set(turtle);
-                    c.penUp();
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("penon"))
+            {
+                PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
+                c.set(turtle);
+                c.penDown();
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("penon"))
-                {
-                    PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
-                    c.set(turtle);
-                    c.penDown();
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("fillon"))
+            {
+                FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
+                c.set(turtle);
+                c.fillOn();
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("fillon"))
-                {
-                    FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
-                    c.set(turtle);
-                    c.fillOn();
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("filloff"))
+            {
+                FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
+                c.set(turtle);
+                c.fillOff();
+                c.Execute();
+                return c;
+            }
+            else if (command.Equals("forward")) //Runs this code if the text equals forward
+            {
+                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                c.set(turtle);
+                c.forward(ParamsInt[0]);
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("filloff"))
-                {
-                    FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
-                    c.set(turtle);
-                    c.fillOff();
-                    c.Execute();
-                    return c;
-                }
-                else if (command.Equals("forward")) //Runs this code if the text equals forward
-                {
-                    ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                    c.set(turtle);
-                    c.forward(ParamsInt[0]);
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("backward")) //Runs this code if the text equals forward
+            {
+                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                c.set(turtle);
+                c.forward(-ParamsInt[0]);
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("backward")) //Runs this code if the text equals forward
-                {
-                    ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                    c.set(turtle);
-                    c.forward(-ParamsInt[0]);
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("moveto"))
+            {
+                MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
+                c.set(turtle);
+                c.moveTo(ParamsInt[0], ParamsInt[1]);
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("moveto"))
-                {
-                    MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
-                    c.set(turtle);
-                    c.moveTo(ParamsInt[0], ParamsInt[1]);
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("drawto"))
+            {
+                DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
+                c.set(turtle);
+                c.drawTo(ParamsInt[0], ParamsInt[1]);
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("drawto"))
-                {
-                    DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
-                    c.set(turtle);
-                    c.drawTo(ParamsInt[0], ParamsInt[1]);
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("circle"))
+            {
+                CircleCommand c = (CircleCommand)cf.getCommand("circle");
+                c.set(turtle);
+                c.circle(ParamsInt[0]);
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("circle"))
-                {
-                    CircleCommand c = (CircleCommand)cf.getCommand("circle");
-                    c.set(turtle);
-                    c.circle(ParamsInt[0]);
-                    c.Execute();
-                    return c;
-                }
+            else if (command.Equals("rectangle"))
+            {
+                RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
+                c.set(turtle);
+                c.rectangle(ParamsInt[0], ParamsInt[1]);
+                c.Execute();
+                return c;
+            }
 
-                else if (command.Equals("rectangle"))
+            else if (command.Equals("triangle"))
+            {
+                TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
+                c.set(turtle);
+                c.triangle(ParamsInt[0], ParamsInt[1],
+                            ParamsInt[2], ParamsInt[3]);
+                c.Execute();
+                return c;
+            }
+            else if (command.Equals("reset"))
+            {
+                ResetCommand c = (ResetCommand)cf.getCommand("reset");
+                c.set(turtle);
+                c.reset();
+                c.Execute();
+                return c;
+            }
+            else if (command.Equals("clear"))
+            {
+                ClearCommand c = (ClearCommand)cf.getCommand("clear");
+                c.set(turtle);
+                c.clear();
+                c.Execute();
+                return c;
+            }
+            else if (command.Equals("pencolour"))
+            {
+                PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
+                c.set(turtle);
+                c.setPenColour(colour);
+                c.Execute();
+                return c;
+            }
+            else if (command.Equals("fillcolour"))
+            {
+                FillColourCommand c = (FillColourCommand)cf.getCommand("fillcolour");
+                c.set(turtle);
+                c.setShapeColour(colour);
+                c.Execute();
+                return c;
+            }
+            else if (line.Contains("=") && split.Length == 3)
+            {
+                if(sp.VarExists(command))
                 {
-                    RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
-                    c.set(turtle);
-                    c.rectangle(ParamsInt[0], ParamsInt[1]);
-                    c.Execute();
-                    return c;
+                    return null;
                 }
+            }
 
-                else if (command.Equals("triangle"))
-                {
-                    TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
-                    c.set(turtle);
-                    c.triangle(ParamsInt[0], ParamsInt[1],
-                                ParamsInt[2], ParamsInt[3]);
-                    c.Execute();
-                    return c;
-                }
-                else if (command.Equals("reset"))
-                {
-                    ResetCommand c = (ResetCommand)cf.getCommand("reset");
-                    c.set(turtle);
-                    c.reset();
-                    c.Execute();
-                    return c;
-                }
-                else if (command.Equals("clear"))
-                {
-                    ClearCommand c = (ClearCommand)cf.getCommand("clear");
-                    c.set(turtle);
-                    c.clear();
-                    c.Execute();
-                    return c;
-                }
-                else if (command.Equals("pencolour"))
-                {
-                    PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
-                    c.set(turtle);
-                    c.setPenColour(colour);
-                    c.Execute();
-                    return c;
-                }
-                else if (command.Equals("fillcolour"))
-                {
-                    FillColourCommand c = (FillColourCommand)cf.getCommand("fillcolour");
-                    c.set(turtle);
-                    c.setShapeColour(colour);
-                    c.Execute();
-                    return c;
-                }
-                else
-                {
-                    MessageBox.Show("Command does not exist");
-                }
-                return null;
+            else
+            {
+                MessageBox.Show("Command does not exist");
+            }
+            return null;
         }
 
         /// <summary>
@@ -252,7 +261,7 @@ namespace TurtleProgram
             bool valid = true;
             input = input.ToLower();
 
-            String[] line = input.Split(' ', ',','=');
+            String[] line = input.Split(' ', ',');
             String command = line[0];
 
             if (command.Equals("pen") || command.Equals("fill"))
@@ -291,6 +300,48 @@ namespace TurtleProgram
                     }
                 }
             }
+            else if (input.Contains("="))
+            {
+                if (line.Length == 3 && line[1] == "=")
+                {
+                    try
+                    {
+                        int param;
+                        param = Int32.Parse(line[2]);
+
+                        if (sp.VarExists(line[0]))
+                        {
+                            sp.SetVarValue(command, int.Parse(line[2]));
+                        }
+                        else
+                        {
+                            Var c = (Var)cf.getCommand("var");
+                            c.set(command, int.Parse(line[2]));
+                            sp.AddVar(c);
+                        }
+
+                        return valid;
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                        valid = false;
+                        return valid;
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        MessageBox.Show("Parameters are missing on line " + lineNum);
+                        valid = false;
+                        return valid;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Variable declared incorrectly on line " + lineNum);
+                    valid = false;
+                    return valid;
+                }
+            }
 
             switch (command)
             {
@@ -299,8 +350,18 @@ namespace TurtleProgram
                     {
                         try
                         {
-                            int param = Int32.Parse(line[1]);
-                            return valid;
+                            if(sp.VarExists(line[1]))
+                            {
+                                int param;
+                                param = sp.GetVarValue(line[1]);
+                                return valid;
+                            }
+                            else
+                            {
+                                int param = Int32.Parse(line[1]);
+                                return valid;
+                            }
+
                         }
 
                         catch (FormatException)
@@ -528,46 +589,8 @@ namespace TurtleProgram
                     return valid;
 
 
-                //PART 2 COMMANDS
-
-
-                case "radius":
-                    if (line.Length == 3 && line[1] == "=")
-                    {
-                        try
-                        {
-                            int param;
-                            param = Int32.Parse(line[2]);
-                            return valid;
-                        }
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Variable declared incorrectly on line " + lineNum);
-                        valid = false;
-                        return valid;
-                    }
-            }
-            if (input.Contains("="))
-            {
 
             }
-
-
-
-
             valid = false;
             MessageBox.Show("invalid command on line " + lineNum);
             return valid;
