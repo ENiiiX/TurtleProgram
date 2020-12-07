@@ -80,3 +80,12 @@ while commands in program
 	if standard graphic commands etc
 		blah blah but will have to parse any variables used
 	
+
+
+	forward
+	backward
+	moveto
+	drawto
+	rectangle
+	circle
+	triangle

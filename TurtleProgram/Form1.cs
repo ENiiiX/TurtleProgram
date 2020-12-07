@@ -68,7 +68,7 @@ namespace TurtleProgram
                     {
                         parser.lineNum++;
                         execute = parser.isValid(line);
-                        
+
                         if (execute == false)
                         {
                             parser.lineNum = 0;

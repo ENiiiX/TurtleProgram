@@ -237,6 +237,10 @@ namespace TurtleProgram
             {
                 if(sp.VarExists(command))
                 {
+                    sp.SetVarValue(command, int.Parse(split[2]));
+                }
+                else
+                {
                     return null;
                 }
             }
@@ -263,6 +267,48 @@ namespace TurtleProgram
 
             String[] line = input.Split(' ', ',');
             String command = line[0];
+
+            int[] ParamsInt = new int[100];;
+            String[] parameters = new string[100];
+
+            if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
+            || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
+            || command.Equals("triangle"))
+            {
+                parameters = line[1].Split(',');
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    if (sp.VarExists(parameters[i]))
+                    {
+                        ParamsInt[i] = sp.GetVarValue(parameters[i]);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            ParamsInt[i] = Int32.Parse(parameters[i]);
+                        }
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                    }
+                }
+                return valid;
+            }
+
+
+
+
+
 
             if (command.Equals("pen") || command.Equals("fill"))
             {
@@ -311,7 +357,7 @@ namespace TurtleProgram
 
                         if (sp.VarExists(line[0]))
                         {
-                            sp.SetVarValue(command, int.Parse(line[2]));
+                            return valid;
                         }
                         else
                         {
@@ -345,12 +391,14 @@ namespace TurtleProgram
 
             switch (command)
             {
-                case "forward":
+
+
+                case "backward":
                     if (line.Length == 2)
                     {
                         try
                         {
-                            if(sp.VarExists(line[1]))
+                            if (sp.VarExists(line[1]))
                             {
                                 int param;
                                 param = sp.GetVarValue(line[1]);
@@ -361,37 +409,6 @@ namespace TurtleProgram
                                 int param = Int32.Parse(line[1]);
                                 return valid;
                             }
-
-                        }
-
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show(command + " takes 1 parameter");
-                        valid = false;
-                        return false;
-                    }
-                    break;
-
-                case "backward":
-                    if (line.Length == 2)
-                    {
-                        try
-                        {
-                            int param = Int32.Parse(line[1]);
-                            return valid;
                         }
 
                         catch (FormatException)
@@ -510,8 +527,17 @@ namespace TurtleProgram
                     {
                         try
                         {
-                            int param = Int32.Parse(line[1]);
-                            return valid;
+                            if (sp.VarExists(line[1]))
+                            {
+                                int param;
+                                param = sp.GetVarValue(line[1]);
+                                return valid;
+                            }
+                            else
+                            {
+                                int param = Int32.Parse(line[1]);
+                                return valid;
+                            }
                         }
 
                         catch (FormatException)
