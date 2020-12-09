@@ -10,6 +10,7 @@ namespace TurtleProgram
     public abstract class Command
     {
         public Turtle turtle;
+        public int[] ParamsInt = new int[100];
         public bool valid;
 
         /// <summary>
@@ -27,6 +28,12 @@ namespace TurtleProgram
         {
             this.turtle = turtle;
         }
+        public virtual void set(Turtle turtle, params int[] list)
+        {
+            this.turtle = turtle;
+            this.ParamsInt = list;
+        }
+
 
         /// <summary>
         /// Execute command to return the turtle once a function has been activated

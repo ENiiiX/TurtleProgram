@@ -2,7 +2,7 @@
 
 namespace TurtleProgram
 {
-    internal class Var : Command
+    public class Var : Command
     {
 
         private Turtle _turtle;
@@ -22,10 +22,11 @@ namespace TurtleProgram
             this.varName = varName;
         }
         
-        public Var(String varName, int value)
+        public Var(String varName, int value, String expression)
         {
             this.varName = varName;
             this.value = value;
+            this.expression = expression;
         }
 
         public String VarName
@@ -38,13 +39,18 @@ namespace TurtleProgram
             set { this.value = value; }
         }
 
-        public void set(string command, int value)
+        public void set(string command, int value, string expression)
         {
             this.varName = command;
             this.value = value;
+            this.expression = expression;
         }
 
+        //private void Compute(String expression)
+        //{
+        //    DataTable dt = new DataTable();
 
+        //}
 
 
 

@@ -9,7 +9,7 @@ namespace TurtleProgram
     public class Parser
     {
         CommandFactory cf = new CommandFactory(); //Instantiate a command factory for calling user commands
-        StoredProgram sp = new StoredProgram();
+        StoredProgram sp;
         public Turtle turtle; //Turtle object that is passed from the Form class
         public bool execute = true; //Flag to determine whether commands are valid/invalid
         public int lineNum = 0; //Line number for commands entered into programBox
@@ -27,9 +27,10 @@ namespace TurtleProgram
         /// Constructor to create parser object that assigns turtle object
         /// </summary>
         /// <param name="turtle">Tutle object passed when parser is created</param>
-        public Parser(Turtle turtle)
+        public Parser(Turtle turtle, StoredProgram sp)
         {
             this.turtle = turtle;
+            this.sp = sp;
         }
 
 
@@ -41,7 +42,7 @@ namespace TurtleProgram
         /// </summary>
         /// <param name="line">Command inputted by user</param>
         /// <returns></returns>
-        public Command programParser(String line)
+        public void programParser(String line)
         {
             String command = "";
             String colour = "";
@@ -49,14 +50,13 @@ namespace TurtleProgram
 
                 String[] split = line.Split(' ');
                 String[] parameters = new string[100];
-
                 command = split[0];
 
-                if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
-                        || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
-                        || command.Equals("triangle"))
+            if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
+                    || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
+                    || command.Equals("triangle") || command.Equals("loop"))
                 {
-                    parameters = split[1].Split(',');
+                parameters = split[1].Split(',');
                     for (int i = 0; i < parameters.Length; i++)
                     {
                         if (sp.VarExists(parameters[i]))
@@ -78,20 +78,14 @@ namespace TurtleProgram
                     }
 
                 }
-            if (command.Equals("radius"))
-            {
-                Var c = (Var)cf.getCommand("var");
-                c.set("radius", ParamsInt[0]);
-                sp.AddVar(c);
 
-            }
-            else if (command.Equals("turnleft"))
+            if (command.Equals("turnleft"))
             {
                 TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
                 c.set(turtle);
                 c.turnLeft();
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("turnright"))
@@ -99,8 +93,8 @@ namespace TurtleProgram
                 TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
                 c.set(turtle);
                 c.turnRight();
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("penoff"))
@@ -108,8 +102,8 @@ namespace TurtleProgram
                 PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
                 c.set(turtle);
                 c.penUp();
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("penon"))
@@ -117,8 +111,8 @@ namespace TurtleProgram
                 PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
                 c.set(turtle);
                 c.penDown();
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("fillon"))
@@ -126,8 +120,8 @@ namespace TurtleProgram
                 FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
                 c.set(turtle);
                 c.fillOn();
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("filloff"))
@@ -135,16 +129,16 @@ namespace TurtleProgram
                 FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
                 c.set(turtle);
                 c.fillOff();
-                c.Execute();
-                return c;
+               // c.Execute();
+                sp.AddCommand(c);
             }
             else if (command.Equals("forward")) //Runs this code if the text equals forward
             {
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.set(turtle);
-                c.forward(ParamsInt[0]);
+                c.set(turtle, ParamsInt[0]);
+                //c.forward(ParamsInt[0]);
                 c.Execute();
-                return c;
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("backward")) //Runs this code if the text equals forward
@@ -152,8 +146,8 @@ namespace TurtleProgram
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
                 c.set(turtle);
                 c.forward(-ParamsInt[0]);
-                c.Execute();
-                return c;
+               //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("moveto"))
@@ -161,8 +155,8 @@ namespace TurtleProgram
                 MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
                 c.set(turtle);
                 c.moveTo(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("drawto"))
@@ -170,8 +164,8 @@ namespace TurtleProgram
                 DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
                 c.set(turtle);
                 c.drawTo(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("circle"))
@@ -179,8 +173,8 @@ namespace TurtleProgram
                 CircleCommand c = (CircleCommand)cf.getCommand("circle");
                 c.set(turtle);
                 c.circle(ParamsInt[0]);
-                c.Execute();
-                return c;
+               // c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("rectangle"))
@@ -188,8 +182,8 @@ namespace TurtleProgram
                 RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
                 c.set(turtle);
                 c.rectangle(ParamsInt[0], ParamsInt[1]);
-                c.Execute();
-                return c;
+               // c.Execute();
+                sp.AddCommand(c);
             }
 
             else if (command.Equals("triangle"))
@@ -198,40 +192,41 @@ namespace TurtleProgram
                 c.set(turtle);
                 c.triangle(ParamsInt[0], ParamsInt[1],
                             ParamsInt[2], ParamsInt[3]);
-                c.Execute();
-                return c;
+               // c.Execute();
+                sp.AddCommand(c);
             }
             else if (command.Equals("reset"))
             {
                 ResetCommand c = (ResetCommand)cf.getCommand("reset");
                 c.set(turtle);
                 c.reset();
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.Reset();
+
             }
             else if (command.Equals("clear"))
             {
                 ClearCommand c = (ClearCommand)cf.getCommand("clear");
                 c.set(turtle);
                 c.clear();
-                c.Execute();
-                return c;
+               // c.Execute();
+                sp.AddCommand(c);
             }
             else if (command.Equals("pencolour"))
             {
                 PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
                 c.set(turtle);
                 c.setPenColour(colour);
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
             else if (command.Equals("fillcolour"))
             {
                 FillColourCommand c = (FillColourCommand)cf.getCommand("fillcolour");
                 c.set(turtle);
                 c.setShapeColour(colour);
-                c.Execute();
-                return c;
+                //c.Execute();
+                sp.AddCommand(c);
             }
             else if (line.Contains("=") && split.Length == 3)
             {
@@ -241,15 +236,26 @@ namespace TurtleProgram
                 }
                 else
                 {
-                    return null;
+                   // return null;
                 }
             }
-
+            else if (command.Equals("loop"))
+            {
+                LoopCommand c = (LoopCommand)cf.getCommand("loop");
+                c.set(turtle, ParamsInt[0]);
+                sp.AddCommand(c);
+            }
+            else if (command.Equals("endloop"))
+            {
+                EndLoopCommand c = (EndLoopCommand)cf.getCommand("endloop");
+                c.set(turtle);
+                sp.AddCommand(c);
+            }
             else
             {
                 MessageBox.Show("Command does not exist");
             }
-            return null;
+            //return null;
         }
 
         /// <summary>
@@ -265,15 +271,15 @@ namespace TurtleProgram
             bool valid = true;
             input = input.ToLower();
 
-            String[] line = input.Split(' ', ',');
+            String[] line = input.Split(' ');
             String command = line[0];
 
-            int[] ParamsInt = new int[100];;
+            int[] ParamsInt = new int[100];
             String[] parameters = new string[100];
 
             if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
-            || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
-            || command.Equals("triangle"))
+               || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
+               || command.Equals("triangle") || command.Equals("loop"))
             {
                 parameters = line[1].Split(',');
                 for (int i = 0; i < parameters.Length; i++)
@@ -281,6 +287,7 @@ namespace TurtleProgram
                     if (sp.VarExists(parameters[i]))
                     {
                         ParamsInt[i] = sp.GetVarValue(parameters[i]);
+                        return valid;
                     }
                     else
                     {
@@ -302,13 +309,7 @@ namespace TurtleProgram
                         }
                     }
                 }
-                return valid;
             }
-
-
-
-
-
 
             if (command.Equals("pen") || command.Equals("fill"))
             {
@@ -355,17 +356,16 @@ namespace TurtleProgram
                         int param;
                         param = Int32.Parse(line[2]);
 
-                        if (sp.VarExists(line[0]))
+                        if (sp.VarExists(command))
                         {
                             return valid;
                         }
                         else
                         {
                             Var c = (Var)cf.getCommand("var");
-                            c.set(command, int.Parse(line[2]));
+                            c.set(command, int.Parse(line[2]), input);
                             sp.AddVar(c);
                         }
-
                         return valid;
                     }
                     catch (FormatException)
@@ -383,46 +383,40 @@ namespace TurtleProgram
                 }
                 else
                 {
-                    MessageBox.Show("Variable declared incorrectly on line " + lineNum);
-                    valid = false;
-                    return valid;
+                    if(sp.VarExists(command))
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Variable declared incorrectly on line " + lineNum);
+                        valid = false;
+                        return valid;
+                    }
                 }
             }
+
 
             switch (command)
             {
 
+                case "forward":
+                    if (parameters.Length == 1)
+                    {
+                        return valid;
+                    }
+                    else
+                    {
+                        MessageBox.Show(command + " takes 1 parameter");
+                        valid = false;
+                        return false;
+                    }
+                    break;
 
                 case "backward":
-                    if (line.Length == 2)
+                    if (parameters.Length == 1)
                     {
-                        try
-                        {
-                            if (sp.VarExists(line[1]))
-                            {
-                                int param;
-                                param = sp.GetVarValue(line[1]);
-                                return valid;
-                            }
-                            else
-                            {
-                                int param = Int32.Parse(line[1]);
-                                return valid;
-                            }
-                        }
-
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
                             return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
                     }
                     else
                     {
@@ -433,28 +427,9 @@ namespace TurtleProgram
                     break;
 
                 case "moveto":
-                    if (line.Length == 3)
+                    if (parameters.Length == 2)
                     {
-                        try
-                        {
-                            int param;
-                            param = Int32.Parse(line[1]);
-                            param = Int32.Parse(line[2]);
-                            return valid;
-                        }
-
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
+                        return valid;
                     }
                     else
                     {
@@ -463,28 +438,9 @@ namespace TurtleProgram
                         return false;
                     }
                 case "drawto":
-                    if (line.Length == 3)
+                    if (parameters.Length == 2)
                     {
-                        try
-                        {
-                            int param;
-                            param = Int32.Parse(line[1]);
-                            param = Int32.Parse(line[2]);
-                            return valid;
-                        }
-
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
+                        return valid;
                     }
                     else
                     {
@@ -493,28 +449,9 @@ namespace TurtleProgram
                         return false;
                     }
                 case "rectangle":
-                    if (line.Length == 3)
+                    if (parameters.Length == 2)
                     {
-                        try
-                        {
-                            int param;
-                            param = Int32.Parse(line[1]);
-                            param = Int32.Parse(line[2]);
-                            return valid;
-                        }
-
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
+                        return valid;
                     }
                     else
                     {
@@ -523,35 +460,9 @@ namespace TurtleProgram
                         return false;
                     }
                 case "circle":
-                    if (line.Length == 2)
+                    if (parameters.Length == 1)
                     {
-                        try
-                        {
-                            if (sp.VarExists(line[1]))
-                            {
-                                int param;
-                                param = sp.GetVarValue(line[1]);
-                                return valid;
-                            }
-                            else
-                            {
-                                int param = Int32.Parse(line[1]);
-                                return valid;
-                            }
-                        }
-
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
+                        return valid;
                     }
                     else
                     {
@@ -561,30 +472,9 @@ namespace TurtleProgram
                     }
                     break;
                 case "triangle":
-                    if (line.Length == 5)
+                    if (parameters.Length == 4)
                     {
-                        try
-                        {
-                            int param;
-                            param = Int32.Parse(line[1]);
-                            param = Int32.Parse(line[2]);
-                            param = Int32.Parse(line[3]);
-                            param = Int32.Parse(line[4]);
-                            return valid;
-                        }
-
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
-                            valid = false;
-                            return valid;
-                        }
+                        return valid;
                     }
                     else
                     {
@@ -612,6 +502,10 @@ namespace TurtleProgram
                 case "pen colour":
                     return valid;
                 case "fill colour":
+                    return valid;
+                case "loop":
+                    return valid;
+                case "endloop":
                     return valid;
 
 

@@ -89,6 +89,14 @@ namespace TurtleProgram
             {
                 return new Var();
             }
+            else if (command.Equals("LOOP"))
+            {
+                return new LoopCommand();
+            }
+            else if (command.Equals("ENDLOOP"))
+            {
+                return new EndLoopCommand();
+            }
             else
             {
                 MessageBox.Show("Command does not exist");

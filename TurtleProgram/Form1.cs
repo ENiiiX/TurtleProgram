@@ -14,7 +14,7 @@ namespace TurtleProgram
 
         private System.Drawing.Graphics g;
         Turtle turtle;
-        Parser parser;
+        StoredProgram sp;
         Bitmap bmp;
         String command;
 
@@ -28,7 +28,8 @@ namespace TurtleProgram
             g = Graphics.FromImage(bmp);
             g.Clear(Color.White); //Sets bitmap background to 
             turtle = new Turtle(g);
-            parser = new Parser(turtle); 
+            sp = new StoredProgram(turtle);
+
         }
 
         /// <summary>
@@ -46,11 +47,11 @@ namespace TurtleProgram
                     command = commandLine.Text;
                     bool execute = true;
 
-                    execute = parser.isValid(command);
+                    execute = sp.parser.isValid(command);
 
                     if (execute)
                     {
-                        parser.programParser(command);
+                        sp.parser.programParser(command);
                     }
 
 
@@ -66,12 +67,12 @@ namespace TurtleProgram
 
                     foreach (var line in lines) //Runs each line in programBox to check it is valid. Sets execute flag based on program validity
                     {
-                        parser.lineNum++;
-                        execute = parser.isValid(line);
+                        sp.parser.lineNum++;
+                        execute = sp.parser.isValid(line);
 
                         if (execute == false)
                         {
-                            parser.lineNum = 0;
+                            sp.parser.lineNum = 0;
                             break;
                         }
                     }
@@ -80,8 +81,12 @@ namespace TurtleProgram
                     {
                         foreach (var line in lines)
                         {
-                            parser.programParser(line);
-                            DrawingArea.Image = bmp;
+                            sp.parser.programParser(line);
+
+                            if(sp.loopFlag)
+                            {
+
+                            }
                         }
                     }
                     commandLine.Clear();

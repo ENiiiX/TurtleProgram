@@ -1,22 +1,30 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TurtleProgram
 {
-    class StoredProgram : ArrayList
+    public class StoredProgram : ArrayList
     {
-        private int counter = 0;
+        public Parser parser;
+        Turtle turtle;
 
+        private int counter = 0;
+        private int loopStart;
+        public bool loopFlag = false;
+        public int loopLines = 0;
         private ArrayList variables = new ArrayList();
         private ArrayList variableNames = new ArrayList();
+        private ArrayList commands = new ArrayList();
 
-        public StoredProgram()
+        public StoredProgram(Turtle turtle)
         {
-
+            this.turtle = turtle;
+            parser = new Parser(turtle,this);
         }
 
         public int Counter
@@ -33,20 +41,56 @@ namespace TurtleProgram
                 return counter;
             }
         }
+        /// <summary>
+        /// test
+        /// </summary>
+        /// <param name="O"></param>
+        /// <returns></returns>
+        public void AddCommand(Object O)
+        {
+            commands.Add(O);
+            if(O is LoopCommand)
+            {
+                loopStart = counter;
+                loopFlag = true;
+            }
+            else if (O is EndLoopCommand)
+            {
+                loopFlag = false;
+            }
+
+            if(loopFlag)
+            {
+                loopLines++;
+            }
+            counter++;
+        }
+
+        /// <summary>
+        /// Clears the stored variables when the program is reset
+        /// </summary>
+        public void Reset()
+        {
+            counter = 0;
+            variableNames.Clear();
+            variables.Clear();
+            this.Clear();
+        }
+
+
+
+
+
+        //Variables
+
+        /// <summary>
+        /// Adds variables to ArrayLists for future access
+        /// </summary>
+        /// <param name="V">Variable object to be added to ArrayList</param>
         public void AddVar(Var V)
         {
             variables.Add(V);
             variableNames.Add(V.VarName);
-        }
-
-
-        public override int Add(Object O)
-        {
-            int varIndex = 0;
-            counter++;
-            varIndex = base.Add(O);
-
-            return varIndex;
         }
 
         /// <summary>
@@ -86,6 +130,11 @@ namespace TurtleProgram
             return -1;
         }
 
+        /// <summary>
+        /// Gets value of variable given the variable name
+        /// </summary>
+        /// <param name="VarName">Variable name to search value of</param>
+        /// <returns>Returns variable value</returns>
         public int GetVarValue(String VarName)
         {
             int index = this.SearchVarName(VarName);
@@ -100,6 +149,11 @@ namespace TurtleProgram
             }
         }
 
+        /// <summary>
+        /// Sets value of existing variable
+        /// </summary>
+        /// <param name="VarName">Variable name to update</param>
+        /// <param name="Value">New value of variable</param>
         public void SetVarValue(String VarName, int Value)
             {
             int index = this.SearchVarName(VarName);
@@ -113,6 +167,7 @@ namespace TurtleProgram
                 throw new ApplicationException("Variable doesn't exist");
             }
         }
+
 
 
     }

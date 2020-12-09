@@ -20,9 +20,10 @@ namespace TurtleProgram
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
-        public void set(Turtle turtle)
+        public void set(Turtle turtle, params int[] list)
         {
             this._turtle = turtle;
+            base.ParamsInt = list;
         }
         /// <summary>
         /// Invokes the forward method of the Turtle class
@@ -36,6 +37,7 @@ namespace TurtleProgram
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            _turtle.forward(ParamsInt[0]);
             return _turtle;
         }
     }

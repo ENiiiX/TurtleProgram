@@ -82,10 +82,17 @@ while commands in program
 	
 
 
-	forward
-	backward
-	moveto
-	drawto
-	rectangle
-	circle
-	triangle
+	forward 1
+	backward 1 
+	moveto 2
+	drawto 2
+	rectangle 2
+	circle 1
+	triangle 4
+
+dog = 50
+forward dog
+turnleft
+forward 200
+shite = 300
+circle shite
