@@ -17,20 +17,15 @@
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
-        public void set(Turtle turtle)
+        public void Set(Turtle turtle)
         {
             this._turtle = turtle;
         }
-        /// <summary>
-        /// Invokes penDown method of the Turtle class
-        /// </summary>
-        public void penDown()
-        {
-            _turtle.penDown();
-        }
+
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            _turtle.penDown();
             return _turtle;
         }
     }

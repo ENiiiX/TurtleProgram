@@ -5,6 +5,7 @@
     {
 
         private Turtle _turtle;
+        private string colour;
 
         ///<inheritdoc cref="TurnRightCommand.TurnRightCommand"
         public FillColourCommand()
@@ -17,21 +18,15 @@
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
-        public void set(Turtle turtle)
+        public void Set(Turtle turtle, string colour)
         {
             this._turtle = turtle;
-        }
-        /// <summary>
-        /// Invokes the setShapeColour method of the Turtle class
-        /// </summary>
-        /// <param name="colour">Sets shape colour specified by the user</param>
-        public void setShapeColour(string colour)
-        {
-            _turtle.setShapeColour(colour);
+            this.colour = colour;
         }
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            _turtle.setShapeColour(colour);
             return _turtle;
         }
     }

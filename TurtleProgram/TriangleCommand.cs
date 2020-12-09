@@ -18,24 +18,15 @@
         }
 
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
-        public void set(Turtle turtle)
+        public void Set(Turtle turtle, params int[] list)
         {
             this._turtle = turtle;
-        }
-        /// <summary>
-        /// Invokes triangle method from turtle class
-        /// </summary>
-        /// <param name="pntX1">Sets xPos of point1 of the triangle</param>
-        /// <param name="pntY1">Sets yPos of point1 of the triangle</param>
-        /// <param name="pntX2">Sets xPos of point2 of the triangle</param>
-        /// <param name="pntY2">Sets yPos of point2 of the triangle</param>
-        public void triangle(int pntX1, int pntY1, int pntX2, int pntY2)
-        {
-            _turtle.triangle(pntX1, pntY1, pntX2, pntY2);
+            base.ParamsInt = list;
         }
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            _turtle.triangle(ParamsInt[0], ParamsInt[1], ParamsInt[2], ParamsInt[3]);
             return _turtle;
         }
     }

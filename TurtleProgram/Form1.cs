@@ -83,8 +83,9 @@ namespace TurtleProgram
                         {
                             sp.parser.programParser(line);
 
-                            if(sp.loopFlag)
+                            foreach (Command in sp.commands)
                             {
+
 
                             }
                         }

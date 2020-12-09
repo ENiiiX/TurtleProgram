@@ -17,21 +17,15 @@
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"
-        public void set(Turtle turtle)
+        public void Set(Turtle turtle)
         {
             this._turtle = turtle;
-        }
-        /// <summary>
-        /// Invokes the fillOff method of the Turtle class
-        /// </summary>
-        public void fillOff()
-        {
-            _turtle.fillOff();
         }
 
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            _turtle.fillOff();
             return _turtle;
         }
     }

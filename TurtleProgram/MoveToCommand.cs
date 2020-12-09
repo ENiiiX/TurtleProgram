@@ -17,22 +17,15 @@
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"
-        public void set(Turtle turtle)
+        public void Set(Turtle turtle, params int[] list)
         {
             this._turtle = turtle;
-        }
-        /// <summary>
-        /// Invokes moveTo method of the Turtle class
-        /// </summary>
-        /// <param name="x">xPos of the updated turtle</param>
-        /// <param name="y">yPos of the updated turtle</param>
-        public void moveTo(int x, int y)
-        {
-            _turtle.moveTo(x, y);
+            base.ParamsInt = list;
         }
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            _turtle.moveTo(ParamsInt[0], ParamsInt[1]);
             return _turtle;
         }
     }

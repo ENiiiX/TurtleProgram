@@ -28,7 +28,7 @@ namespace TurtleProgram
         {
             this.turtle = turtle;
         }
-        public virtual void set(Turtle turtle, params int[] list)
+        public virtual void Set(Turtle turtle, params int[] list)
         {
             this.turtle = turtle;
             this.ParamsInt = list;

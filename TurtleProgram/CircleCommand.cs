@@ -17,22 +17,16 @@
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
-        public void set(Turtle turtle)
+        public void Set(Turtle turtle, params int[] list)
         {
             this._turtle = turtle;
-        }
-        /// <summary>
-        /// Invokes the circle command fo the Turtle class
-        /// </summary>
-        /// <param name="radius">sets radius of the circle</param>
-        public void circle(int radius)
-        {
-            _turtle.circle(radius);
+            base.ParamsInt = list;
         }
 
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            _turtle.circle(ParamsInt[0]);
             return _turtle;
         }
     }

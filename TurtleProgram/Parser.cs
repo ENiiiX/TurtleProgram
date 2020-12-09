@@ -82,61 +82,54 @@ namespace TurtleProgram
             if (command.Equals("turnleft"))
             {
                 TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
-                c.set(turtle);
-                c.turnLeft();
-                //c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("turnright"))
             {
                 TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
-                c.set(turtle);
-                c.turnRight();
-                //c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("penoff"))
             {
                 PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
-                c.set(turtle);
-                c.penUp();
-                //c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("penon"))
             {
                 PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
-                c.set(turtle);
-                c.penDown();
-                //c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("fillon"))
             {
                 FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
-                c.set(turtle);
-                c.fillOn();
-                //c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("filloff"))
             {
                 FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
-                c.set(turtle);
-                c.fillOff();
-               // c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.AddCommand(c);
             }
             else if (command.Equals("forward")) //Runs this code if the text equals forward
             {
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.set(turtle, ParamsInt[0]);
-                //c.forward(ParamsInt[0]);
+                c.Set(turtle, ParamsInt[0]);
                 c.Execute();
                 sp.AddCommand(c);
             }
@@ -144,88 +137,77 @@ namespace TurtleProgram
             else if (command.Equals("backward")) //Runs this code if the text equals forward
             {
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.set(turtle);
-                c.forward(-ParamsInt[0]);
-               //c.Execute();
+                c.Set(turtle, -ParamsInt[0]);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("moveto"))
             {
                 MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
-                c.set(turtle);
-                c.moveTo(ParamsInt[0], ParamsInt[1]);
-                //c.Execute();
+                c.Set(turtle, ParamsInt);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("drawto"))
             {
                 DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
-                c.set(turtle);
-                c.drawTo(ParamsInt[0], ParamsInt[1]);
-                //c.Execute();
+                c.Set(turtle, ParamsInt);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("circle"))
             {
                 CircleCommand c = (CircleCommand)cf.getCommand("circle");
-                c.set(turtle);
-                c.circle(ParamsInt[0]);
-               // c.Execute();
+                c.Set(turtle, ParamsInt);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("rectangle"))
             {
                 RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
-                c.set(turtle);
-                c.rectangle(ParamsInt[0], ParamsInt[1]);
-               // c.Execute();
+                c.Set(turtle, ParamsInt);
+                c.Execute();
                 sp.AddCommand(c);
             }
 
             else if (command.Equals("triangle"))
             {
                 TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
-                c.set(turtle);
-                c.triangle(ParamsInt[0], ParamsInt[1],
-                            ParamsInt[2], ParamsInt[3]);
-               // c.Execute();
+                c.Set(turtle, ParamsInt);
+                c.Execute();
                 sp.AddCommand(c);
             }
             else if (command.Equals("reset"))
             {
                 ResetCommand c = (ResetCommand)cf.getCommand("reset");
-                c.set(turtle);
-                c.reset();
-                //c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.Reset();
 
             }
             else if (command.Equals("clear"))
             {
                 ClearCommand c = (ClearCommand)cf.getCommand("clear");
-                c.set(turtle);
-                c.clear();
-               // c.Execute();
+                c.Set(turtle);
+                c.Execute();
                 sp.AddCommand(c);
             }
             else if (command.Equals("pencolour"))
             {
                 PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
-                c.set(turtle);
-                c.setPenColour(colour);
-                //c.Execute();
+                c.Set(turtle, colour);
+                c.Execute();
                 sp.AddCommand(c);
             }
             else if (command.Equals("fillcolour"))
             {
                 FillColourCommand c = (FillColourCommand)cf.getCommand("fillcolour");
-                c.set(turtle);
-                c.setShapeColour(colour);
-                //c.Execute();
+                c.Set(turtle, colour);
+                c.Execute();
                 sp.AddCommand(c);
             }
             else if (line.Contains("=") && split.Length == 3)

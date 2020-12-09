@@ -1,9 +1,11 @@
-﻿namespace TurtleProgram
+﻿using System.Drawing;
+
+namespace TurtleProgram
 {
     ///<inheritdoc cref="TurnRightCommand"
     public class PenColourCommand : Command
     {
-
+        private string colour;
         private Turtle _turtle;
 
         ///<inheritdoc cref="TurnRightCommand.TurnRightCommand"/>
@@ -17,21 +19,16 @@
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"
-        public void set(Turtle turtle)
+        public void Set(Turtle turtle, string colour)
         {
             this._turtle = turtle;
+            this.colour = colour;
         }
-        /// <summary>
-        /// Invokes the setPenColour method of the Turtle class
-        /// </summary>
-        /// <param name="colour">Colour specified by user</param>
-        public void setPenColour(string colour)
-        {
-            _turtle.setPenColour(colour);
-        }
+
         ///<inheritdoc cref="TurnRightCommand.Execute"
         public override Turtle Execute()
         {
+            _turtle.setPenColour(colour);
             return _turtle;
         }
     }

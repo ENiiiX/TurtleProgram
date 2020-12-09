@@ -19,7 +19,7 @@ namespace TurtleProgram
         public int loopLines = 0;
         private ArrayList variables = new ArrayList();
         private ArrayList variableNames = new ArrayList();
-        private ArrayList commands = new ArrayList();
+        public ArrayList commands = new ArrayList();
 
         public StoredProgram(Turtle turtle)
         {
