@@ -82,12 +82,11 @@ namespace TurtleProgram
                         foreach (var line in lines)
                         {
                             sp.parser.programParser(line);
+                        }
 
-                            foreach (Command in sp.commands)
-                            {
-
-
-                            }
+                        foreach (Command c in sp.commands)
+                        {
+                            c.Execute();
                         }
                     }
                     commandLine.Clear();

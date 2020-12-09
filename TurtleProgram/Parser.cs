@@ -130,7 +130,7 @@ namespace TurtleProgram
             {
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
                 c.Set(turtle, ParamsInt[0]);
-                c.Execute();
+                //c.Execute();
                 sp.AddCommand(c);
             }
 

@@ -19,7 +19,7 @@ namespace TurtleProgram
         public int loopLines = 0;
         private ArrayList variables = new ArrayList();
         private ArrayList variableNames = new ArrayList();
-        public ArrayList commands = new ArrayList();
+        public List<Command> commands = new List<Command>();
 
         public StoredProgram(Turtle turtle)
         {
@@ -46,7 +46,7 @@ namespace TurtleProgram
         /// </summary>
         /// <param name="O"></param>
         /// <returns></returns>
-        public void AddCommand(Object O)
+        public void AddCommand(Command O)
         {
             commands.Add(O);
             if(O is LoopCommand)
