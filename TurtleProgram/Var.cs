@@ -48,11 +48,11 @@ namespace TurtleProgram
             set
             { 
                 expression = value;
-                this.value = valueExpression(expression)
+                valueExpression(expression);
             }
         }
 
-        public int valueExpression(String expression)
+        public void valueExpression(String expression)
         {
             string result;
             DataTable dt;
@@ -72,25 +72,10 @@ namespace TurtleProgram
 
             Console.WriteLine(exp);
 
-
-
-
-
-
-
-
-
-
-
-
-
             dt = new DataTable();
             result = dt.Compute(exp, "").ToString();
             Console.WriteLine(result);
-
-
-
-            return value;
+            this.value = Int32.Parse(result);
         }
 
         public void set(StoredProgram program, string command, int value)
@@ -102,7 +87,8 @@ namespace TurtleProgram
 
         public override Turtle Execute()
         {
-            return _turtle;
+            valueExpression(expression);
+            return null;
         }
     }
 }
