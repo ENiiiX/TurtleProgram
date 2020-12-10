@@ -1,17 +1,17 @@
-﻿
-
-using System;
+﻿using System;
+using System.Collections;
 
 namespace TurtleProgram
 {
     /// <summary>
     /// Abstract class in which all Command classes inherit
     /// </summary>
-    public abstract class Command
+    public abstract class Command : ArrayList
     {
         public Turtle turtle;
         public int[] ParamsInt = new int[100];
         public bool valid;
+        public StoredProgram sp;
 
         /// <summary>
         /// Constructor for empty command

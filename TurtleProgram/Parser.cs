@@ -130,7 +130,7 @@ namespace TurtleProgram
             {
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
                 c.Set(turtle, ParamsInt[0]);
-                //c.Execute();
+                c.Execute();
                 sp.AddCommand(c);
             }
 
@@ -345,7 +345,7 @@ namespace TurtleProgram
                         else
                         {
                             Var c = (Var)cf.getCommand("var");
-                            c.set(command, int.Parse(line[2]), input);
+                            c.set(sp, command, int.Parse(line[2]));
                             sp.AddVar(c);
                         }
                         return valid;
@@ -367,6 +367,9 @@ namespace TurtleProgram
                 {
                     if(sp.VarExists(command))
                     {
+                        line = input.Split('=');
+                        String expression = line[1];
+                        sp.SetVarExpression(command, expression);
 
                     }
                     else

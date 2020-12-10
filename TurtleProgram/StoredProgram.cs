@@ -16,7 +16,9 @@ namespace TurtleProgram
         private int counter = 0;
         private int loopStart;
         public bool loopFlag = false;
-        public int loopLines = 0;
+        public int loopSize = 0;
+        public int iterations = 0;
+        public int loopCounter = 1;
         private ArrayList variables = new ArrayList();
         private ArrayList variableNames = new ArrayList();
         public List<Command> commands = new List<Command>();
@@ -27,20 +29,7 @@ namespace TurtleProgram
             parser = new Parser(turtle,this);
         }
 
-        public int Counter
-        {
-            set
-            {
-                if (value>=0 && value<Count)
-                {
-                    counter = value;
-                }
-            }
-            get
-            {
-                return counter;
-            }
-        }
+
         /// <summary>
         /// test
         /// </summary>
@@ -53,17 +42,50 @@ namespace TurtleProgram
             {
                 loopStart = counter;
                 loopFlag = true;
+                LoopCommand c = (LoopCommand)O;
+                iterations = c.LoopAmount;
+
             }
             else if (O is EndLoopCommand)
             {
                 loopFlag = false;
+                loopSize--;
             }
 
             if(loopFlag)
             {
-                loopLines++;
+                loopSize++;
             }
             counter++;
+        }
+
+
+        public void Run()
+        {
+            for (int i = 0; i < counter; i++)
+            {
+                Command C = commands[i];
+
+                if(i > loopStart && loopStart + loopSize >= i)
+                {
+                    C.Execute();
+
+                    if(loopCounter != iterations)
+                    {
+                        if (i == loopStart + loopSize)
+                        {
+                            i = loopStart;
+                            loopCounter++;
+                        }
+                    }
+
+                }
+                else
+                {
+                    C.Execute();
+                }
+            }    
+
         }
 
         /// <summary>
@@ -168,6 +190,19 @@ namespace TurtleProgram
             }
         }
 
+        public void SetVarExpression(String VarName, String Expression)
+        {
+            int index = this.SearchVarName(VarName);
+            if (index >= 0)
+            {
+                Var v = (Var)variables[index];
+                v.Expression = Expression;
+            }
+            else
+            {
+                throw new ApplicationException("Variable doesn't exist");
+            }
+        }
 
 
     }

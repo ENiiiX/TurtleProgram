@@ -84,10 +84,7 @@ namespace TurtleProgram
                             sp.parser.programParser(line);
                         }
 
-                        foreach (Command c in sp.commands)
-                        {
-                            c.Execute();
-                        }
+                        sp.Run();
                     }
                     commandLine.Clear();
                 }

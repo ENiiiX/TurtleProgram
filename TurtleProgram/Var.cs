@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Data;
+using System.Text;
 
 namespace TurtleProgram
 {
@@ -39,21 +42,63 @@ namespace TurtleProgram
             set { this.value = value; }
         }
 
-        public void set(string command, int value, string expression)
+        public string Expression
         {
-            this.varName = command;
-            this.value = value;
-            this.expression = expression;
+            get { return expression; }
+            set
+            { 
+                expression = value;
+                this.value = valueExpression(expression)
+            }
         }
 
-        //private void Compute(String expression)
-        //{
-        //    DataTable dt = new DataTable();
+        public int valueExpression(String expression)
+        {
+            string result;
+            DataTable dt;
+            int test = 5;
+            string[] split = expression.Split(' ');
+            String exp = "";
 
-        //}
+            for (int i = 0; i < split.Length; i++)
+            {
+                String search = split[i];
+                if (sp.VarExists(search))
+                {
+                    search = sp.GetVarValue(search).ToString();
+                }
+                exp = exp + search;
+            }
+
+            Console.WriteLine(exp);
 
 
 
+
+
+
+
+
+
+
+
+
+
+            dt = new DataTable();
+            result = dt.Compute(exp, "").ToString();
+            Console.WriteLine(result);
+
+
+
+            return value;
+        }
+
+        public void set(StoredProgram program, string command, int value)
+        {
+            base.sp = program;
+            this.varName = command;
+            this.value = value;
+        }
 
         public override Turtle Execute()
         {
