@@ -10,6 +10,7 @@ namespace TurtleProgram
     {
         public Turtle turtle;
         public int[] ParamsInt = new int[100];
+        public String[] parameters = new string[100];
         public bool valid;
         public StoredProgram sp;
 
@@ -28,10 +29,11 @@ namespace TurtleProgram
         {
             this.turtle = turtle;
         }
-        public virtual void Set(Turtle turtle, params int[] list)
+        public virtual void Set(Turtle turtle, StoredProgram sp, params String[] parameters)
         {
             this.turtle = turtle;
-            this.ParamsInt = list;
+            this.sp = sp;
+            this.parameters = parameters;
         }
 
 

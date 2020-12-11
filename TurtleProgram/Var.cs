@@ -13,6 +13,7 @@ namespace TurtleProgram
         private String varName;
         private int value;
         private string expression;
+        private string varUpdate;
 
 
         public Var()
@@ -45,44 +46,56 @@ namespace TurtleProgram
         public string Expression
         {
             get { return expression; }
-            set
-            { 
-                expression = value;
-                valueExpression(expression);
-            }
+            set { expression = value; }
         }
 
         public void valueExpression(String expression)
         {
             string result;
             DataTable dt;
-            int test = 5;
             string[] split = expression.Split(' ');
             String exp = "";
 
-            for (int i = 0; i < split.Length; i++)
+            if(split.Length >= 3)
             {
-                String search = split[i];
-                if (sp.VarExists(search))
+                for (int i = 0; i < split.Length; i++)
                 {
-                    search = sp.GetVarValue(search).ToString();
+                    String search = split[i];
+                    if (sp.VarExists(search))
+                    {
+                        search = sp.GetVarValue(search).ToString();
+                    }
+                    exp = exp + search;
                 }
-                exp = exp + search;
+
+                Console.WriteLine(exp);
+
+                dt = new DataTable();
+                result = dt.Compute(exp, "").ToString();
+                Console.WriteLine(result);
+                this.value = Int32.Parse(result);
+                sp.SetVarValue(varUpdate, this.value);
+            }
+            else
+            {
+                value = this.value;
             }
 
-            Console.WriteLine(exp);
-
-            dt = new DataTable();
-            result = dt.Compute(exp, "").ToString();
-            Console.WriteLine(result);
-            this.value = Int32.Parse(result);
         }
 
-        public void set(StoredProgram program, string command, int value)
+        public void set(StoredProgram program, string command, int value, string expression)
         {
             base.sp = program;
             this.varName = command;
             this.value = value;
+            this.expression = expression;
+        }
+
+        public void set(StoredProgram program, string varUpdate, string expression)
+        {
+            base.sp = program;
+            this.varUpdate = varUpdate;
+            this.expression = expression;
         }
 
         public override Turtle Execute()

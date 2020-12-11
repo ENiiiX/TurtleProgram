@@ -20,15 +20,46 @@ namespace TurtleProgram
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
-        public void Set(Turtle turtle, params int[] list)
+        public void Set(Turtle turtle, StoredProgram sp, params String[] list)
         {
             this._turtle = turtle;
-            base.ParamsInt = list;
+            base.sp = sp;
+            base.parameters = list;
+            for (int i = 0; i < base.parameters.Length; i++)
+            {
+                if (sp.VarExists(parameters[i]))
+                {
+                    base.ParamsInt[i] = sp.GetVarValue(parameters[i]);
+                }
+                else
+                {
+                    base.ParamsInt[i] = Int32.Parse(parameters[i]);
+                }
+            }
+
+        }
+
+        private int[] Evaluate(params String[] list)
+        {
+            for (int i = 0; i < base.parameters.Length; i++)
+            {
+                if (sp.VarExists(parameters[i]))
+                {
+                    base.ParamsInt[i] = sp.GetVarValue(parameters[i]);
+                }
+                else
+                {
+                    base.ParamsInt[i] = Int32.Parse(parameters[i]);
+                }
+            }
+
+            return base.ParamsInt;
         }
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
-            _turtle.forward(ParamsInt[0]);
+            Evaluate(base.parameters);
+            _turtle.forward(base.ParamsInt[0]);
             return _turtle;
         }
     }

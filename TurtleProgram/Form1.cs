@@ -94,6 +94,7 @@ namespace TurtleProgram
                 }
             }
             DrawingArea.Image = bmp; //Updates graphics after each Turtle update
+        
         }
 
 

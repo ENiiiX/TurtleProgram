@@ -1,4 +1,6 @@
-﻿namespace TurtleProgram
+﻿using System;
+
+namespace TurtleProgram
 {
     ///<inheritdoc cref="TurnRightCommand"/>
     public class CircleCommand : Command
@@ -17,10 +19,23 @@
             _turtle = turtle;
         }
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
-        public void Set(Turtle turtle, params int[] list)
+        public void Set(Turtle turtle, StoredProgram sp, params String[] list)
         {
             this._turtle = turtle;
-            base.ParamsInt = list;
+            base.sp = sp;
+            base.parameters = list;
+            for (int i = 0; i < base.parameters.Length; i++)
+            {
+                if (sp.VarExists(parameters[i]))
+                {
+                    base.ParamsInt[i] = sp.GetVarValue(parameters[i]);
+                }
+                else
+                {
+                    base.ParamsInt[i] = Int32.Parse(parameters[i]);
+                }
+            }
+
         }
 
         ///<inheritdoc cref="TurnRightCommand.Execute"/>

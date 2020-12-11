@@ -1,4 +1,6 @@
-﻿namespace TurtleProgram
+﻿using System;
+
+namespace TurtleProgram
 {
     internal class LoopCommand : Command
     {
@@ -15,10 +17,23 @@
             this.loopAmount = amount;
         }
 
-        public void set(Turtle turtle, int amount)
+        public void set(Turtle turtle, StoredProgram sp, params String[] list)
         {
             _turtle = turtle;
-            this.loopAmount = amount;
+            base.sp = sp;
+            base.parameters = list;
+
+            for (int i = 0; i < base.parameters.Length; i++)
+            {
+                if (sp.VarExists(parameters[i]))
+                {
+                    this.loopAmount = sp.GetVarValue(parameters[i]);
+                }
+                else
+                {
+                    this.loopAmount = Int32.Parse(parameters[i]);
+                }
+            }
         }
 
         public int LoopAmount

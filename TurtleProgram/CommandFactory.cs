@@ -59,7 +59,6 @@ namespace TurtleProgram
             else if (command.Equals("FILLOFF"))
             {
                 return new FillOffCommand();
-
             }
             else if (command.Equals("TURNLEFT"))
             {

@@ -22,6 +22,7 @@ namespace TurtleProgram
         private ArrayList variables = new ArrayList();
         private ArrayList variableNames = new ArrayList();
         public List<Command> commands = new List<Command>();
+        public List<Command> loopCommands = new List<Command>();
 
         public StoredProgram(Turtle turtle)
         {
@@ -54,6 +55,7 @@ namespace TurtleProgram
 
             if(loopFlag)
             {
+                loopCommands.Add(O);
                 loopSize++;
             }
             counter++;
@@ -64,28 +66,24 @@ namespace TurtleProgram
         {
             for (int i = 0; i < counter; i++)
             {
-                Command C = commands[i];
+                Command C = commands[i]; //If C is Expression - Direct Var to eval then?
 
-                if(i > loopStart && loopStart + loopSize >= i)
+                if(C is LoopCommand)
                 {
-                    C.Execute();
-
-                    if(loopCounter != iterations)
+                    for (int x = 0; x < iterations; x++)
                     {
-                        if (i == loopStart + loopSize)
+                        foreach(Command X in loopCommands)
                         {
-                            i = loopStart;
-                            loopCounter++;
+                            X.Execute();
                         }
+                        x++;
                     }
-
                 }
                 else
                 {
                     C.Execute();
                 }
             }    
-
         }
 
         /// <summary>

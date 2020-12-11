@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 
@@ -57,17 +58,7 @@ namespace TurtleProgram
                     || command.Equals("triangle") || command.Equals("loop"))
                 {
                 parameters = split[1].Split(',');
-                    for (int i = 0; i < parameters.Length; i++)
-                    {
-                        if (sp.VarExists(parameters[i]))
-                        {
-                            ParamsInt[i] = sp.GetVarValue(parameters[i]);
-                        }
-                        else
-                        {
-                            ParamsInt[i] = Int32.Parse(parameters[i]);
-                        }
-                    }
+
                 }
                 else if (command.Equals("pen") || command.Equals("fill"))
                 {
@@ -81,16 +72,16 @@ namespace TurtleProgram
 
             if (command.Equals("turnleft"))
             {
-                TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
-                c.Set(turtle);
-                sp.AddCommand(c);
+                //TurnLeftCommand c = (TurnLeftCommand)cf.getCommand("turnleft");
+                //c.Set(turtle);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("turnright"))
             {
-                TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
-                c.Set(turtle);
-                sp.AddCommand(c);
+                //TurnRightCommand c = (TurnRightCommand)cf.getCommand("turnright");
+                //c.Set(turtle);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("penoff"))
@@ -122,15 +113,15 @@ namespace TurtleProgram
             }
             else if (command.Equals("forward")) //Runs this code if the text equals forward
             {
-                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.Set(turtle, ParamsInt[0]);
-                sp.AddCommand(c);
+                //ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                //c.Set(turtle, sp, parameters);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("backward")) //Runs this code if the text equals forward
             {
                 ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.Set(turtle, -ParamsInt[0]);
+                c.Set(turtle, sp, parameters);
                 sp.AddCommand(c);
             }
 
@@ -151,7 +142,7 @@ namespace TurtleProgram
             else if (command.Equals("circle"))
             {
                 CircleCommand c = (CircleCommand)cf.getCommand("circle");
-                c.Set(turtle, ParamsInt);
+                c.Set(turtle, sp, parameters);
                 sp.AddCommand(c);
             }
 
@@ -170,49 +161,37 @@ namespace TurtleProgram
             }
             else if (command.Equals("reset"))
             {
-                ResetCommand c = (ResetCommand)cf.getCommand("reset");
-                c.Set(turtle);
-                sp.Reset();
+                //ResetCommand c = (ResetCommand)cf.getCommand("reset");
+                //c.Set(turtle);
+                //sp.Reset();
 
             }
             else if (command.Equals("clear"))
             {
-                ClearCommand c = (ClearCommand)cf.getCommand("clear");
-                c.Set(turtle);
-                sp.AddCommand(c);
+                //ClearCommand c = (ClearCommand)cf.getCommand("clear");
+                //c.Set(turtle);
+                //sp.AddCommand(c);
             }
             else if (command.Equals("pencolour"))
             {
-                PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
-                c.Set(turtle, colour);
-                sp.AddCommand(c);
+                //PenColourCommand c = (PenColourCommand)cf.getCommand("pencolour");
+                //c.Set(turtle, colour);
+                //sp.AddCommand(c);
             }
             else if (command.Equals("fillcolour"))
             {
-                FillColourCommand c = (FillColourCommand)cf.getCommand("fillcolour");
-                c.Set(turtle, colour);
-                sp.AddCommand(c);
+                //FillColourCommand c = (FillColourCommand)cf.getCommand("fillcolour");
+                //c.Set(turtle, colour);
+                //sp.AddCommand(c);
             }
-            else if (line.Contains("=") && split.Length == 3)
+            else if (line.Contains("=")) // && split.Length > 3
             {
-                if(sp.VarExists(command))
-                {
-                    sp.SetVarValue(command, int.Parse(split[2]));
-                }
-            }
-            else if (line.Contains("=") && split.Length > 3)
-            {
-                if(sp.VarExists(command))
-                {
-                    parameters = line.Split('=');
-                    String expression = parameters[1];
-                    sp.SetVarExpression(command, expression);
-                }
+                
             }
             else if (command.Equals("loop"))
             {
                 LoopCommand c = (LoopCommand)cf.getCommand("loop");
-                c.set(turtle, ParamsInt[0]);
+                c.set(turtle, sp, parameters);
                 sp.AddCommand(c);
             }
             else if (command.Equals("endloop"))
@@ -242,6 +221,7 @@ namespace TurtleProgram
 
             String[] line = input.Split(' ');
             String command = line[0];
+            String colour = "";
 
             int[] ParamsInt = new int[100];
             String[] parameters = new string[100];
@@ -256,7 +236,6 @@ namespace TurtleProgram
                     if (sp.VarExists(parameters[i]))
                     {
                         ParamsInt[i] = sp.GetVarValue(parameters[i]);
-                        return valid;
                     }
                     else
                     {
@@ -299,12 +278,15 @@ namespace TurtleProgram
                         switch (line[2])
                         {
                             case "blue":
+                                colour = line[2];
                                 break;
 
                             case "black":
+                                colour = line[2];
                                 break;
 
                             case "red":
+                                colour = line[2];
                                 break;
                         }
                     }
@@ -332,7 +314,7 @@ namespace TurtleProgram
                         else
                         {
                             Var c = (Var)cf.getCommand("var");
-                            c.set(sp, command, int.Parse(line[2]));
+                            c.set(sp, command, int.Parse(line[2]), line[2]);
                             sp.AddVar(c);
                             sp.AddCommand(c);
                         }
@@ -357,6 +339,35 @@ namespace TurtleProgram
                     {
                         line = input.Split('=');
                         String expression = line[1];
+                        String varUpdate = line[0];
+                        expression = expression.TrimStart();
+
+
+                        string[] split = expression.Split(' ');
+                        String exp = "";
+
+                        for (int i = 0; i < split.Length; i++)
+                        {
+                            String search = split[i];
+                            if (sp.VarExists(search))
+                            {
+                                search = sp.GetVarValue(search).ToString();
+                            }
+                            else if (Regex.IsMatch(search, "[0-9*+/-]"))
+                            {
+
+                            }
+                            else
+                            {
+                                valid = false;
+                                return valid;
+                            }
+                        }
+
+                        Var c = (Var)cf.getCommand("var");
+                        c.set(sp, varUpdate, expression);
+                        sp.AddVar(c);
+                        sp.AddCommand(c);
 
                         return valid;
                     }
@@ -376,6 +387,9 @@ namespace TurtleProgram
                 case "forward":
                     if (parameters.Length == 1)
                     {
+                        ForwardCommand A = (ForwardCommand)cf.getCommand("forward");
+                        A.Set(turtle, sp, parameters);
+                        sp.AddCommand(A);
                         return valid;
                     }
                     else
@@ -465,16 +479,34 @@ namespace TurtleProgram
                 case "fill off":
                     return valid;
                 case "turnleft":
+                    TurnLeftCommand l = (TurnLeftCommand)cf.getCommand("turnleft");
+                    l.Set(turtle);
+                    sp.AddCommand(l);
                     return valid;
                 case "turnright":
+                    TurnRightCommand m = (TurnRightCommand)cf.getCommand("turnright");
+                    m.Set(turtle);
+                    sp.AddCommand(m);
                     return valid;
                 case "reset":
+                    ResetCommand n = (ResetCommand)cf.getCommand("reset");
+                    n.Set(turtle);
+                    sp.Reset();
                     return valid;
                 case "clear":
+                    ClearCommand o = (ClearCommand)cf.getCommand("clear");
+                    o.Set(turtle);
+                    sp.AddCommand(o);
                     return valid;
                 case "pen colour":
+                    PenColourCommand p = (PenColourCommand)cf.getCommand("pencolour");
+                    p.Set(turtle, colour);
+                    sp.AddCommand(p);
                     return valid;
                 case "fill colour":
+                    FillColourCommand q = (FillColourCommand)cf.getCommand("fillcolour");
+                    q.Set(turtle, colour);
+                    sp.AddCommand(q);
                     return valid;
                 case "loop":
                     return valid;
