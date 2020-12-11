@@ -2,24 +2,23 @@
 
 namespace TurtleProgram
 {
-    ///<inheritdoc cref="TurnRightCommand"/>
+    ///<inheritdoc cref="ForwardCommand"/>
     public class TriangleCommand : Command
     {
 
         private Turtle _turtle;
 
-        ///<inheritdoc cref="TurnRightCommand.TurnRightCommand"/>
+        ///<inheritdoc cref="ForwardCommand.ForwardCommand"/>
         public TriangleCommand()
         {
 
         }
-        ///<inheritdoc cref="TurnRightCommand.TurnRightCommand(Turtle)"/>
+        ///<inheritdoc cref="ForwardCommand(Turtle)"/>
         public TriangleCommand(Turtle turtle) : base(turtle)
         {
             _turtle = turtle;
         }
-
-        ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
+        ///<inheritdoc cref="ForwardCommand.Set(Turtle, StoredProgram, string[])"/>
         public void Set(Turtle turtle, StoredProgram sp, params String[] list)
         {
             this._turtle = turtle;
@@ -37,7 +36,7 @@ namespace TurtleProgram
                 }
             }
         }
-        ///<inheritdoc cref="TurnRightCommand.Execute"/>
+        ///<inheritdoc cref="ForwardCommand.Execute"/>
         public override Turtle Execute()
         {
             base.Evaluate(base.parameters);

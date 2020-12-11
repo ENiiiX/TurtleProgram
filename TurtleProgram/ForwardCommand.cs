@@ -2,24 +2,36 @@
 
 namespace TurtleProgram
 {
-    ///<inheritdoc cref="TurnRightCommand"/>
+    /// <summary>
+    /// Concrete command that inherits from Command interface
+    /// </summary>
     public class ForwardCommand : Command
     {
 
         private Turtle _turtle;
         
 
-        ///<inheritdoc cref="TurnRightCommand.TurnRightCommand"/>
+        /// <summary>
+        /// Empty concrete constructor
+        /// </summary>
         public ForwardCommand()
         {
 
         }
-        ///<inheritdoc cref="TurnRightCommand(Turtle)"
+        /// <summary>
+        /// Constructor that takes turtle from base class. Allows movement methods to be accessed
+        /// </summary>
+        /// <param name="turtle">Assigns turtle to permanent variable</param>
         public ForwardCommand(Turtle turtle) : base(turtle)
         {
             _turtle = turtle;
         }
-        ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
+        /// <summary>
+        /// Set method to set Turtle/StoredProgram as well as store parameter list
+        /// </summary>
+        /// <param name="turtle">Stores Turtle to permanent variable</param>
+        /// <param name="sp">Stores Stored Program to permanent base variable</param>
+        /// <param name="list">Stores list of parameters</param>
         public void Set(Turtle turtle, StoredProgram sp, params String[] list)
         {
             this._turtle = turtle;
@@ -38,7 +50,12 @@ namespace TurtleProgram
             }
         }
 
-        ///<inheritdoc cref="TurnRightCommand.Execute"/>
+        /// <summary>
+        /// Executes Turtle methods on request.
+        /// Runs base.Evaluate(base.parameters) to verify parameter values in case change has been
+        /// made due to expressional updates
+        /// </summary>
+        /// <returns>Returns turtle once movement updated</returns>
         public override Turtle Execute()
         {
             base.Evaluate(base.parameters);

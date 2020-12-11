@@ -35,7 +35,7 @@
         /// <summary>
         /// Execute turtle movement
         /// </summary>
-        /// <returns>Returns updated version of the turtle once updated</returns>
+        /// <returns>Returns turtle once movement updated</returns>
         public override Turtle Execute()
         {
             _turtle.turnRight();
