@@ -35,12 +35,12 @@ namespace TurtleProgram
                     base.ParamsInt[i] = Int32.Parse(parameters[i]);
                 }
             }
-
         }
 
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
+            base.Evaluate(base.parameters);
             _turtle.circle(ParamsInt[0]);
             return _turtle;
         }

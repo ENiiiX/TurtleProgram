@@ -79,11 +79,6 @@ namespace TurtleProgram
 
                     if (execute == true) //If programBox commands are valid, runs each line through the parser so each command can be called by the command factory
                     {
-                        foreach (var line in lines)
-                        {
-                            sp.parser.programParser(line);
-                        }
-
                         sp.Run();
                     }
                     commandLine.Clear();

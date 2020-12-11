@@ -45,6 +45,8 @@ namespace TurtleProgram
 
         public override Turtle Execute()
         {
+            base.Evaluate(base.parameters);
+            this.LoopAmount = base.ParamsInt[0];
             return _turtle;
         }
     }

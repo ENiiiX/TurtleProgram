@@ -57,6 +57,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackwardCommand.cs" />
     <Compile Include="CircleCommand.cs" />
     <Compile Include="ClearCommand.cs" />
     <Compile Include="DrawToCommand.cs" />

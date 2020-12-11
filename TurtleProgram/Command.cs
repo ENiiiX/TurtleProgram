@@ -36,6 +36,22 @@ namespace TurtleProgram
             this.parameters = parameters;
         }
 
+        public int[] Evaluate(params String[] list)
+        {
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                if (sp.VarExists(parameters[i]))
+                {
+                    ParamsInt[i] = sp.GetVarValue(parameters[i]);
+                }
+                else
+                {
+                    ParamsInt[i] = Int32.Parse(parameters[i]);
+                }
+            }
+
+            return ParamsInt;
+        }
 
         /// <summary>
         /// Execute command to return the turtle once a function has been activated

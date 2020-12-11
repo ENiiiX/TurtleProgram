@@ -3,22 +3,22 @@
 namespace TurtleProgram
 {
     ///<inheritdoc cref="TurnRightCommand"/>
-    public class TriangleCommand : Command
+    public class BackwardCommand: Command
     {
 
         private Turtle _turtle;
 
+
         ///<inheritdoc cref="TurnRightCommand.TurnRightCommand"/>
-        public TriangleCommand()
+        public BackwardCommand()
         {
 
         }
-        ///<inheritdoc cref="TurnRightCommand.TurnRightCommand(Turtle)"/>
-        public TriangleCommand(Turtle turtle) : base(turtle)
+        ///<inheritdoc cref="TurnRightCommand(Turtle)"
+        public BackwardCommand(Turtle turtle) : base(turtle)
         {
             _turtle = turtle;
         }
-
         ///<inheritdoc cref="TurnRightCommand.set(Turtle)"/>
         public void Set(Turtle turtle, StoredProgram sp, params String[] list)
         {
@@ -37,11 +37,12 @@ namespace TurtleProgram
                 }
             }
         }
+
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
             base.Evaluate(base.parameters);
-            _turtle.triangle(base.ParamsInt[0], base.ParamsInt[1], base.ParamsInt[2], base.ParamsInt[3]);
+            _turtle.forward(-base.ParamsInt[0]);
             return _turtle;
         }
     }

@@ -24,6 +24,10 @@ namespace TurtleProgram
             {
                 return new ForwardCommand();
             }
+            else if (command.Equals("BACKWARD"))
+            {
+                return new BackwardCommand();
+            }
             else if (command.Equals("MOVETO"))
             {
                 return new MoveToCommand();

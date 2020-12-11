@@ -36,29 +36,12 @@ namespace TurtleProgram
                     base.ParamsInt[i] = Int32.Parse(parameters[i]);
                 }
             }
-
         }
 
-        private int[] Evaluate(params String[] list)
-        {
-            for (int i = 0; i < base.parameters.Length; i++)
-            {
-                if (sp.VarExists(parameters[i]))
-                {
-                    base.ParamsInt[i] = sp.GetVarValue(parameters[i]);
-                }
-                else
-                {
-                    base.ParamsInt[i] = Int32.Parse(parameters[i]);
-                }
-            }
-
-            return base.ParamsInt;
-        }
         ///<inheritdoc cref="TurnRightCommand.Execute"/>
         public override Turtle Execute()
         {
-            Evaluate(base.parameters);
+            base.Evaluate(base.parameters);
             _turtle.forward(base.ParamsInt[0]);
             return _turtle;
         }

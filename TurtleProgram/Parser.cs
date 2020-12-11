@@ -86,30 +86,30 @@ namespace TurtleProgram
 
             else if (command.Equals("penoff"))
             {
-                PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
-                c.Set(turtle);
-                sp.AddCommand(c);
+                //PenUpCommand c = (PenUpCommand)cf.getCommand("penoff");
+                //c.Set(turtle);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("penon"))
             {
-                PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
-                c.Set(turtle);
-                sp.AddCommand(c);
+                //PenDownCommand c = (PenDownCommand)cf.getCommand("penon");
+                //c.Set(turtle);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("fillon"))
             {
-                FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
-                c.Set(turtle);
-                sp.AddCommand(c);
+                //FillOnCommand c = (FillOnCommand)cf.getCommand("fillon");
+                //c.Set(turtle);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("filloff"))
             {
-                FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
-                c.Set(turtle);
-                sp.AddCommand(c);
+                //FillOffCommand c = (FillOffCommand)cf.getCommand("filloff");
+                //c.Set(turtle);
+                //sp.AddCommand(c);
             }
             else if (command.Equals("forward")) //Runs this code if the text equals forward
             {
@@ -120,44 +120,44 @@ namespace TurtleProgram
 
             else if (command.Equals("backward")) //Runs this code if the text equals forward
             {
-                ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
-                c.Set(turtle, sp, parameters);
-                sp.AddCommand(c);
+                //ForwardCommand c = (ForwardCommand)cf.getCommand("forward");
+                //c.Set(turtle, sp, parameters);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("moveto"))
             {
-                MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
-                c.Set(turtle, ParamsInt);
-                sp.AddCommand(c);
+                //MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
+                //c.Set(turtle, ParamsInt);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("drawto"))
             {
-                DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
-                c.Set(turtle, ParamsInt);
-                sp.AddCommand(c);
+                //DrawToCommand c = (DrawToCommand)cf.getCommand("drawto");
+                //c.Set(turtle, ParamsInt);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("circle"))
             {
-                CircleCommand c = (CircleCommand)cf.getCommand("circle");
-                c.Set(turtle, sp, parameters);
-                sp.AddCommand(c);
+                //CircleCommand c = (CircleCommand)cf.getCommand("circle");
+                //c.Set(turtle, sp, parameters);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("rectangle"))
             {
-                RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
-                c.Set(turtle, ParamsInt);
-                sp.AddCommand(c);
+                //RectangleCommand c = (RectangleCommand)cf.getCommand("rectangle");
+                //c.Set(turtle, ParamsInt);
+                //sp.AddCommand(c);
             }
 
             else if (command.Equals("triangle"))
             {
-                TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
-                c.Set(turtle, ParamsInt);
-                sp.AddCommand(c);
+                //TriangleCommand c = (TriangleCommand)cf.getCommand("triangle");
+                //c.Set(turtle, ParamsInt);
+                //sp.AddCommand(c);
             }
             else if (command.Equals("reset"))
             {
@@ -190,9 +190,9 @@ namespace TurtleProgram
             }
             else if (command.Equals("loop"))
             {
-                LoopCommand c = (LoopCommand)cf.getCommand("loop");
-                c.set(turtle, sp, parameters);
-                sp.AddCommand(c);
+                //LoopCommand c = (LoopCommand)cf.getCommand("loop");
+                //c.set(turtle, sp, parameters);
+                //sp.AddCommand(c);
             }
             else if (command.Equals("endloop"))
             {
@@ -387,9 +387,9 @@ namespace TurtleProgram
                 case "forward":
                     if (parameters.Length == 1)
                     {
-                        ForwardCommand A = (ForwardCommand)cf.getCommand("forward");
-                        A.Set(turtle, sp, parameters);
-                        sp.AddCommand(A);
+                        ForwardCommand a = (ForwardCommand)cf.getCommand("forward");
+                        a.Set(turtle, sp, parameters);
+                        sp.AddCommand(a);
                         return valid;
                     }
                     else
@@ -403,7 +403,11 @@ namespace TurtleProgram
                 case "backward":
                     if (parameters.Length == 1)
                     {
-                            return valid;
+                        BackwardCommand b = (BackwardCommand)cf.getCommand("backward");
+                        b.Set(turtle, sp, parameters);
+                        sp.AddCommand(b);
+                        return valid;
+
                     }
                     else
                     {
@@ -416,6 +420,9 @@ namespace TurtleProgram
                 case "moveto":
                     if (parameters.Length == 2)
                     {
+                        MoveToCommand c = (MoveToCommand)cf.getCommand("moveto");
+                        c.Set(turtle, sp, parameters);
+                        sp.AddCommand(c);
                         return valid;
                     }
                     else
@@ -427,6 +434,9 @@ namespace TurtleProgram
                 case "drawto":
                     if (parameters.Length == 2)
                     {
+                        DrawToCommand d = (DrawToCommand)cf.getCommand("drawto");
+                        d.Set(turtle, sp, parameters);
+                        sp.AddCommand(d);
                         return valid;
                     }
                     else
@@ -438,6 +448,9 @@ namespace TurtleProgram
                 case "rectangle":
                     if (parameters.Length == 2)
                     {
+                        RectangleCommand e = (RectangleCommand)cf.getCommand("rectangle");
+                        e.Set(turtle, sp, parameters);
+                        sp.AddCommand(e);
                         return valid;
                     }
                     else
@@ -449,6 +462,9 @@ namespace TurtleProgram
                 case "circle":
                     if (parameters.Length == 1)
                     {
+                        CircleCommand f = (CircleCommand)cf.getCommand("circle");
+                        f.Set(turtle, sp, parameters);
+                        sp.AddCommand(f);
                         return valid;
                     }
                     else
@@ -461,6 +477,9 @@ namespace TurtleProgram
                 case "triangle":
                     if (parameters.Length == 4)
                     {
+                        TriangleCommand g = (TriangleCommand)cf.getCommand("triangle");
+                        g.Set(turtle, sp, parameters);
+                        sp.AddCommand(g);
                         return valid;
                     }
                     else
@@ -471,45 +490,71 @@ namespace TurtleProgram
                     }
                     break;
                 case "pen on":
+                    PenDownCommand h = (PenDownCommand)cf.getCommand("penon");
+                    h.Set(turtle);
+                    sp.AddCommand(h);
                     return valid;
+
                 case "pen off":
+                    PenUpCommand i = (PenUpCommand)cf.getCommand("penoff");
+                    i.Set(turtle);
+                    sp.AddCommand(i);
                     return valid;
+
                 case "fill on":
+                    FillOnCommand j = (FillOnCommand)cf.getCommand("fillon");
+                    j.Set(turtle);
+                    sp.AddCommand(j);
                     return valid;
+
                 case "fill off":
+                    FillOffCommand k = (FillOffCommand)cf.getCommand("filloff");
+                    k.Set(turtle);
+                    sp.AddCommand(k);
                     return valid;
+
                 case "turnleft":
                     TurnLeftCommand l = (TurnLeftCommand)cf.getCommand("turnleft");
                     l.Set(turtle);
                     sp.AddCommand(l);
                     return valid;
+
                 case "turnright":
                     TurnRightCommand m = (TurnRightCommand)cf.getCommand("turnright");
                     m.Set(turtle);
                     sp.AddCommand(m);
                     return valid;
+
                 case "reset":
                     ResetCommand n = (ResetCommand)cf.getCommand("reset");
                     n.Set(turtle);
                     sp.Reset();
                     return valid;
+
                 case "clear":
                     ClearCommand o = (ClearCommand)cf.getCommand("clear");
                     o.Set(turtle);
                     sp.AddCommand(o);
                     return valid;
+
                 case "pen colour":
                     PenColourCommand p = (PenColourCommand)cf.getCommand("pencolour");
                     p.Set(turtle, colour);
                     sp.AddCommand(p);
                     return valid;
+
                 case "fill colour":
                     FillColourCommand q = (FillColourCommand)cf.getCommand("fillcolour");
                     q.Set(turtle, colour);
                     sp.AddCommand(q);
                     return valid;
+
                 case "loop":
+                    LoopCommand r = (LoopCommand)cf.getCommand("loop");
+                    r.set(turtle, sp, parameters);
+                    sp.AddCommand(r);
                     return valid;
+
                 case "endloop":
                     return valid;
 
