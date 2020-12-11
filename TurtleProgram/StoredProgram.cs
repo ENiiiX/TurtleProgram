@@ -18,7 +18,6 @@ namespace TurtleProgram
         public bool loopFlag = false;
         public int loopSize = 0;
         public int iterations = 0;
-        public int loopCounter = 1;
         private ArrayList variables = new ArrayList();
         private ArrayList variableNames = new ArrayList();
         public List<Command> commands = new List<Command>();
@@ -44,7 +43,7 @@ namespace TurtleProgram
                 loopStart = counter;
                 loopFlag = true;
                 LoopCommand c = (LoopCommand)O;
-                iterations = c.LoopAmount;
+                iterations = c.LoopAmount - 1;
 
             }
             else if (O is EndLoopCommand)
@@ -76,7 +75,6 @@ namespace TurtleProgram
                         {
                             X.Execute();
                         }
-                        x++;
                     }
                 }
                 else
