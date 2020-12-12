@@ -41,28 +41,23 @@ namespace TurtleProgram
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
+                e.Handled = true;
+                command = commandLine.Text;
+                bool execute = true;
+
                 if (string.IsNullOrWhiteSpace(programBox.Text)) //Check if programBox is empty (Determines whether commands are single or multiline. If empty, only a single command has been entered
                 {
-                    e.Handled = true;
-                    command = commandLine.Text;
-                    bool execute = true;
-
                     execute = sp.parser.isValid(command);
 
                     if (execute)
                     {
-                        sp.parser.programParser(command);
+                        sp.Run();
                     }
-
-
                     commandLine.Clear();
+                    sp.commands.Clear();
                 }
                 else if (commandLine.Text.ToUpper() == "RUN") //If programBox wasn't empty, checks to see if 'Run' command was entered to execute the program
                 {
-                    e.Handled = true;
-                    command = commandLine.Text;
-                    bool execute = true;
-
                     string[] lines = programBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
                     foreach (var line in lines) //Runs each line in programBox to check it is valid. Sets execute flag based on program validity
@@ -83,9 +78,14 @@ namespace TurtleProgram
                     }
                     commandLine.Clear();
                 }
+                else if (!string.IsNullOrWhiteSpace(programBox.Text) && commandLine.Text.ToUpper() == "RESET")
+                {
+                    sp.Reset();
+                    commandLine.Clear();
+                }
                 else //If programBox is populated, indicates to user that the program can be executed with the 'run' command
                 {
-                    MessageBox.Show("Program can be executed using the 'run' command");
+                    MessageBox.Show("Program can be executed using the 'run' command, or reset using 'reset'");
                 }
             }
             DrawingArea.Image = bmp; //Updates graphics after each Turtle update

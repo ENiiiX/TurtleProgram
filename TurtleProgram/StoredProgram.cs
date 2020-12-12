@@ -22,6 +22,9 @@ namespace TurtleProgram
         private ArrayList variableNames = new ArrayList();
         public List<Command> commands = new List<Command>();
         public List<Command> loopCommands = new List<Command>();
+        public List<Command> ifCommands = new List<Command>();
+        private int ifStart;
+        public bool ifFlag = false;
 
         public StoredProgram(Turtle turtle)
         {
@@ -42,20 +45,32 @@ namespace TurtleProgram
             {
                 loopStart = counter;
                 loopFlag = true;
-                LoopCommand c = (LoopCommand)O;
-                iterations = c.LoopAmount - 1;
-
+                LoopCommand C = (LoopCommand)O;
+                iterations = C.LoopAmount - 1;
             }
             else if (O is EndLoopCommand)
             {
                 loopFlag = false;
                 loopSize--;
             }
+            else if (O is IfCommand)
+            {
+                ifStart = counter;
+                loopFlag = true;
+            }
+            else if (O is EndIfCommand)
+            {
+                ifFlag = false;
+            }
 
             if(loopFlag)
             {
                 loopCommands.Add(O);
                 loopSize++;
+            }
+            else if(ifFlag)
+            {
+                ifCommands.Add(O);
             }
             counter++;
         }
@@ -77,6 +92,16 @@ namespace TurtleProgram
                         }
                     }
                 }
+                if (C is IfCommand)
+                {
+                    for (int x = 0; x < iterations; x++)
+                    {
+                        foreach (Command X in ifCommands)
+                        {
+                            X.Execute();
+                        }
+                    }
+                }
                 else
                 {
                     C.Execute();
@@ -92,7 +117,13 @@ namespace TurtleProgram
             counter = 0;
             variableNames.Clear();
             variables.Clear();
+            commands.Clear();
+            loopCommands.Clear();
+            loopSize = 0;
+            iterations = 0;
+            counter = 0;
             this.Clear();
+            turtle.reset();
         }
 
 

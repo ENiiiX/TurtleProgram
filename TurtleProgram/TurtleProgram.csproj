@@ -61,6 +61,7 @@
     <Compile Include="CircleCommand.cs" />
     <Compile Include="ClearCommand.cs" />
     <Compile Include="DrawToCommand.cs" />
+    <Compile Include="EndIfCommand.cs" />
     <Compile Include="EndLoopCommand.cs" />
     <Compile Include="FillColourCommand.cs" />
     <Compile Include="FillOffCommand.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="ForwardCommand.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandFactory.cs" />
+    <Compile Include="IfCommand.cs" />
     <Compile Include="LoopCommand.cs" />
     <Compile Include="MoveToCommand.cs" />
     <Compile Include="Parser.cs" />

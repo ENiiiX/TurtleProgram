@@ -192,7 +192,6 @@ namespace TurtleProgram
                                 return valid;
                             }
                         }
-
                         Var c = (Var)cf.getCommand("var");
                         c.set(sp, varUpdate, expression);
                         sp.AddVar(c);
@@ -207,6 +206,41 @@ namespace TurtleProgram
                         return valid;
                     }
                 }
+            }
+            else if (command.Equals("if"))
+            {
+                string expression = "";
+
+                if (input.Length > 0)
+                {
+                    int i = input.IndexOf(" ") + 1;
+                    expression = input.Substring(i);
+                }
+
+                string[] split = expression.Split(' ');
+                String exp = "";
+
+                for (int i = 0; i < split.Length; i++)
+                {
+                    String search = split[i];
+                    if (sp.VarExists(search))
+                    {
+                        search = sp.GetVarValue(search).ToString();
+                    }
+                    else if (Regex.IsMatch(search, "[0-9*+/-<>=]"))
+                    {
+
+                    }
+                    else
+                    {
+                        valid = false;
+                        return valid;
+                    }
+                }
+                IfCommand t = (IfCommand)cf.getCommand("if");
+                t.set(turtle, sp, expression);
+                sp.AddCommand(t);
+                return valid;
             }
 
 
@@ -385,10 +419,15 @@ namespace TurtleProgram
                     return valid;
 
                 case "endloop":
+                    EndLoopCommand s = (EndLoopCommand)cf.getCommand("endloop");
+                    s.set(turtle);
+                    sp.AddCommand(s);
                     return valid;
-
-
-
+                case "endif":
+                    EndIfCommand t = (EndIfCommand)cf.getCommand("endif");
+                    t.set(turtle);
+                    sp.AddCommand(t);
+                    return valid;
             }
             valid = false;
             MessageBox.Show("invalid command on line " + lineNum);

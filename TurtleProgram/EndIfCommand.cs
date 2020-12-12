@@ -2,11 +2,11 @@
 
 namespace TurtleProgram
 {
-    internal class EndLoopCommand : Command
+    internal class EndIfCommand : Command
     {
         private Turtle _turtle;
 
-        public EndLoopCommand()
+        public EndIfCommand()
         {
 
         }

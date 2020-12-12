@@ -100,6 +100,14 @@ namespace TurtleProgram
             {
                 return new EndLoopCommand();
             }
+            else if (command.Equals("IF"))
+            {
+                return new IfCommand();
+            }
+            else if (command.Equals("ENDIF"))
+            {
+                return new EndIfCommand();
+            }
             else
             {
                 MessageBox.Show("Command does not exist");

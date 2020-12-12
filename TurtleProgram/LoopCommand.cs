@@ -51,7 +51,7 @@ namespace TurtleProgram
         {
             base.Evaluate(base.parameters);
             this.LoopAmount = base.ParamsInt[0];
-            return _turtle;
+            return null;
         }
     }
 }
