@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TurtleProgram;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 namespace UnitTestProject1
 {
@@ -23,8 +24,12 @@ namespace UnitTestProject1
         Bitmap bmp = new Bitmap(300, 300);
         Graphics g;
 
-        Turtle turtle = new Turtle(); //Turtle used for testing
         Parser parser = new Parser(); //Parser used for testing
+        StoredProgram sp = new StoredProgram(); //StoredProgram used for testing
+        Turtle turtle; //Turtle used for testing
+
+
+
 
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace UnitTestProject1
             bool expectedStatus = true;
             String command = "pen on";
             parser.turtle = this.turtle;
+            parser.sp = this.sp;
             parser.isValid(command);
 
             Assert.AreEqual(expectedStatus, this.turtle.penStatus, "Pen wasn't set down");
@@ -50,6 +56,7 @@ namespace UnitTestProject1
             bool expectedStatus = true;
             String command = "forward 50";
             parser.turtle = this.turtle;
+            parser.sp = this.sp;
 
             Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
@@ -64,10 +71,11 @@ namespace UnitTestProject1
             bool expectedStatus = false;
             String command = "forward number";
             parser.turtle = this.turtle;
+            parser.sp = this.sp;
 
             Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
-
+        
         /// <summary>
         /// Test to determine whether the parser can validate the triangle command.
         /// This is run with the keyword 'triangle' followed by 4 parameters.
@@ -78,6 +86,7 @@ namespace UnitTestProject1
             bool expectedStatus = true;
             String command = "triangle 50,100,234,234";
             parser.turtle = this.turtle;
+            parser.sp = this.sp;
 
             Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }
@@ -88,20 +97,22 @@ namespace UnitTestProject1
 
 
         /// <summary>
-        /// Future test for part 2, test whether parser can detect a variable being set
+        /// Test whether parser can detect a variable being set
         /// </summary>
         [TestMethod]
         public void CommandValidationSuccessfulVariableSet()
         {
+            bool valid = true;
+            String input = "test = 10"; //Text input we're testing
             bool expectedStatus = true;
-            String command = "x = 10";
             parser.turtle = this.turtle;
+            parser.sp = this.sp;
 
-            Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
+            Assert.AreEqual(expectedStatus, parser.isValid(input), "Command parameters missing and/or non-numeric");
         }
 
         /// <summary>
-        /// Future test for part 2, test whether the parser can detect the start of a loop
+        /// Test whether the parser can detect the start of a loop
         /// </summary>
         [TestMethod]
         public void CommandValidationSuccessfulLoopSet()
@@ -109,6 +120,22 @@ namespace UnitTestProject1
             bool expectedStatus = true;
             String command = "loop 10";
             parser.turtle = this.turtle;
+            parser.sp = this.sp;
+
+            Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
+        }
+        /// <summary>
+        /// Test based on CommandValidationFailedForwardCommand, this time showing the command
+        /// executes once a variable has been declared and added to the program
+        /// </summary>
+        [TestMethod]
+        public void CommandValidationSuccessfulForwardCommand()
+        {
+            bool expectedStatus = true;
+            String command = "forward number";
+            parser.turtle = this.turtle;
+            parser.sp = this.sp;
+            parser.isValid("number = 10"); //Parses and stores the variable 'number' ready for testing.
 
             Assert.AreEqual(expectedStatus, parser.isValid(command), "Command parameters missing and/or non-numeric");
         }

@@ -10,7 +10,7 @@ namespace TurtleProgram
     public class Parser
     {
         CommandFactory cf = new CommandFactory(); //Instantiate a command factory for calling user commands
-        StoredProgram sp;
+        public StoredProgram sp;
         public Turtle turtle; //Turtle object that is passed from the Form class
         public bool execute = true; //Flag to determine whether commands are valid/invalid
         public int lineNum = 0; //Line number for commands entered into programBox
@@ -55,7 +55,13 @@ namespace TurtleProgram
             int[] ParamsInt = new int[100];
             String[] parameters = new string[100];
 
-            if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
+
+            if(string.IsNullOrWhiteSpace(command))
+            {
+                return valid;
+            }
+
+            else if (command.Equals("forward") || command.Equals("backward") || command.Equals("moveto")
                || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
                || command.Equals("triangle") || command.Equals("loop"))
             {
@@ -74,7 +80,7 @@ namespace TurtleProgram
                         }
                         catch (FormatException)
                         {
-                            MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                            MessageBox.Show("Parameter isn't numeric or assigned variable on line " + lineNum);
                             valid = false;
                             return valid;
                         }
@@ -392,6 +398,7 @@ namespace TurtleProgram
                     ResetCommand n = (ResetCommand)cf.getCommand("reset");
                     n.Set(turtle);
                     sp.Reset();
+                    lineNum = 0;
                     return valid;
 
                 case "clear":

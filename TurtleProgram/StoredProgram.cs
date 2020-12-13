@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace TurtleProgram
 {
@@ -25,7 +23,12 @@ namespace TurtleProgram
         public List<Command> ifCommands = new List<Command>();
         private int ifStart;
         public bool ifFlag = false;
+        private bool execute = false;
 
+        public StoredProgram()
+        {
+
+        }
         public StoredProgram(Turtle turtle)
         {
             this.turtle = turtle;
@@ -56,7 +59,7 @@ namespace TurtleProgram
             else if (O is IfCommand)
             {
                 ifStart = counter;
-                loopFlag = true;
+                ifFlag = true;
             }
             else if (O is EndIfCommand)
             {
@@ -75,38 +78,76 @@ namespace TurtleProgram
             counter++;
         }
 
-
-        public void Run()
+        public void LoopIfCheck()
         {
-            for (int i = 0; i < counter; i++)
+            if (commands.OfType<LoopCommand>().Any())
             {
-                Command C = commands[i]; //If C is Expression - Direct Var to eval then?
-
-                if(C is LoopCommand)
+                if (commands.OfType<EndLoopCommand>().Any())
                 {
-                    for (int x = 0; x < iterations; x++)
-                    {
-                        foreach(Command X in loopCommands)
-                        {
-                            X.Execute();
-                        }
-                    }
-                }
-                if (C is IfCommand)
-                {
-                    for (int x = 0; x < iterations; x++)
-                    {
-                        foreach (Command X in ifCommands)
-                        {
-                            X.Execute();
-                        }
-                    }
+                    execute = true;
                 }
                 else
                 {
-                    C.Execute();
+                    MessageBox.Show("Loop command is missing EndLoop flag");
+                    execute = false;
                 }
-            }    
+            }
+            if (commands.OfType<IfCommand>().Any())
+            {
+                if (commands.OfType<EndIfCommand>().Any())
+                {
+                    execute = true;
+                }
+                else
+                {
+                    MessageBox.Show("If command is missing EndIf flag");
+                    execute = false;
+                }
+            }
+        }
+        public void Run()
+        {
+            LoopIfCheck(); //Checks if Loops/Ifs have a beginning and end
+            
+            if(execute)
+            {
+                try
+                {
+                    for (int i = 0; i < counter; i++)
+                    {
+                        Command C = commands[i]; //If C is Expression - Direct Var to eval then?
+
+                        if (C is LoopCommand)
+                        {
+                            for (int x = 0; x < iterations; x++)
+                            {
+                                foreach (Command X in loopCommands)
+                                {
+                                    X.Execute();
+                                }
+                            }
+                        }
+                        if (C is IfCommand)
+                        {
+                            for (int x = 0; x < iterations; x++)
+                            {
+                                foreach (Command X in ifCommands)
+                                {
+                                    X.Execute();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            C.Execute();
+                        }
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("No");
+                }
+            }
         }
 
         /// <summary>

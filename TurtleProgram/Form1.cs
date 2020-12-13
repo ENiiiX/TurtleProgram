@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TurtleProgram
@@ -58,6 +59,8 @@ namespace TurtleProgram
                 }
                 else if (commandLine.Text.ToUpper() == "RUN") //If programBox wasn't empty, checks to see if 'Run' command was entered to execute the program
                 {
+                    sp.parser.lineNum = 0; //Ensures line number is reset for exception handling
+                    sp.commands.Clear(); //Ensures commands are clear ready for re-parsing
                     string[] lines = programBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
                     foreach (var line in lines) //Runs each line in programBox to check it is valid. Sets execute flag based on program validity
@@ -67,7 +70,6 @@ namespace TurtleProgram
 
                         if (execute == false)
                         {
-                            sp.parser.lineNum = 0;
                             break;
                         }
                     }
