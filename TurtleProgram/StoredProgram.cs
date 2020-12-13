@@ -11,7 +11,7 @@ namespace TurtleProgram
         public Parser parser;
         Turtle turtle;
 
-        private int counter = 0;
+        public int counter = 0;
         private int loopStart;
         public bool loopFlag = false;
         public int loopSize = 0;

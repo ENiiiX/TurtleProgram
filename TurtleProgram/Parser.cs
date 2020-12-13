@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -12,6 +13,7 @@ namespace TurtleProgram
         public Turtle turtle; //Turtle object that is passed from the Form class
         public bool execute = true; //Flag to determine whether commands are valid/invalid
         public int lineNum = 0; //Line number for commands entered into programBox
+        public ArrayList errors = new ArrayList();
 
 
         /// <summary>
@@ -63,7 +65,17 @@ namespace TurtleProgram
                || command.Equals("drawto") || command.Equals("rectangle") || command.Equals("circle")
                || command.Equals("triangle") || command.Equals("loop"))
             {
-                parameters = line[1].Split(',');
+                try
+                {
+                    parameters = line[1].Split(',');
+                }
+                catch(IndexOutOfRangeException)
+                {
+                    errors.Add("Parameters are missing on line " + lineNum);
+                    valid = false;
+                    return valid;
+                }
+
                 for (int i = 0; i < parameters.Length; i++)
                 {
                     if (sp.VarExists(parameters[i]))
@@ -78,13 +90,19 @@ namespace TurtleProgram
                         }
                         catch (FormatException)
                         {
-                            MessageBox.Show("Parameter isn't numeric or assigned variable on line " + lineNum);
+                            errors.Add("Parameter isn't numeric or assigned variable on line " + lineNum);
                             valid = false;
                             return valid;
                         }
                         catch (IndexOutOfRangeException)
                         {
-                            MessageBox.Show("Parameters are missing on line " + lineNum);
+                            errors.Add("Parameters are missing on line " + lineNum);
+                            valid = false;
+                            return valid;
+                        }
+                        catch (ArgumentNullException)
+                        {
+                            errors.Add("Parameters are missing on line " + lineNum);
                             valid = false;
                             return valid;
                         }
@@ -100,7 +118,7 @@ namespace TurtleProgram
                 }
                 else
                 {
-                    MessageBox.Show("Pen can be toggled on/off");
+                    errors.Add("Pen can be toggled on/off");
                     valid = false;
                     return valid;
                 }
@@ -125,7 +143,7 @@ namespace TurtleProgram
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        MessageBox.Show("Colour is missing on line " + lineNum);
+                        errors.Add("Colour is missing on line " + lineNum);
                         valid = false;
                         return valid;
                     }
@@ -155,13 +173,13 @@ namespace TurtleProgram
                     }
                     catch (FormatException)
                     {
-                        MessageBox.Show("Parameter isn't numeric on line " + lineNum);
+                        errors.Add("Parameter isn't numeric on line " + lineNum);
                         valid = false;
                         return valid;
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        MessageBox.Show("Parameters are missing on line " + lineNum);
+                        errors.Add("Parameters are missing on line " + lineNum);
                         valid = false;
                         return valid;
                     }
@@ -205,7 +223,7 @@ namespace TurtleProgram
                     }
                     else
                     {
-                        MessageBox.Show("Variable declared incorrectly on line " + lineNum);
+                        errors.Add("Variable declared incorrectly on line " + lineNum);
                         valid = false;
                         return valid;
                     }
@@ -261,7 +279,7 @@ namespace TurtleProgram
                     }
                     else
                     {
-                        MessageBox.Show(command + " takes 1 parameter");
+                        errors.Add(command + " takes 1 parameter");
                         valid = false;
                         return false;
                     }
@@ -435,7 +453,7 @@ namespace TurtleProgram
                     return valid;
             }
             valid = false;
-            MessageBox.Show("invalid command on line " + lineNum);
+            errors.Add("invalid command on line " + lineNum);
             return valid;
         }
     }

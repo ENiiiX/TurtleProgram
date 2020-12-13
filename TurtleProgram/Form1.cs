@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace TurtleProgram
@@ -54,6 +55,17 @@ namespace TurtleProgram
                     {
                         sp.Run();
                     }
+                    else
+                    {
+                        StringBuilder builder = new StringBuilder();
+
+                        foreach (string str in sp.parser.errors)
+                        {
+                            builder.Append(str.ToString()).AppendLine();
+                        }
+
+                        MessageBox.Show(builder.ToString());
+                    }
                     commandLine.Clear();
                     sp.commands.Clear();
                 }
@@ -66,17 +78,31 @@ namespace TurtleProgram
                     foreach (var line in lines) //Runs each line in programBox to check it is valid. Sets execute flag based on program validity
                     {
                         sp.parser.lineNum++;
-                        execute = sp.parser.isValid(line);
-
-                        if (execute == false)
+                        
+                        if(execute)
                         {
-                            break;
+                            execute = sp.parser.isValid(line);
+                        }
+                        else
+                        {
+                            sp.parser.isValid(line);
                         }
                     }
 
                     if (execute == true) //If programBox commands are valid, runs each line through the parser so each command can be called by the command factory
                     {
                         sp.Run();
+                    }
+                    else
+                    {
+                        StringBuilder builder = new StringBuilder();
+
+                        foreach (string str in sp.parser.errors)
+                        {
+                            builder.Append(str.ToString()).AppendLine();
+                        }
+
+                        MessageBox.Show(builder.ToString());
                     }
                     commandLine.Clear();
                 }
@@ -91,6 +117,9 @@ namespace TurtleProgram
                 }
             }
             DrawingArea.Image = bmp; //Updates graphics after each Turtle update
+            sp.parser.errors.Clear();
+            sp.commands.Clear();
+            sp.counter = 0;
         
         }
 
