@@ -37,10 +37,10 @@ namespace TurtleProgram
 
 
         /// <summary>
-        /// test
+        /// Method for adding commands to arraylist. If command is loop or if declaration,
+        /// lines are counted ready for execution order.
         /// </summary>
-        /// <param name="O"></param>
-        /// <returns></returns>
+        /// <param name="O">Object that is getting added to an array</param>
         public void AddCommand(Command O)
         {
             commands.Add(O);
@@ -78,6 +78,9 @@ namespace TurtleProgram
             counter++;
         }
 
+        /// <summary>
+        /// Method to validate loop and if declarations. Must ensure loop has start and end.
+        /// </summary>
         public void LoopIfCheck()
         {
             if (commands.OfType<LoopCommand>().Any())
@@ -92,7 +95,7 @@ namespace TurtleProgram
                     execute = false;
                 }
             }
-            if (commands.OfType<IfCommand>().Any())
+            else if (commands.OfType<IfCommand>().Any())
             {
                 if (commands.OfType<EndIfCommand>().Any())
                 {
@@ -104,7 +107,15 @@ namespace TurtleProgram
                     execute = false;
                 }
             }
+            else
+            {
+                execute = true;
+            }
+            
         }
+        /// <summary>
+        /// Run method. All commands stored in the commands array will get executed when this is called
+        /// </summary>
         public void Run()
         {
             LoopIfCheck(); //Checks if Loops/Ifs have a beginning and end
@@ -115,7 +126,7 @@ namespace TurtleProgram
                 {
                     for (int i = 0; i < counter; i++)
                     {
-                        Command C = commands[i]; //If C is Expression - Direct Var to eval then?
+                        Command C = commands[i]; 
 
                         if (C is LoopCommand)
                         {
@@ -129,13 +140,19 @@ namespace TurtleProgram
                         }
                         if (C is IfCommand)
                         {
-                            for (int x = 0; x < iterations; x++)
+                            foreach (Command X in ifCommands)
                             {
-                                foreach (Command X in ifCommands)
+                                X.Execute();
+                                if(X is IfCommand)
                                 {
-                                    X.Execute();
+                                    IfCommand A = (IfCommand)X;
+                                    if (A.Flag == false)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
+                            i = i + ifCommands.Count;
                         }
                         else
                         {
@@ -168,11 +185,6 @@ namespace TurtleProgram
         }
 
 
-
-
-
-        //Variables
-
         /// <summary>
         /// Adds variables to ArrayLists for future access
         /// </summary>
@@ -201,7 +213,6 @@ namespace TurtleProgram
                 return exists;
             }
         }
-
 
         /// <summary>
         /// Searches variables array for existing variable
@@ -258,6 +269,11 @@ namespace TurtleProgram
             }
         }
 
+        /// <summary>
+        /// Sets expression of an existing variable
+        /// </summary>
+        /// <param name="VarName">Variable name to add expression to</param>
+        /// <param name="Expression">Expression to set within the variable</param>
         public void SetVarExpression(String VarName, String Expression)
         {
             int index = this.SearchVarName(VarName);
@@ -271,7 +287,5 @@ namespace TurtleProgram
                 throw new ApplicationException("Variable doesn't exist");
             }
         }
-
-
     }
 }

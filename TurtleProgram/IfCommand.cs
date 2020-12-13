@@ -32,7 +32,10 @@ namespace TurtleProgram
             base.sp = sp;
             this.expression = expression;
         }
-
+        /// <summary>
+        /// Method to evaluate the expression being used in an if statement. Returns try/false
+        /// </summary>
+        /// <param name="expression"></param>
         public void valueExpression(String expression)
         {
             DataTable dt;
@@ -57,7 +60,7 @@ namespace TurtleProgram
                 var result = dt.Compute(exp, "").ToString();
                 Console.WriteLine(result);
 
-                if (result.Equals(true))
+                if (result.Contains("True"))
                 {
                     flag = true;
                 }
