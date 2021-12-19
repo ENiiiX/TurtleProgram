@@ -29,3 +29,5 @@ circle 100
 To run a program, type commands into the programming box, and then type 'run' and hit enter in the command line
 
 ![alt text](https://i.imgur.com/3ooL67m.png)
+![alt text](https://i.imgur.com/ic9XBiR.png)
+![alt text](https://i.imgur.com/BxKPRvN.png)
